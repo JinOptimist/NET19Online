@@ -1,0 +1,33 @@
+.lessons-container{
+    display: flex;
+    justify-content: space-between;
+    height: 450px;
+}
+.lesson{
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-direction: column;
+    border: 1px black solid;
+    border-radius: 20px;
+    align-items: center;
+}
+.image-container{
+    height: 70%;
+}
+
+.lesson .button{
+    background-color: #0d6efd;
+    border-radius: 15px;
+    color: whitesmoke;
+}
+
+.lesson .button:hover{
+    background-color: #258cfb;
+}
+
+.lesson .button a{
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 18px;
+}

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "_LayoutLessons";
+}
+@using WebStoryFroEveryting.Models.Lessons
+@model List<LessonViewModel>
+
+<div class="lessons-container">
+    @foreach (var lesson in @Model)
+        {
+            <div class="lesson">
+                <div class="image-container">
+                    <img src="@lesson.Preview"/>
+                </div>
+                <div class="lesson-title">@lesson.Title</div>
+                <div class="button">
+                    <a href="@lesson.Source">Смотреть</a>
+                </div>
+                
+            </div>
+        }
+</div>
