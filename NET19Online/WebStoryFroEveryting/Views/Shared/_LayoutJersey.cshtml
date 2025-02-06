@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/reset.css" rel="stylesheet" />
+    @RenderSection("Styles",false)
+</head>
+<body>
+    <div id="header">
+        <div id="sitename">
+            JerseyStore
+        </div>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="/jerseys">Спортивные майки</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content">
+        @RenderBody()
+    </div>
+</body>
+</html>
