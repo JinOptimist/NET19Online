@@ -81,6 +81,7 @@ namespace WebStoryFroEveryting.Controllers
         public ActionResult Detail(int id)
         {
             JerseyViewModel model = ViewModels.Where(j => j.Id == id).FirstOrDefault();
+            if(model == null) return View("JerseysError");
             return View(model);
         }
     }
