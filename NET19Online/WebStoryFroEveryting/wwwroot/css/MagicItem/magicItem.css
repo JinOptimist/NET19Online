@@ -1,0 +1,29 @@
+﻿.magic-items-header {
+    font-size: 25px;
+    color: #ffffff;
+}
+
+.magic-items-header-nav {
+    margin-left: 10px;
+}
+
+.magic-items-header-name {
+    font-size: 42px;
+    color: #ffffff;
+}
+
+.dancing-script-font {
+    font-family: "Dancing Script", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.auth-container{
+    padding-right:15px;
+}
+
+.auth-container svg {
+    color: #ffffff;
+}
+
