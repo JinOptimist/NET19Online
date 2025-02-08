@@ -1,0 +1,16 @@
+﻿.box-container {
+    display: flex;
+}
+.red{
+    background-color:red;
+}
+.blue{
+    background-color: blue;
+}
+.box {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
