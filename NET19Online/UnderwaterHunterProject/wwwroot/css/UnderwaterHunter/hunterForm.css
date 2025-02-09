@@ -1,0 +1,36 @@
+.label-and-header{
+    display: flex;
+}
+
+.label img {
+    display: inline-block;
+    transform: translate(7em, 1em);
+    border-radius: 10px;
+    width: 224px;
+}
+.header {
+    display: inline-block;
+    transform: translate(6em, 1em);
+    font-size: 34px;
+    color: brown;
+}
+
+.text-header {
+    display: inline-block;
+    transform: translate(7em, 4em);
+}
+.allHunters {
+    display: flex;
+    transform: translate(19em, 5em);
+}
+.hunters {
+    margin: 14px;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 13px;
+}
+.image img {
+    max-width: 400px;
+    max-height: 400px;
+    border-radius: 10px;
+}
