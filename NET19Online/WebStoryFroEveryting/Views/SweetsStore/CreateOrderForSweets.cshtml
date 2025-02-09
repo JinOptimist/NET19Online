@@ -1,12 +1,12 @@
-﻿@using WebStoryFroEveryting.Models.AnimeGirl
-@model List<IdolViewModel>
+﻿@using WebStoryFroEveryting.Models.SweetsModel
+@model List<SweetsViewModel>
 @{
-    Layout = "~/Views/Shared/_LayoutAnime.cshtml";
+	Layout = "~/Views/Shared/_LayoutSweets.cshtml";
 }
 
 @section Styles{
-    <link href="~/css/AnimeGirl/animeGirlSpeical.css" rel="stylesheet" />
-}   
+    <link href="~/css/SweetsStore/SweetsStoreSpeical.css" rel="stylesheet" />
+}
 
 <div class="idols">
     @foreach (var idol in Model)
