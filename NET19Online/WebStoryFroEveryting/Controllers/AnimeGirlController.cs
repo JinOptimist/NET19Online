@@ -28,7 +28,7 @@ namespace WebStoryFroEveryting.Controllers
                 {
                     Name = "Overlord",
                     Src  = "https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/03/CBR-Featured-Images-Albedo-Overlord.jpg"
-                }
+                },
                 new IdolViewModel
                 {
                     Name = "Riven",

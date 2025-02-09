@@ -1,0 +1,24 @@
+.header {
+    font-size: 50px;
+    justify-content: center;
+    display: flex;
+    background: #ccc;
+}
+
+.menu-and-content {
+    display: flex;
+}
+
+.menu {
+    width: 150px;
+    padding: 10px;
+    background: turquoise;
+    min-height: 300px;
+}
+
+.menu .link {
+    border: #1c2831 1px solid;
+    border-radius: 5px;
+    background: #c1e9ef;
+    margin: 2px;
+}
