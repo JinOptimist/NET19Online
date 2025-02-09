@@ -1,23 +1,25 @@
-﻿@* <a href="/PurchaseFilms/CreatePurchaseFilms">Films</a>
-<link href="/css/Films/StyleFilms.css" rel="stylesheet"/>
+﻿@using WebStoryFroEveryting.Models.Films
+@model List<FilmsViewModel>
 
-<div class="box-container">
-    <div class="red box">
-        Red
-    </div>
-
-    <div class="blue box">
-        blue
-    </div>
-
-    <div class="red box">
-        blue
-    </div>
-    <div class="red box">
-        Red
-    </div>
-</div>
- *@
 @{
     Layout = "~/Views/Shared/_LayoutFilms.cshtml";
 }
+@section Styles{
+    <link href="/css/Films/StyleFilms.css" rel="stylesheet" />
+}
+<div class="main-layout">
+    @foreach (var item in Model)
+    {
+        <div class="block-elements">
+            <div class="name">@item.Name</div>
+            <div class="image-container">
+                <img src="@item.Src" />
+            </div>
+            <div class="buttons">
+                <div class="button"> + </div>
+                <div class="button"> - </div>
+            </div>
+        </div>
+    }
+
+</div>

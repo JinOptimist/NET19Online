@@ -1,16 +1,23 @@
-﻿.box-container {
+﻿.header {
+    font-size: 36px;
+    justify-content: center;
     display: flex;
-}
-.red{
-    background-color:red;
-}
-.blue{
-    background-color: blue;
-}
-.box {
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    margin: 5px;
+    background: #ccc;
 }
 
+.menu-and-content {
+    display: flex;
+}
+
+.menu {
+    max-width: 150px;
+    padding: 10px;
+    background: orange;
+    min-height: 300px;
+}
+    .menu .link {
+        border: green 1px solid;
+        border-radius: 5px;
+        margin: 3px;
+    }
+ 
