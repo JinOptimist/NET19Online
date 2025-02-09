@@ -1,0 +1,25 @@
+﻿@using WebStoryFroEveryting.Models.FootballTeam
+@model List<PlayerViewModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutFootball.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/FootballPlayer/footballPlayerSpeical.css" rel="stylesheet" />
+}
+
+<div class="players">
+    @foreach (var player in Model)
+    {
+        <div class="player">
+            <div class="name">@player.Name</div>
+            <div class="image-container">
+                <img src="@player.Src" />
+            </div>
+            <div class="position">Амплуа: @player.Position</div>
+            <div class="weight">Вес: @player.Weight</div>
+            <div class="height">Рост: @player.Height</div>
+        </div>
+    }
+</div>

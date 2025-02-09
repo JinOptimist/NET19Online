@@ -1,0 +1,25 @@
+﻿<html>
+<head>
+    <link href="~/css/reset.css" rel="stylesheet" />
+    <link href="~/css/FootballPlayer/footballPlayer.css" rel="stylesheet" />
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div class="header">
+        FC Dynamo Moscow
+    </div>
+    <div class="menu-and-content">
+        <div class="menu">
+            <div class="link">
+                link 1
+            </div>
+            <div class="link">
+                link 1
+            </div>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
