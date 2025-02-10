@@ -1,0 +1,44 @@
+.players {
+    display: flex;
+}
+
+.player {
+    margin: 5px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .image-container img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+.position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.height {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
