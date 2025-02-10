@@ -1,0 +1,25 @@
+﻿@using WebStoryFroEveryting.Models.SweetsModel
+@model List<SweetsViewModel>
+@{
+	Layout = "~/Views/Shared/_LayoutSweets.cshtml";
+}
+
+@section Styles{
+    <link href="~/css/SweetsStore/SweetsStoreSpeical.css" rel="stylesheet" />
+}
+
+<div class="idols">
+    @foreach (var idol in Model)
+    {
+        <div class="idol">
+            <div class="name">@idol.Name</div>
+            <div class="image-container">
+                <img src="@idol.Src" />
+            </div>
+            <div class="buttons">
+                <div class="button">+</div>
+                <div class="button">-</div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,41 @@
+.idols {
+    display: flex;
+}
+.idol{
+    margin: 5px;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.name{
+    display: flex;
+    justify-content: center;
+}
+
+.image-container img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.buttons {
+    display: flex;
+}
+
+    .buttons .button {
+        flex: 1;
+        background: aqua;
+        display: flex;
+        justify-content: center;
+        margin: 2px;
+        align-items: center;
+    }
+
+
+        .buttons .button:first-child {
+            border-bottom-left-radius: 5px;
+        }
+
+        .buttons .button:last-child {
+            border-bottom-right-radius: 5px;
+        }

@@ -1,0 +1,25 @@
+﻿<html>
+<head>
+    <link href="~/css/reset.css" rel="stylesheet" />
+    <link href="~/css/SweetsStore/SweetsStore.css" rel="stylesheet" />
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div class="header">
+        Miracle Sweets
+    </div>
+    <div class="menu-and-content">
+        <div class="menu">
+            <div class="link">
+                Торты
+            </div>
+            <div class="link">
+                Ролсы
+            </div>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
