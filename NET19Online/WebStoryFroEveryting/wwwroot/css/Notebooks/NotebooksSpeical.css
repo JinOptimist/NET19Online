@@ -1,0 +1,43 @@
+.Notebooks {
+    display: flex;
+}
+
+.Notebook{
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+}
+
+.image-container img {
+    max-width: 200px;
+    max-height: 120px;
+}
+
+.buttons {
+    display: flex;
+}
+
+.buttons .button {
+    flex: 1;
+    background: silver;
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+    align-items: center;
+}
+
+
+    .buttons .button:first-child {
+        border-bottom-left-radius: 5px;
+    }
+
+    .buttons .button:last-child {
+       border-bottom-right-radius: 5px;
+    }

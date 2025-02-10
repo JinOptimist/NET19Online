@@ -1,0 +1,25 @@
+﻿<html>
+<head>
+      <link href="~/css/reset.css" rel="stylesheet" /> 
+      <link href="~/css/Notebooks/Notebooks.css" rel="stylesheet" />
+      @RenderSection("Styles", false)
+</head>
+<body>
+  <div class="header">
+       Site name here
+  </div>
+  <div class="menu-and-content">
+       <div class="menu">
+            <div class="link">
+                link1
+            </div>
+            <div class="link">
+                link1
+            </div>
+        </div>
+       <div class="content">
+            @RenderBody()
+       </div>
+  </div> 
+</body>
+</html>

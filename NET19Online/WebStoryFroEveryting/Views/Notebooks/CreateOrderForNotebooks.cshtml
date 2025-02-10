@@ -1,0 +1,27 @@
+﻿@using WebStoryFroEveryting.Models.Notebook
+@model List<notebookViewModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutNotebooks.cshtml";
+}
+
+@section Styles{
+    <link href="~/css/Notebooks/NotebooksSpeical.css" rel="stylesheet" />
+}
+
+
+<div class="Notebooks">
+    @foreach(var notebook in Model)
+    {
+        <div class="notebook">
+            <div class="name">@notebook.Name</div>
+            <div class="image-container">
+                <img src="@notebook.Src"/>
+            </div>
+            <div class="buttons">
+                <div class="button">+</div>
+                <div class="button">-</div>
+            </div>
+        </div>
+    }   
+</div>
