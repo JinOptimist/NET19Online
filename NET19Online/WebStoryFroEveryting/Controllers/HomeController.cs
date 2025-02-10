@@ -10,7 +10,7 @@ namespace WebStoryFroEveryting.Controllers
             return View();
         }
 
-        public IActionResult Privacy(string name, int a, int b)
+        public IActionResult PurchaseFilms(string name, int a, int b)
         {
             //var second = DateTime.Now.Second * 2;
             // var name = "Ivan";
@@ -22,5 +22,8 @@ namespace WebStoryFroEveryting.Controllers
             };
             return View(viewModel);
         }
+
+
+
     }
 }

@@ -1,0 +1,23 @@
+﻿.header {
+    font-size: 36px;
+    justify-content: center;
+    display: flex;
+    background: #ccc;
+}
+
+.menu-and-content {
+    display: flex;
+}
+
+.menu {
+    max-width: 150px;
+    padding: 10px;
+    background: orange;
+    min-height: 300px;
+}
+    .menu .link {
+        border: green 1px solid;
+        border-radius: 5px;
+        margin: 3px;
+    }
+ 
