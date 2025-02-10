@@ -1,0 +1,17 @@
+@{
+    Layout = "_LayoutLessons";
+}
+
+@model WebStoryFroEveryting.Models.Lessons.LessonViewModel
+
+@section Styles{
+    <link href="~/css/Lessons/details.css" rel="stylesheet" />
+}
+
+<div class="lesson-details">
+    <div class="lesson-details-button">
+            @Html.Raw(@Model.Source)
+        </div>
+    <div class="lesson-details-title">@Model.Title</div>
+</div>
+                

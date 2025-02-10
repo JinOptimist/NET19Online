@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="~/css/Lessons/header.css" rel="stylesheet" />
+  @await RenderSectionAsync("Styles", false)
+</head>
+<body>
+<div class="header">
+    <ul class="header-items">
+        <li><a href="/Lessons" class="header-item">Главная</a></li>
+        <li><a href="#" class="header-item">Тесты</a></li>
+        <li><a href="#" class="header-item">Контакты</a></li>
+    </ul>
+</div>
+<div class="content">
+      @RenderBody()
+</div>
+</body>
+</html>
