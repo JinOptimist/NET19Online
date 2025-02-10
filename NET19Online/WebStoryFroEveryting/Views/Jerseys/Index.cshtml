@@ -1,0 +1,23 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@model List<JerseyViewModel>
+@{
+    Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/Jerseys/Jerseys.css" rel="stylesheet" />
+}
+
+@foreach (var jersey in Model)
+{
+    <div class="jersey">
+        <div class="jersey-img">
+            <img src="@jersey.Img" />   
+        </div>
+        <div class="name">
+            @jersey.AthleteName
+        </div>
+        <a class="button" href="jerseys/detail?id=@jersey.Id">Подробнее</a>
+    </div>
+}
+
