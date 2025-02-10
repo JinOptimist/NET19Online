@@ -28,6 +28,11 @@ namespace WebStoryFroEveryting.Controllers
                 {
                     Name = "Overlord",
                     Src  = "https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/03/CBR-Featured-Images-Albedo-Overlord.jpg"
+                },
+                  new IdolViewModel
+                {
+                    Name = "Sakura",
+                    Src  = "https://i.pinimg.com/736x/1e/0d/96/1e0d96a6b9b287d0b60d308b30139875.jpg"
                 }
             };
 
