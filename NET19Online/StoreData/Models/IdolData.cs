@@ -1,6 +1,6 @@
-﻿namespace WebStoryFroEveryting.Models.AnimeGirl
+﻿namespace StoreData.Models
 {
-    public class IdolViewModel
+    public class IdolData
     {
         public int Id { get; set; }
         public string Name { get; set; }

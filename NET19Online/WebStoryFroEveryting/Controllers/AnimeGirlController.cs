@@ -1,42 +1,76 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StoreData.Models;
+using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.AnimeGirl;
+using WebStoryFroEveryting.Services;
 
 namespace WebStoryFroEveryting.Controllers
 {
     public class AnimeGirlController : Controller
     {
+        private IdolGenerator _idolGenerator;
+        private IdolRepository _idolRepository;
+
+        public AnimeGirlController(IdolGenerator idolGenerator, IdolRepository idolRepository)
+        {
+            _idolGenerator = idolGenerator;
+            _idolRepository = idolRepository;
+        }
+
         public IActionResult CreateOrderForAnimeGirl()
         {
-            var viewModels = new List<IdolViewModel>
+            var idolDatas = _idolRepository.GetIdols();
+            if (!idolDatas.Any())
             {
-                new IdolViewModel
-                {
-                    Name = "Юки",
-                    Src  = "https://e7.pngegg.com/pngimages/695/533/png-clipart-brown-haired-female-anime-character-wearing-black-uniform-yuki-cross-kaname-kuran-zero-kiryu-vampire-knight-vampire-black-hair-manga.png"
-                },
-                new IdolViewModel
-                {
-                    Name = "Кирито",
-                    Src  = "https://c4.wallpaperflare.com/wallpaper/48/394/450/swordartonline-anime-girls-kirito-sword-art-online-asuna-sword-art-online-hd-wallpaper-preview.jpg"
-                },
-                 new IdolViewModel
-                {
-                    Name = "Юки 3",
-                    Src  = "https://e7.pngegg.com/pngimages/695/533/png-clipart-brown-haired-female-anime-character-wearing-black-uniform-yuki-cross-kaname-kuran-zero-kiryu-vampire-knight-vampire-black-hair-manga.png"
-                },
-                new IdolViewModel
-                {
-                    Name = "Overlord",
-                    Src  = "https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/03/CBR-Featured-Images-Albedo-Overlord.jpg"
-                },
-                new IdolViewModel
-                {
-                    Name = "Riven",
-                    Src  = "https://i.pinimg.com/736x/10/0d/8b/100d8b296e190447218e773bdb3e5e77.jpg"
-                }
-            };
+                _idolGenerator
+                    .GenerateIdols(5)
+                    .Select(viewModel =>
+                        new IdolData
+                        {
+                            Name = viewModel.Name,
+                            Src = viewModel.Src
+                        })
+                    .ToList()
+                    .ForEach(_idolRepository.AddIdol);
+                idolDatas = _idolRepository.GetIdols();
+            }
 
+            var viewModels = idolDatas.Select(Map).ToList();
             return View(viewModels);
+        }
+
+        public IActionResult Remove(int id)
+        {
+            _idolRepository.Remove(id);
+            return RedirectToAction(nameof(CreateOrderForAnimeGirl));
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateIdolViewModel viewModel)
+        {
+            _idolRepository.AddIdol(
+                new IdolData
+                {
+                    Name = viewModel.Name,
+                    Src = viewModel.Src
+                });
+            return RedirectToAction(nameof(CreateOrderForAnimeGirl));
+        }
+
+        private IdolViewModel Map(IdolData idol)
+        {
+            return new IdolViewModel
+            {
+                Id = idol.Id,
+                Src = idol.Src,
+                Name = idol.Name,
+            };
         }
     }
 }

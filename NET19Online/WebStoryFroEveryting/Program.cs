@@ -1,7 +1,15 @@
+using StoreData.Repostiroties;
+using WebStoryFroEveryting.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<NameGenerator>();
+builder.Services.AddScoped<IdolGenerator>();
+
+builder.Services.AddScoped<IdolRepository>();
 
 var app = builder.Build();
 
