@@ -23,13 +23,16 @@
     margin: 0;
     padding: 0;
     width: 70%;
+    display: flex;
+    flex-direction: row;
+	justify-content: space-around;
 }
 #header li {
-    display: inline-block;
+    display: flex;
 }
 #header a {
+    dislpay: flex;
     color: #000;
-    display: block;
     padding: 10px;
     text-decoration: none;
     text-align: center;
@@ -67,13 +70,14 @@
     width: 100%;
     line-height: 40px;
     text-decoration: none;
-    background-color: #074c1d;
+    background-color: #013f9c;
     border-radius: 10px;
     color: #ffffff;
     text-align: center;
+    margin: 5px;
 }
 .jersey a.red{
-    background-color: #ff0000;
+    background-color: #8a1e1e;
 }
 .jersey-detail{
     display: flex;
@@ -89,7 +93,30 @@
     display: flex;
     flex-direction: column;
 }
-.jersey-detail .jersey-detail-info div{
+.jersey-detail .jersey-detail-info div {
     margin: 10px;
     font-size: 20px;
+}
+#content form {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+#content form input{
+    font-size: 30px;
+}
+#content form button{
+
+}
+#content form input, #content form button {
+    margin: 20px;
+    display: flex;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
