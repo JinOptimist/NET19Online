@@ -11,6 +11,12 @@ builder.Services.AddScoped<IdolGenerator>();
 
 builder.Services.AddScoped<IdolRepository>();
 
+builder.Services.AddScoped<MagicItemGenerator>();
+builder.Services.AddScoped<MagicItemCategoryGenerator>();
+builder.Services.AddScoped<MagicItemNameGenerator>();
+
+builder.Services.AddScoped<MagicItemRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

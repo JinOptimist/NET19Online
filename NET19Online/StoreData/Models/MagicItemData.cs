@@ -1,6 +1,12 @@
-﻿namespace WebStoryFroEveryting.Models.MagicItem
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StoreData.Models
 {
-    public class MagicItemViewModel
+    public class MagicItemData
     {
         public int Id { get; set; }
         public string Name { get; set; }
