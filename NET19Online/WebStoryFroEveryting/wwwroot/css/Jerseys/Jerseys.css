@@ -72,6 +72,9 @@
     color: #ffffff;
     text-align: center;
 }
+.jersey a.red{
+    background-color: #ff0000;
+}
 .jersey-detail{
     display: flex;
     margin: 30px;
