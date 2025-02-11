@@ -1,0 +1,27 @@
+﻿@using WebStoryFroEveryting.Models.FootballPlayer
+@model CreatePlayerViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutFootball.cshtml";
+}
+
+<form method="post" action="/FootballPlayer/CreatePlayer">
+    <div>
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Position, new { placeholder = "Position" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Weight, new { placeholder = "Weight" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Height, new { placeholder = "Height" })
+    </div>
+    <div>
+        <button type="submit">Создать</button>
+    </div>
+</form>
