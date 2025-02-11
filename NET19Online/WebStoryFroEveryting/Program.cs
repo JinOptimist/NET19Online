@@ -10,6 +10,7 @@ builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 
 builder.Services.AddScoped<IdolRepository>();
+builder.Services.AddScoped<PlayerRepository>();
 
 var app = builder.Build();
 
