@@ -44,3 +44,16 @@
         height: 300px; /* Adjust for smaller screens */
     }
 }
+
+.action-buttons a {
+    background-color: #dc3545; /* Красный цвет фона */
+    color: white; /* Белый цвет текста */
+    padding: 8px 16px; /* Поля вокруг текста */
+    border-radius: 5px; /* Закругленные углы */
+    text-decoration: none; /* Убрать подчеркивание ссылки */
+}
+
+.action-buttons a:hover {
+    background-color: #c82333; /* Изменение цвета фона при наведении курсора */
+}
+

@@ -1,0 +1,31 @@
+@model WebStoryFroEveryting.Models.Lessons.LessonViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <form method="post" action="/Lessons/CreatePost">
+        <div>
+            @Html.TextBoxFor(x => x.Title, new { placeholder = "Title" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Source, new { placeholder = "Source for video" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Preview, new { placeholder = "Preview for image" })
+        </div>
+        <div>
+            <button type="submit">Создать</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
