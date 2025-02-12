@@ -1,5 +1,7 @@
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,10 @@ builder.Services.AddScoped<MagicItemCategoryGenerator>();
 builder.Services.AddScoped<MagicItemNameGenerator>();
 
 builder.Services.AddScoped<MagicItemRepository>();
+
+builder.Services.AddScoped<TheBestUnderwaterHunters>();
+builder.Services.AddScoped<HuntersGenerator>();
+builder.Services.AddScoped<UnderwarterHunterRepository>();
 
 var app = builder.Build();
 
