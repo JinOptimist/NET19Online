@@ -1,31 +1,79 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System;
 using WebStoryFroEveryting.Models.Notebook;
+using static System.Net.Mime.MediaTypeNames;
+using WebStoryFroEveryting.Services;
+using StoreData.Repostiroties;
+using StoreData.Models;
 
 namespace WebStoryFroEveryting.Controllers
 {
-    public class NotebooksController : Controller
+    public class NotebooksController : Controller   // Контролер отвечает за то, чтобы принять запрос от клиента. Передать запрос экшену. Экшен формирует viewModels, передаёт на Views
     {
+        private NotebookGenerator _notebookGenerator;
+        private NotebookRepository _notebookRepository;
+
+        public NotebooksController(NotebookGenerator notebookGenerator, NotebookRepository notebookRepository)
+        {
+            _notebookGenerator = notebookGenerator;
+            _notebookRepository = notebookRepository;
+        }
+
         public IActionResult CreateOrderForNotebooks()
         {
-            var viewModels = new List<notebookViewModel>
+            var notebookDatas = _notebookRepository.GetNotebooks();
+            if (!notebookDatas.Any())
             {
-                new notebookViewModel
-                {
-                    Name = "APPLE MacBook 12",
-                    Src = "https://static.onlinetrade.ru/img/items/b/apple_noutbuk_macbook_12_i5_dual_1.3_8gb_512gb_ssd_hdg_615_mnyg2ru_a_space_gray_6.jpg"
-                },
-                new notebookViewModel
-                {
-                    Name = "Lenovo IdeaPad 3",
-                    Src = "https://www.notik.ru/img/catalog/91231/1_lenovoideapad3-1581we01eqrk.jpg"
-                },
-                new notebookViewModel
-                {
-                    Name = "Acer NX.ADBER.002",
-                    Src = "https://digitik.ru/upload/iblock/679/679209ecba279b9b960d4283a47087b4.jpg"
-                },
-            };
+                _notebookGenerator
+                    .GenerateNotebook(5)
+                    .Select(x =>
+                    new NotebookData
+                    {
+                        Name = x.Name,
+                        Src = x.Src
+                    })
+                    .ToList()
+                    .ForEach(_notebookRepository.AddNotebook);
+                notebookDatas = _notebookRepository.GetNotebooks();
+            }
+
+            var viewModels = notebookDatas.Select(Map).ToList();
             return View(viewModels);
+        }
+
+        public IActionResult Remove(int id)
+        {
+            _notebookRepository.Remove(id);
+            return RedirectToAction(nameof(CreateOrderForNotebooks));    
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateNotebookViewModel viewModel)        
+        {
+            _notebookRepository.AddNotebook(
+                new NotebookData
+                {
+                    Name = viewModel.Name,
+                    Src = viewModel.Src
+                });
+            return RedirectToAction(nameof(CreateOrderForNotebooks));
+        }
+
+        private NotebookViewModel Map(NotebookData notebook)
+        {
+            return new NotebookViewModel
+            {
+                Id = notebook.Id,
+                Src = notebook.Src,
+                Name = notebook.Name,
+            };
         }
     }
 }
