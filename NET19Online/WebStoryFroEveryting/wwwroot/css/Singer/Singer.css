@@ -1,0 +1,54 @@
+﻿
+.header {
+    font-size: 30px;
+    justify-content: center;
+    display: flex;
+    background: #ccc;
+    width: 100%;
+    padding: 10px 0;
+}
+
+
+.menu-and-content {
+    display: flex;
+   
+}
+
+.menu {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    width: 200px; 
+    height: 100vh; 
+}
+
+    /* Стили для ссылок в меню */
+    .menu .link {
+        border: 1px solid #1c2831;
+        border-radius: 5px;
+        background: #c1e9ef;
+        margin: 5px 0;
+        padding: 10px;
+        text-decoration: none;
+        color: #333;
+        display: block;
+        transition: background-color 0.3s ease;
+    }
+
+        .menu .link:hover {
+            background-color: #a7d4e3;
+        }
+
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+
+
