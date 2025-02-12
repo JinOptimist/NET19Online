@@ -1,14 +1,29 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.Films;
 
 namespace WebStoryFroEveryting.Controllers
 {
     public class PurchaseFilmsController : Controller
     {
+        FilmsRepository _filmsRepository;
+
+        public PurchaseFilmsController(FilmsRepository filmsRepository)
+        {
+            _filmsRepository=filmsRepository;
+        }
+
         public IActionResult CreateFilms()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
+        {
+               
+            return View(createFilmsViewModel);
         }
         public IActionResult CreatePurchaseFilms()
         {

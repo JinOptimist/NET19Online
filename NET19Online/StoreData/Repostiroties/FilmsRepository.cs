@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StoreData.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ namespace StoreData.Repostiroties
 {
     public class FilmsRepository
     {
-
-        public void AddFilm ()
+        private static List<FilmsDate> FilmsDatesBase = new ();
+        public void AddFilm (FilmsDate filmsDate)
         {
-
+            FilmsDatesBase.Add(filmsDate);
         }
         public void RemoveFilm()
         { 
