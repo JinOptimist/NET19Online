@@ -18,6 +18,12 @@ builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
 
+builder.Services.AddScoped<MagicItemGenerator>();
+builder.Services.AddScoped<MagicItemCategoryGenerator>();
+builder.Services.AddScoped<MagicItemNameGenerator>();
+
+builder.Services.AddScoped<MagicItemRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
