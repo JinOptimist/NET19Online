@@ -15,6 +15,8 @@ builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 
 builder.Services.AddScoped<IdolRepository>();
+builder.Services.AddScoped<JerseyGenerator>();
+builder.Services.AddScoped<JerseyRepository>();
 
 var app = builder.Build();
 
