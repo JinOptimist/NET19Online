@@ -4,24 +4,35 @@ namespace StoreData.Repostiroties
 {
     public class IdolRepository
     {
-        private static List<IdolData> FakeDB = new();
+        private StoreDbContext _dbContext;
+
+        public IdolRepository(StoreDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public List<IdolData> GetIdols()
         {
-            return FakeDB;
+            return _dbContext.Idols.ToList();
         }
 
         public void AddIdol(IdolData idol)
         {
-            idol.Id = FakeDB.Count > 0
-                ? FakeDB.Max(x => x.Id) + 1
-                : 1;
-            FakeDB.Add(idol);
+            _dbContext.Idols.Add(idol);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddIdols(List<IdolData> idols)
+        {
+            _dbContext.Idols.AddRange(idols);
+            _dbContext.SaveChanges();
         }
 
         public void Remove(int id)
         {
-            FakeDB = FakeDB.Where(x => x.Id != id).ToList();
+            var idol = _dbContext.Idols.First(x => x.Id == id);
+            _dbContext.Idols.Remove(idol);
+            _dbContext.SaveChanges();
         }
     }
 }
