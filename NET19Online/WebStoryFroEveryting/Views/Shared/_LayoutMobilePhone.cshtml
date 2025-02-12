@@ -1,0 +1,26 @@
+﻿<html>
+<head>
+	<link href="~/css/reset.css" rel="stylesheet" />
+	<link href="~/css/MobilePhone/mobile.css" rel="stylesheet" />
+	@RenderSection("Styles", false)
+</head>
+<body>
+	<div class="header">
+		"Shop Mobile Telephone"
+	</div>
+
+	<div class="menu-content">
+		<div class="menu">
+			<div class="linc">
+				link1
+			</div>
+			<div class="linc">
+				link2
+			</div>
+		</div>
+		<div class="content">
+			@RenderBody()
+		</div>
+	</div>
+</body>
+</html>
