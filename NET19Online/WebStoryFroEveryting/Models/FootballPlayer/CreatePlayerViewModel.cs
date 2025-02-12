@@ -1,8 +1,7 @@
 ﻿namespace WebStoryFroEveryting.Models.FootballPlayer
 {
-    public class PlayerViewModel
+    public class CreatePlayerViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Src { get; set; }
         public string Position { get; set; }

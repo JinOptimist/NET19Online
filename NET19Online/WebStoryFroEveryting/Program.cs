@@ -19,8 +19,10 @@ builder.Services.AddScoped<NotebookRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
+builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<IdolRepository>();
+builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
 
@@ -33,6 +35,7 @@ builder.Services.AddScoped<MagicItemRepository>();
 builder.Services.AddScoped<TheBestUnderwaterHunters>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
+
 
 var app = builder.Build();
 

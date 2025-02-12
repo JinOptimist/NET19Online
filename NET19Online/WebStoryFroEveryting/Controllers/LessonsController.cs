@@ -1,63 +1,100 @@
 using Microsoft.AspNetCore.Mvc;
+using StoreData.Models;
+using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.Lessons;
 
 namespace WebStoryFroEveryting.Controllers;
 
-public class LessonsController : Controller
+public class LessonsController(LessonRepository lessonRepository) : Controller
 {
-    // Вынести 
-    List<LessonViewModel> lessons = new List<LessonViewModel>
-    {
-        new LessonViewModel()
-        {
-            Id = 1,
-            Title = "Переменные и типы данных",
-            Source = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/44sBcVvn-eI?si=nB0zvkicLKgUHMzp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
-            Preview = "https://cdni.iconscout.com/illustration/premium/thumb/404-illustration-download-in-svg-png-gif-file-formats--error-not-found-page-result-webpage-pack-user-interface-illustrations-5974976.png?f=webp"
-        },
-        new LessonViewModel()
-        {
-            Id = 2,
-            Title = "Условные операторы",
-            Source = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/44sBcVvn-eI?si=nB0zvkicLKgUHMzp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
-            Preview = "https://cdni.iconscout.com/illustration/premium/thumb/404-illustration-download-in-svg-png-gif-file-formats--error-not-found-page-result-webpage-pack-user-interface-illustrations-5974976.png?f=webp"
-        },
-        new LessonViewModel()
-        {
-            Id = 3,
-            Title = "Циклы",
-            Source = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/44sBcVvn-eI?si=nB0zvkicLKgUHMzp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
-            Preview = "https://cdni.iconscout.com/illustration/premium/thumb/404-illustration-download-in-svg-png-gif-file-formats--error-not-found-page-result-webpage-pack-user-interface-illustrations-5974976.png?f=webp"
-        },
-        new LessonViewModel()
-        {
-            Id = 4,
-            Title = "Методы",
-            Source = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/44sBcVvn-eI?si=nB0zvkicLKgUHMzp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
-            Preview = "https://cdni.iconscout.com/illustration/premium/thumb/404-illustration-download-in-svg-png-gif-file-formats--error-not-found-page-result-webpage-pack-user-interface-illustrations-5974976.png?f=webp"
-        },
-        new LessonViewModel()
-        {
-            Id = 5,
-            Title = "Классы",
-            Source = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/44sBcVvn-eI?si=nB0zvkicLKgUHMzp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>",
-            Preview = "https://cdni.iconscout.com/illustration/premium/thumb/404-illustration-download-in-svg-png-gif-file-formats--error-not-found-page-result-webpage-pack-user-interface-illustrations-5974976.png?f=webp"
-        },
-    };
+    private LessonRepository _lessonRepository = lessonRepository;
+
     public IActionResult Index()
     {
-
+        var lessonsData = _lessonRepository.GetLessons();
+        var lessons = new List<LessonViewModel> { };
+        foreach (var item in lessonsData)
+        {
+            lessons.Add(Map(item));
+        }
         return View(lessons);
     }
 
     public IActionResult Details(int id)
     {
-        foreach (var item in lessons)
+        var result = _lessonRepository.GetLessonById(id);
+
+        if (result == null)
         {
-            if (item.Id == id)
-                return View(item);
+            throw new ArgumentException("Id not found");
         }
 
-        throw new ArgumentException("Index not found");
+        return View(Map(result));
+
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult CreatePost(LessonViewModel lessonViewModel)
+    {
+        _lessonRepository.InsertLesson(new LessonData()
+        {
+            Title = lessonViewModel.Title,
+            Preview = lessonViewModel.Preview,
+            Source = lessonViewModel.Source
+        });
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Remove(int id)
+    {
+        _lessonRepository.DeleteLesson(id);
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Update(int id)
+    {
+        var result = _lessonRepository.GetLessonById(id);
+
+        if (result == null)
+        {
+            throw new ArgumentException("Id not found");
+        }
+
+        return View(Map(result));
+    }
+    
+    [HttpPost]
+    public IActionResult Edit(LessonViewModel lessonViewModel)
+    {
+        _lessonRepository.UpdateLesson(Map(lessonViewModel));
+        return RedirectToAction(nameof(Index));
+    }
+    
+    private LessonViewModel Map(LessonData lessonData)
+    {
+        return new LessonViewModel()
+        {
+            Id = lessonData.Id,
+            Preview = lessonData.Preview,
+            Source = lessonData.Source,
+            Title = lessonData.Title,
+        };
+    }
+    
+    private LessonData Map(LessonViewModel lessonViewModel)
+    {
+        return new LessonData()
+        {
+            Id = lessonViewModel.Id,
+            Preview = lessonViewModel.Preview,
+            Source = lessonViewModel.Source,
+            Title = lessonViewModel.Title,
+        };
     }
 }
