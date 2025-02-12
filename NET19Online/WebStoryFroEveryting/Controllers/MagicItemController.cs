@@ -19,7 +19,7 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult CreateOrderForMagicItem()
         {
-            var magicItemsDatas = _magicItemRepository.GetMagicItems();
+            var magicItemsDatas = _magicItemRepository.GetAll();
             if (!magicItemsDatas.Any())
             {
                 _magicItemGenerator
@@ -33,8 +33,8 @@ namespace WebStoryFroEveryting.Controllers
                             Price = viewModel.Price
                         })
                     .ToList()
-                    .ForEach(_magicItemRepository.AddMagicItem);
-                magicItemsDatas = _magicItemRepository.GetMagicItems();
+                    .ForEach(_magicItemRepository.Add);
+                magicItemsDatas = _magicItemRepository.GetAll();
             }
 
             var viewModels = magicItemsDatas.Select(Map).ToList();
@@ -50,7 +50,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Create(CreateMagicItemViewModel viewModel)
         {
-            _magicItemRepository.AddMagicItem(
+            _magicItemRepository.Add(
                 new MagicItemData
                 {
                     Name = viewModel.Name,

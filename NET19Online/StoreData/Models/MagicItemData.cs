@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StoreData.Models
+﻿namespace StoreData.Models
 {
-    public class MagicItemData
+    public class MagicItemData : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Src { get; set; }
         public decimal Price { get; set; }

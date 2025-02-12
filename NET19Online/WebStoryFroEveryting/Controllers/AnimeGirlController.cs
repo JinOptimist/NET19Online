@@ -19,7 +19,7 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult CreateOrderForAnimeGirl()
         {
-            var idolDatas = _idolRepository.GetIdols();
+            var idolDatas = _idolRepository.GetAll();
             if (!idolDatas.Any())
             {
                 _idolGenerator
@@ -31,8 +31,8 @@ namespace WebStoryFroEveryting.Controllers
                             Src = viewModel.Src
                         })
                     .ToList()
-                    .ForEach(_idolRepository.AddIdol);
-                idolDatas = _idolRepository.GetIdols();
+                    .ForEach(_idolRepository.Add);
+                idolDatas = _idolRepository.GetAll();
             }
 
             var viewModels = idolDatas.Select(Map).ToList();
@@ -54,7 +54,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Create(CreateIdolViewModel viewModel)
         {
-            _idolRepository.AddIdol(
+            _idolRepository.Add(
                 new IdolData
                 {
                     Name = viewModel.Name,
