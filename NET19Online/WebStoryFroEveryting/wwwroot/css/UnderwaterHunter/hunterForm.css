@@ -1,40 +1,68 @@
 .label-and-header {
     display: flex;
 }
-
 .label img {
     display: inline-block;
     transform: translate(7em, 1em);
     border-radius: 10px;
     width: 224px;
 }
-
 .header {
     display: inline-block;
     transform: translate(6em, 1em);
     font-size: 34px;
     color: brown;
 }
-
 .text-header {
     display: inline-block;
-    transform: translate(7em, 4em);
+    transform: translate(15em, 3em);
+    font-size: 22px;
+    background: aqua;
 }
-
 .allHunters {
     display: flex;
     transform: translate(19em, 5em);
 }
-
 .hunters {
     margin: 14px;
     border: 1px solid red;
     border-radius: 10px;
     padding: 13px;
 }
-
 .image img {
     max-width: 400px;
     max-height: 400px;
     border-radius: 10px;
 }
+.closeIcon {
+    flex: 1;
+    background: #FF5722;
+    display: flex;
+    justify-content: center;
+    margin: 13px;
+    align-items: center
+}
+.buttonsMenu-links {
+    transform: translate(-19em, 7em);
+    font-size: 34px;
+    width: 237px;
+    background: burlywood;    
+    height: 114px;
+}
+    .buttonsMenu-links .text-Menu {
+        font-size: 27px;
+        color: blueviolet;
+        transform: translate(1em, 0em);
+    }    
+    .buttonsMenu-links .button-addNewHunter {
+        font-size: 20px;
+        background: chocolate;
+        margin: 13px;
+        border: 1px solid blueviolet;
+        border-radius: 8px
+    }
+.blockForCreating {
+    transform: translate(23em, 8em);
+}
+
+

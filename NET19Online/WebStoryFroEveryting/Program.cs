@@ -1,16 +1,36 @@
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<NameNotebookGenerator>();
+builder.Services.AddScoped<NotebookGenerator>();
+
+builder.Services.AddScoped<NotebookRepository>();
+
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
+builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<IdolRepository>();
-builder.Services.AddScoped<LessonRepository>();
+builder.Services.AddScoped<JerseyGenerator>();
+builder.Services.AddScoped<JerseyRepository>();
+
+builder.Services.AddScoped<MagicItemGenerator>();
+builder.Services.AddScoped<MagicItemCategoryGenerator>();
+builder.Services.AddScoped<MagicItemNameGenerator>();
+
+builder.Services.AddScoped<MagicItemRepository>();
+
+builder.Services.AddScoped<TheBestUnderwaterHunters>();
+builder.Services.AddScoped<HuntersGenerator>();
+builder.Services.AddScoped<UnderwarterHunterRepository>();
+
 
 var app = builder.Build();
 
