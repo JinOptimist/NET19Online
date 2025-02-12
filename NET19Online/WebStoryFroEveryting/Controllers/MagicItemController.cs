@@ -29,6 +29,7 @@ namespace WebStoryFroEveryting.Controllers
                         {
                             Name = viewModel.Name,
                             Src = viewModel.Src,
+                            Description = viewModel.Description ?? "",
                             Category = viewModel.Category,
                             Price = viewModel.Price
                         })
