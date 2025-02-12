@@ -1,3 +1,13 @@
-﻿<div>
-    Hi Bro
-</div>
+﻿@using WebStoryFroEveryting.Models.Films
+@model FilmsViewModel
+<from method ="post" action="">
+    <div>
+        @Html.TextBoxFor(x => x.Name, new {placeholder="Name"})
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Src, new { placeholder="Src"})
+    </div>
+    <div>
+        <button type="submit">Создать</button>
+    </div>
+</from>
