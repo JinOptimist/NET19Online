@@ -10,8 +10,4 @@
     <ProjectReference Include="..\StoreData\StoreData.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Новая папка\" />
-  </ItemGroup>
-
 </Project>
