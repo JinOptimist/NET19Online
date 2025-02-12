@@ -1,0 +1,23 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@model JerseyViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+
+<form method="post" action="/Jerseys/Create">
+    <div>
+        @Html.TextBoxFor(x => x.AthleteName, new { placeholder = "Name" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Img, new { placeholder = "Src for image" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Number, new { placeholder = "Number" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Club, new { placeholder = "Club" })
+    </div>
+    <div>
+        <button type="submit">Создать</button>
+    </div>
+</form>

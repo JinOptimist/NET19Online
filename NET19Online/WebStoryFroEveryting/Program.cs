@@ -6,10 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<NameNotebookGenerator>();
+builder.Services.AddScoped<NotebookGenerator>();
+
+builder.Services.AddScoped<NotebookRepository>();
+
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 
 builder.Services.AddScoped<IdolRepository>();
+builder.Services.AddScoped<JerseyGenerator>();
+builder.Services.AddScoped<JerseyRepository>();
 
 builder.Services.AddScoped<MagicItemGenerator>();
 builder.Services.AddScoped<MagicItemCategoryGenerator>();

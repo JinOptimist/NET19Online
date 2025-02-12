@@ -1,5 +1,5 @@
 ﻿@using WebStoryFroEveryting.Models.Notebook
-@model List<notebookViewModel>
+@model List<NotebookViewModel>
 
 @{
     Layout = "~/Views/Shared/_LayoutNotebooks.cshtml";
@@ -20,7 +20,7 @@
             </div>
             <div class="buttons">
                 <div class="button">+</div>
-                <div class="button">-</div>
+                <a href="/Notebooks/Remove?id=@notebook.Id" class="button">-</a>
             </div>
         </div>
     }   

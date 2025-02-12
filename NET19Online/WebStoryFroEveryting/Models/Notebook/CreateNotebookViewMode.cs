@@ -1,6 +1,6 @@
 ﻿namespace WebStoryFroEveryting.Models.Notebook
 {
-    public class NotebookViewModel
+    public class CreateNotebookViewModel
     {
         public int Id { get; set; }
         public string Name {  get; set; }
