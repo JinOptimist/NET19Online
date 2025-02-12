@@ -4,9 +4,6 @@
     Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
 
-@section Styles {
-    <link href="~/css/Jerseys/Jerseys.css" rel="stylesheet" />
-}
 
 @foreach (var jersey in Model)
 {
@@ -17,7 +14,8 @@
         <div class="name">
             @jersey.AthleteName
         </div>
-        <a class="button" href="jerseys/detail?id=@jersey.Id">Подробнее</a>
+        <a class="button" href="/jerseys/detail?id=@jersey.Id">Подробнее</a>
+        <a class="button red" href=" /jerseys/remove?id=@jersey.Id">Удалить</a>
     </div>
 }
 

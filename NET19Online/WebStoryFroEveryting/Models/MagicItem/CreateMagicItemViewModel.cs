@@ -1,8 +1,7 @@
 ﻿namespace WebStoryFroEveryting.Models.MagicItem
 {
-    public class MagicItemViewModel
+    public class CreateMagicItemViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Src { get; set; }
         public decimal Price { get; set; }

@@ -1,30 +1,85 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StoreData.Models;
+using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
+using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 namespace WebStoryFroEveryting.Controllers
 {
     public class UnderwaterHunterController : Controller
     {
+        private HuntersGenerator _huntersGenerator;
+        private UnderwarterHunterRepository _hunterRepository;
+        
+
+        public UnderwaterHunterController(HuntersGenerator huntersGenerator, UnderwarterHunterRepository hunterRepository)
+        {
+            _huntersGenerator = huntersGenerator;
+            _hunterRepository = hunterRepository;
+        }
         public IActionResult CreatePageUnderwaterHunter()
         {
-            var hunters = new List<TheBestUnderwaterHunters>
+            var hunterDatas = _hunterRepository.GetHunters();
+            if (!hunterDatas.Any())
             {
-                new TheBestUnderwaterHunters
-                {
-                    NameHunter="Pedro Carbonell",
-                    Nationality = "Spanish",
-                    maxHuntingDepth= 40,
-                    Src = "https://avatars.mds.yandex.net/i?id=d37489e48b123dee24adcce63e1304a5_l-5312143-images-thumbs&n=13"
-                },
-                new TheBestUnderwaterHunters
-                {
-                    NameHunter="Gabriele Delbene",
-                    Nationality = "Italian",
-                    maxHuntingDepth= 62,
-                    Src = "https://www.batiskaf.ru/media/wysiwyg/wordpress/2014/12/DSCN2440.jpg"
-                }
+                var huntData = GetHuntersFromHunterGenerator();
+                huntData.ForEach(x => _hunterRepository.AddHunters(x));
+                hunterDatas = _hunterRepository.GetHunters();
+            }
+            var viewModel = hunterDatas.Select(ChangeBaseDataTypeToViewModelTypes).ToList();
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult CreateNewHunter()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateNewHunter(CreateUnderwaterHunterModel hunterModel)
+        {
+            _hunterRepository.AddHunters(new UnderwaterHunterData
+            {
+                NameHunter = hunterModel.NameHunter,
+                Nationality = hunterModel.Nationality,
+                MaxHuntingDepth = hunterModel.MaxHuntingDepth,
+                Src = hunterModel.Image
+            });
+            return RedirectToAction(nameof(CreatePageUnderwaterHunter));
+        }
+        public IActionResult Remove(int id)
+        {
+            _hunterRepository.Remove(id);
+            return RedirectToAction(nameof(CreatePageUnderwaterHunter));
+        }
+        private List<UnderwaterHunterData> GetHuntersFromHunterGenerator()
+        {
+            var huntersD = _huntersGenerator
+                    .GenerateHunters()
+                    .Select(viewModel =>
+                    new UnderwaterHunterData
+                    {
+                        Id = viewModel.Id,
+                        NameHunter = viewModel.NameHunter,
+                        MaxHuntingDepth = viewModel.MaxHuntingDepth,
+                        Nationality = viewModel.Nationality,
+                        Src = viewModel.Src,
+                    })
+                    .ToList();
+            return huntersD;
+        }
+        private TheBestUnderwaterHunters ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
+        {
+            var hunter = new TheBestUnderwaterHunters
+            {
+                Id = hunterData.Id,
+                NameHunter = hunterData.NameHunter,
+                MaxHuntingDepth = hunterData.MaxHuntingDepth,
+                Nationality = hunterData.Nationality,
+                Src = hunterData.Src,
             };
-            return View(hunters);
+            return hunter;
         }
     }
 }

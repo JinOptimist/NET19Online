@@ -17,4 +17,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\UnderwaterHunter\CreateNewHunter.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

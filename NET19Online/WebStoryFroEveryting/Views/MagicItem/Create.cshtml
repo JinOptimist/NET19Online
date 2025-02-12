@@ -1,0 +1,30 @@
+﻿@using WebStoryFroEveryting.Models.MagicItem
+@model CreateMagicItemViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutMagicItem.cshtml";
+}
+
+<form method="post" action="/MagicItem/Create">
+    <div>
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Category, new { placeholder = "Category Name" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Price, new { placeholder = "Price" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Description, new { placeholder = "Description" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.ItemsInStock, new { placeholder = "Items In Stock" })
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
