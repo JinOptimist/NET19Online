@@ -5,30 +5,29 @@
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
-    <title>title</title>
+    <link href="~/css/Lessons/create.css" rel="stylesheet" />
 </head>
 <body>
-<div>
-    <form method="post" action="/Lessons/Edit">
-        @Html.HiddenFor(x => x.Id) 
-        
-        <div>
-            @Html.TextBoxFor(x => x.Title, new { placeholder = "Title" })
-        </div>
-        <div>
-            @Html.TextBoxFor(x => x.Source, new { placeholder = "Source for video" })
-        </div>
-        <div>
-            @Html.TextBoxFor(x => x.Preview, new { placeholder = "Preview for image" })
-        </div>
-        
-        <button type="submit">Обновить</button>
-    </form>
-</div>
+    <div class="form-container">
+        <form method="post" action="/Lessons/Edit">
+            @Html.HiddenFor(x => x.Id)
+
+            <div>
+                @Html.TextBoxFor(x => x.Title, new { placeholder = "Заголовок" })
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Source, new { placeholder = "Ссылка на видео" })
+            </div>
+            <div>
+                @Html.TextBoxFor(x => x.Preview, new { placeholder = "Ссылка на превью изображения" })
+            </div>
+
+            <div>
+                <button type="submit">Обновить</button>
+            </div>
+        </form>
+    </div>
 </body>
-
 </html>
-
