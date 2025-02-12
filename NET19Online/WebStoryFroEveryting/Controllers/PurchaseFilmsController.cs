@@ -6,6 +6,10 @@ namespace WebStoryFroEveryting.Controllers
 {
     public class PurchaseFilmsController : Controller
     {
+        public IActionResult CreateFilms()
+        {
+            return View();
+        }
         public IActionResult CreatePurchaseFilms()
         {
             var viewModels = new List<FilmsViewModel>
