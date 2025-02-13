@@ -7,27 +7,9 @@ using System.Threading.Tasks;
 
 namespace StoreData.Repostiroties
 {
-    public class JerseyRepository
+    public class JerseyRepository : BaseRepository<JerseyData>
     {
-        private static List<JerseyData> JerseysDB = new List<JerseyData>();
-        public List<JerseyData> GetData()
-        {
-            return JerseysDB;
-        }
-        public void AddJersey(JerseyData jerseyData)
-        {
-            jerseyData.Id = JerseysDB.Count == 0
-                ? 1
-                : JerseysDB.Max(j => j.Id) + 1;
-            JerseysDB.Add(jerseyData);
-        }
-        public void RemoveJersey(int id)
-        {
-            JerseyData jerseyData = JerseysDB.Where(j => j.Id == id).FirstOrDefault();
-            if (jerseyData != null)
-            {
-                JerseysDB.Remove(jerseyData);
-            }
-        }
+        public JerseyRepository(StoreDbContext dbContext) : base(dbContext) { }
+        
     }
 }

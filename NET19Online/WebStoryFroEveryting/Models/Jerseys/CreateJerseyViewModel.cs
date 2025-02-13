@@ -6,5 +6,7 @@
         public int Number { get; set; }
         public string AthleteName { get; set; }
         public string Img { get; set; }
+        public int InStock { get; set; }
+        public decimal Price { get; set; }
     }
 }
