@@ -13,7 +13,7 @@ public abstract class BaseSchoolRepository<DbModel> where DbModel : BaseModel
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<DbModel>();
     }
-
+    
     public virtual DbModel Get(int id)
     {
         return _dbSet.First(x => x.Id == id);

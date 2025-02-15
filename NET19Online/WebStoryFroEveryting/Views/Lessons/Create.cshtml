@@ -10,15 +10,18 @@
 </head>
 <body>
     <div class="form-container">
-            <form method="post" action="/Lessons/CreatePost">
+            <form method="post" action="/Lessons/Create">
                 <div>
                     @Html.TextBoxFor(x => x.Title, new { placeholder = "Заголовок" })
+                
                 </div>
                 <div>
                     @Html.TextBoxFor(x => x.Source, new { placeholder = "Ссылка на видео" })
+                    @Html.ValidationMessageFor(x => x.Source)
                 </div>
                 <div>
                     @Html.TextBoxFor(x => x.Preview, new { placeholder = "Ссылка на превью изображения" })
+                    @Html.ValidationMessageFor(x => x.Preview)
                 </div>
                 <div>
                     <button type="submit">Создать</button>

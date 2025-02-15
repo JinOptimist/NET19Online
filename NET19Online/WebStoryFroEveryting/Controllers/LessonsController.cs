@@ -42,8 +42,12 @@ public class LessonsController: Controller
     }
 
     [HttpPost]
-    public IActionResult CreatePost(LessonViewModel lessonViewModel)
+    public IActionResult Create(LessonViewModel lessonViewModel)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(lessonViewModel);
+        }
         _lessonRepository.Add(new LessonData()
         {
             Title = lessonViewModel.Title,
