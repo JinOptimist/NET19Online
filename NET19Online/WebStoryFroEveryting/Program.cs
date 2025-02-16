@@ -21,6 +21,9 @@ builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 builder.Services.AddScoped<LessonRepository>();
 
+builder.Services.AddScoped<GamingDeviceGenerator>();
+builder.Services.AddScoped<GamingDeviceRepository>();
+
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
