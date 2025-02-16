@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<StoreDbContext>(x => x.UseSqlServer(StoreDbContext.CONNECTION_STRING));
+builder.Services.AddDbContext<FilmsDbConntext>(x => x.UseSqlServer(FilmsDbConntext.CONNECTION_STRING));
 
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();

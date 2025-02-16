@@ -9,13 +9,13 @@ namespace StoreData.Repostiroties
 {
     public class FilmsRepository
     {
-        private static List<FilmsDate> FilmsDatesBase = new();
+        private static List<DateFilm> FilmsDatesBase = new();
 
-        public List<FilmsDate> GetItems()
+        public List<DateFilm> GetItems()
         {
             return FilmsDatesBase;
         }
-        public void AddFilml(FilmsDate films)
+        public void AddFilml(DateFilm films)
         {
             films.IdFilm = FilmsDatesBase.Count > 0
                 ? FilmsDatesBase.Max(x => x.IdFilm) + 1
