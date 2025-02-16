@@ -56,7 +56,7 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
         {
 
-            _filmsRepository.AddFilm(new FilmsDate
+            _filmsRepository.AddFilml(new FilmsDate
             {
                 Name = createFilmsViewModel.Name,
                 Src = createFilmsViewModel.Src
