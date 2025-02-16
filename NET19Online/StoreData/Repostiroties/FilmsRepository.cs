@@ -9,8 +9,8 @@ namespace StoreData.Repostiroties
 {
     public class FilmsRepository
     {
-        private static List<FilmsDate> FilmsDatesBase = new ();
- 
+        private static List<FilmsDate> FilmsDatesBase = new();
+
         public List<FilmsDate> GetItems()
         {
             return FilmsDatesBase;
@@ -23,9 +23,10 @@ namespace StoreData.Repostiroties
             FilmsDatesBase.Add(films);
         }
 
-        public void RemoveFilm()
-        { 
-        
+        public void RemoveFilm(int id)
+        {
+            var t = FilmsDatesBase.FirstOrDefault(x => x.IdFilm==id);
+            FilmsDatesBase.Remove(t);
         }
     }
 }

@@ -38,6 +38,12 @@ namespace WebStoryFroEveryting.Controllers
             return View(viewModels);
         }
 
+        public IActionResult RemoveFilms(int id)
+        {
+            _filmsRepository.RemoveFilm(id);
+            return RedirectToAction(nameof(CreatePurchaseFilms));
+        }
+
         private FilmsViewModel Map(FilmsDate date)
         {
             return new FilmsViewModel
