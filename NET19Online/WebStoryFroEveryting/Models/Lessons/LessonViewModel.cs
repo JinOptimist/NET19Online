@@ -1,4 +1,5 @@
 using StoreData.Attributes;
+using StoreData.Models;
 
 namespace WebStoryFroEveryting.Models.Lessons;
 
@@ -12,4 +13,6 @@ public class LessonViewModel
     
     [ImageUri]
     public string Preview { get; set; }
+    
+    public Level Level { get; set; }
 }

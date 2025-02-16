@@ -16,12 +16,16 @@ public abstract class BaseSchoolRepository<DbModel> where DbModel : BaseModel
     
     public virtual DbModel Get(int id)
     {
-        return _dbSet.First(x => x.Id == id);
+        return _dbSet
+            .AsNoTracking()
+            .First(x => x.Id == id);
     }
 
     public virtual List<DbModel> GetAll()
     {
-        return _dbSet.ToList();
+        return _dbSet
+            .AsNoTracking()
+            .ToList();
     }
 
     public virtual void Add(DbModel item)
