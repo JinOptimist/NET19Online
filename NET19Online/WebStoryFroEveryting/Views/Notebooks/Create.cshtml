@@ -1,0 +1,18 @@
+﻿@using WebStoryFroEveryting.Models.Notebook
+@model CreateNotebookViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutNotebooks.cshtml";
+}
+
+<form method="post" action="/Notebooks/Create">
+    <div>       
+        @Html.TextBoxFor(x => x.Name, new {placeholder = "Name"})
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+    </div>
+    <div>
+        <button type="submit">Создать</button>
+    </div>
+</form>

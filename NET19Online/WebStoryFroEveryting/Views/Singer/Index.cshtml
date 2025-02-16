@@ -1,0 +1,25 @@
+﻿@using WebStoryFroEveryting.Models.Singers
+@model List<SingerViewModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutSinger.cshtml";
+}
+@section Styles {
+    <link href="~/css/Singers/Singer.css" rel="stylesheet" />
+}
+
+    
+
+<div class="singers">
+    @foreach (var singers in Model)
+    {
+        <div class="singer">
+            <div class="name">@singers.Pseudonym</div>
+            <div class="image-container">
+                <img src="@singers.Src" />
+            </div>
+            <div class="style">Стиль Музыки: @singers.Style</div>
+            
+        </div>
+    }
+</div>

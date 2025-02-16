@@ -2,26 +2,14 @@
 
 namespace StoreData.Repostiroties
 {
-    public class IdolRepository
+    public class IdolRepository : BaseRepository<IdolData>
     {
-        private static List<IdolData> FakeDB = new();
+        public IdolRepository(StoreDbContext dbContext) : base(dbContext) { }
 
-        public List<IdolData> GetIdols()
+        public void AddIdols(List<IdolData> idols)
         {
-            return FakeDB;
-        }
-
-        public void AddIdol(IdolData idol)
-        {
-            idol.Id = FakeDB.Count > 0
-                ? FakeDB.Max(x => x.Id) + 1
-                : 1;
-            FakeDB.Add(idol);
-        }
-
-        public void Remove(int id)
-        {
-            FakeDB = FakeDB.Where(x => x.Id != id).ToList();
+            _dbContext.Idols.AddRange(idols);
+            _dbContext.SaveChanges();
         }
     }
 }

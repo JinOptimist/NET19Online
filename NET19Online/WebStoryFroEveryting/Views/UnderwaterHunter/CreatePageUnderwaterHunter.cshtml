@@ -3,23 +3,22 @@
 @{
 	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
 }
-
 <div class="text-header">
 	The best hunters in the world:
 </div>
-
 <div class="allHunters">
 	@foreach (var item in Model)
 	{
 		<div class="hunters">
-
 			<div class="image">
 				<img src="@item.Src" />
 			</div>
 			<div class="name">@item.NameHunter</div>
 			<div class="nationality">Nationality: @item.Nationality</div>
-			<div class="maxDepth">Maximum hunting depth: @item.maxHuntingDepth meters</div>
-
+			<div class="maxDepth">Maximum hunting depth: @item.MaxHuntingDepth meters</div>
+			<a href="/UnderwaterHunter/Remove?id=@item.Id" class="closeIcon">
+				close
+			</a>
 		</div>
 
 	}

@@ -10,8 +10,15 @@
 
 <div class="lesson-details">
     <div class="lesson-details-button">
-            @Html.Raw(@Model.Source)
-        </div>
+        @Html.Raw(@Model.Source)
+    </div>
     <div class="lesson-details-title">@Model.Title</div>
+    
+    <div class="action-buttons">
+        <a href="@Url.Action("Remove", "Lessons", new {id = @Model.Id})"
+           onclick='return confirm("Вы уверены?");'
+           class="btn-remove">Удалить</a>
+        <a href="@Url.Action("Update", "Lessons", new {id = @Model.Id})"
+           class="btn-edit">Изменить</a>
+    </div>
 </div>
-                
