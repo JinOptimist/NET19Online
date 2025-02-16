@@ -1,7 +1,7 @@
 ﻿@using WebStoryFroEveryting.Models.Films
 @model FilmsViewModel
 
-<from method ="post" action="">
+<form method="post" action="/PurchaseFilms/CreateFilms">
     <div>
         @Html.TextBoxFor(x => x.Name, new {placeholder="Name"})
     </div>
@@ -11,4 +11,4 @@
     <div>
         <button type="submit">Создать</button>
     </div>
-</from>
+</form>

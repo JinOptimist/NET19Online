@@ -1,5 +1,6 @@
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.FilmsServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
+builder.Services.AddScoped<FilmsGeneratorServices>();
 
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>(); 

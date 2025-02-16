@@ -10,10 +10,19 @@ namespace StoreData.Repostiroties
     public class FilmsRepository
     {
         private static List<FilmsDate> FilmsDatesBase = new ();
-        public void AddFilm (FilmsDate filmsDate)
+ 
+        public List<FilmsDate> GetItems()
         {
-            FilmsDatesBase.Add(filmsDate);
+            return FilmsDatesBase;
         }
+        public void AddFilml(FilmsDate films)
+        {
+            films.IdFilm = FilmsDatesBase.Count > 0
+                ? FilmsDatesBase.Max(x => x.IdFilm) + 1
+                : 1;
+            FilmsDatesBase.Add(films);
+        }
+
         public void RemoveFilm()
         { 
         
