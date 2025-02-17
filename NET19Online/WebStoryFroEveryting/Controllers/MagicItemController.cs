@@ -17,13 +17,13 @@ namespace WebStoryFroEveryting.Controllers
             _magicItemRepository = magicItemRepository;
         }
 
-        public IActionResult CreateOrderForMagicItem()
+        public IActionResult MagicItemsListPage()
         {
             var magicItemsDatas = _magicItemRepository.GetAll();
             if (!magicItemsDatas.Any())
             {
                 _magicItemGenerator
-                    .GenerateMagicItems(5)
+                    .GenerateMagicItems(14)
                     .Select(viewModel =>
                         new MagicItemData
                         {
@@ -49,7 +49,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateMagicItemViewModel viewModel)
+        public IActionResult Create(MagicItemsListPage viewModel)
         {
             _magicItemRepository.Add(
                 new MagicItemData
@@ -61,7 +61,13 @@ namespace WebStoryFroEveryting.Controllers
                     Description = viewModel.Description,
                     ItemsInStock = viewModel.ItemsInStock
                 });
-            return RedirectToAction(nameof(CreateOrderForMagicItem));
+            return RedirectToAction(nameof(MagicItemsListPage));
+        }
+
+        public IActionResult Remove(int id)
+        {
+            _magicItemRepository.Remove(id);
+            return RedirectToAction(nameof(MagicItemsListPage));
         }
 
 
