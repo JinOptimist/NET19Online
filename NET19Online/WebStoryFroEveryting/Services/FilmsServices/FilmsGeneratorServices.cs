@@ -48,22 +48,22 @@ namespace WebStoryFroEveryting.Services.FilmsServer
 
         public List<FilmsViewModel> GenerateFilms()
         {
-            var ItemsGenerator = new List<FilmsViewModel>(); 
+            var itemsGenerator = new List<FilmsViewModel>();
             var randomImagesIndex = Enumerable.Range(1, 4).OrderBy(x => _random.Next()).ToList();
-            var _numbers = new Queue<int>(randomImagesIndex);
+            var numbers = new Queue<int>(randomImagesIndex);
             for (int i = 0; i < _generatorName.Count; i++)
             {
-                var j = _numbers.Dequeue();
+                var j = numbers.Dequeue();
                 var item = _generatorName[j];
                 var films = new FilmsViewModel()
                 {
                     Name = item[0].Name,
-                    Src =item[0].Src,
+                    Src = item[0].Src,
                 };
-                ItemsGenerator.Add(films);
+                itemsGenerator.Add(films);
             }
 
-            return ItemsGenerator;
+            return itemsGenerator;
         }
     }
 }
