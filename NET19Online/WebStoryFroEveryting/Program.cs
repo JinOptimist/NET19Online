@@ -27,7 +27,6 @@ builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>(); 
 builder.Services.AddScoped<LessonRepository>();
 
-builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
