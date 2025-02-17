@@ -1,3 +1,5 @@
+@using StoreData.Models
+@using Microsoft.EntityFrameworkCore.Query.Internal
 @model WebStoryFroEveryting.Models.Lessons.LessonViewModel
 
 @{
@@ -20,6 +22,9 @@
         <div>
             @Html.TextBoxFor(x => x.Preview, new { placeholder = "Ссылка на превью изображения" })
             @Html.ValidationMessageFor(x => x.Preview)
+        </div>
+        <div>
+            @Html.DropDownListFor(x => x.Level, Html.GetEnumSelectList<Level>(), "Выберите уровень");
         </div>
         <div>
             <button type="submit">Создать</button>
