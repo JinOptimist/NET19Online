@@ -5,31 +5,33 @@ using WebStoryFroEveryting.Models.Lessons;
 
 namespace WebStoryFroEveryting.Controllers;
 
-public class LessonsController(LessonRepository lessonRepository) : Controller
+public class LessonsController: Controller
 {
-    private LessonRepository _lessonRepository = lessonRepository;
+    private readonly LessonRepository _lessonRepository;
 
+    public LessonsController(LessonRepository lessonRepository)
+    {
+        _lessonRepository = lessonRepository;
+    }
     public IActionResult Index()
     {
-        var lessonsData = _lessonRepository.GetLessons();
-        var lessons = new List<LessonViewModel> { };
-        foreach (var item in lessonsData)
-        {
-            lessons.Add(Map(item));
-        }
+        var lessonsData = _lessonRepository.GetAll();
+        var lessons = lessonsData
+            .Select(MapToViewModel)
+            .ToList();
         return View(lessons);
     }
 
     public IActionResult Details(int id)
     {
-        var result = _lessonRepository.GetLessonById(id);
+        var result = _lessonRepository.Get(id);
 
         if (result == null)
         {
             throw new ArgumentException("Id not found");
         }
 
-        return View(Map(result));
+        return View(MapToViewModel(result));
 
     }
 
@@ -40,9 +42,13 @@ public class LessonsController(LessonRepository lessonRepository) : Controller
     }
 
     [HttpPost]
-    public IActionResult CreatePost(LessonViewModel lessonViewModel)
+    public IActionResult Create(LessonViewModel lessonViewModel)
     {
-        _lessonRepository.InsertLesson(new LessonData()
+        if (!ModelState.IsValid)
+        {
+            return View(lessonViewModel);
+        }
+        _lessonRepository.Add(new LessonData()
         {
             Title = lessonViewModel.Title,
             Preview = lessonViewModel.Preview,
@@ -53,30 +59,30 @@ public class LessonsController(LessonRepository lessonRepository) : Controller
 
     public IActionResult Remove(int id)
     {
-        _lessonRepository.DeleteLesson(id);
+        _lessonRepository.Remove(id);
         return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Update(int id)
     {
-        var result = _lessonRepository.GetLessonById(id);
+        var result = _lessonRepository.Get(id);
 
         if (result == null)
         {
             throw new ArgumentException("Id not found");
         }
 
-        return View(Map(result));
+        return View(MapToViewModel(result));
     }
     
     [HttpPost]
     public IActionResult Edit(LessonViewModel lessonViewModel)
     {
-        _lessonRepository.UpdateLesson(Map(lessonViewModel));
+        _lessonRepository.Update(MapToData(lessonViewModel));
         return RedirectToAction(nameof(Index));
     }
     
-    private LessonViewModel Map(LessonData lessonData)
+    private LessonViewModel MapToViewModel(LessonData lessonData)
     {
         return new LessonViewModel()
         {
@@ -87,7 +93,7 @@ public class LessonsController(LessonRepository lessonRepository) : Controller
         };
     }
     
-    private LessonData Map(LessonViewModel lessonViewModel)
+    private LessonData MapToData(LessonViewModel lessonViewModel)
     {
         return new LessonData()
         {

@@ -1,38 +1,36 @@
-/* Общие стили для шапки */
+
 .header {
-    background-color: #f8f8f8; /* Светлый фон */
-    padding: 10px 0; /* Отступы сверху и снизу */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Легкая тень */
-    position: sticky; /* Фиксированная шапка при прокрутке */
+    background-color: #f8f8f8; 
+    padding: 10px 0; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+    position: sticky; 
     top: 0;
-    z-index: 100; /* Чтобы шапка была поверх контента */
+    z-index: 100; 
 }
 
-/* Стили для списка элементов шапки */
+
 .header-items {
-    list-style: none; /* Убираем маркеры списка */
+    list-style: none; 
     margin: 0;
     padding: 0;
-    display: flex; /* Выстраиваем элементы в строку */
-    justify-content: center; /* Выравниваем элементы по центру */
+    display: flex; 
+    justify-content: center; 
 }
 
-/* Стили для каждого элемента шапки */
+
 .header-item {
-    display: block; /* Делаем ссылку блочным элементом */
-    padding: 10px 20px; /* Отступы вокруг текста ссылки */
-    text-decoration: none; /* Убираем подчеркивание */
-    color: #333; /* Темно-серый цвет текста */
-    font-weight: 500; /* Полужирный шрифт */
-    transition: color 0.3s ease; /* Плавный переход цвета при наведении */
+    display: block; 
+    padding: 10px 20px; 
+    text-decoration: none; 
+    color: #333; 
+    font-weight: 500; 
+    transition: color 0.3s ease; 
 }
 
-/* Стили для ссылок при наведении */
 .header-item:hover {
-    color: #007bff; /* Синий цвет при наведении */
+    color: #007bff; 
 }
 
-/* Активный пункт меню */
 .header-item.active {
     color: #007bff;
     font-weight: bold;

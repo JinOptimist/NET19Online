@@ -1,23 +1,23 @@
+/* Общие стили для страницы */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
 }
 
+/* Стили для контейнера формы */
 .form-container {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     width: 400px;
-    max-width: 90%;
+    max-width: 90%; /* Адаптивная ширина */
+    margin: 60px auto 0; /* Отступ сверху (высота шапки) и автоматическое выравнивание по горизонтали */
 }
 
+/* Стили для полей формы */
 .form-container div {
     margin-bottom: 20px;
 }
@@ -42,6 +42,7 @@ body {
     color: #aaa;
 }
 
+/* Стили для кнопки отправки */
 .form-container button[type="submit"] {
     background-color: #007bff;
     color: white;
@@ -56,3 +57,5 @@ body {
 .form-container button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+

@@ -19,8 +19,8 @@ namespace WebStoryFroEveryting.Controllers
         }
         public ActionResult Index()
         {
-            var jerseys = _jerseyRepository.GetData();
-            if(jerseys.Count == 0)
+            var jerseys = _jerseyRepository.GetAll();
+            if(!jerseys.Any())
             {
                 _jerseyGenerator.GenerateData()
                     .Select(jersey => 
@@ -29,19 +29,21 @@ namespace WebStoryFroEveryting.Controllers
                             AthleteName = jersey.AthleteName,
                             Club = jersey.Club,
                             Img = jersey.Img,
-                            Number = jersey.Number
+                            Number = jersey.Number,
+                            InStock = jersey.InStock,
+                            Price = jersey.Price
                         })
                     .ToList()
-                    .ForEach(_jerseyRepository.AddJersey);
-                jerseys = _jerseyRepository.GetData();
+                    .ForEach(_jerseyRepository.Add);
+                jerseys = _jerseyRepository.GetAll();
             }
-            var _viewModels = jerseys.Select(Map).ToList();
-            return View(_viewModels);
+            var viewModels = jerseys.Select(Map).ToList();
+            return View(viewModels);
         }
         public ActionResult Detail(int id)
         {
-            var jerseys = _jerseyRepository.GetData();
-            if (jerseys.Count == 0)
+            var jerseys = _jerseyRepository.GetAll();
+            if (!jerseys.Any())
             {
                 _jerseyGenerator.GenerateData()
                     .Select(jersey =>
@@ -50,14 +52,16 @@ namespace WebStoryFroEveryting.Controllers
                             AthleteName = jersey.AthleteName,
                             Club = jersey.Club,
                             Img = jersey.Img,
-                            Number = jersey.Number
+                            Number = jersey.Number,
+                            InStock = jersey.InStock,
+                            Price = jersey.Price
                         })
                     .ToList()
-                    .ForEach(_jerseyRepository.AddJersey);
-                jerseys = _jerseyRepository.GetData();
+                    .ForEach(_jerseyRepository.Add);
+                jerseys = _jerseyRepository.GetAll();
             }
-            var _viewModels = jerseys.Select(Map).ToList();
-            JerseyViewModel model = _viewModels.Where(j => j.Id == id).FirstOrDefault();
+            var viewModels = jerseys.Select(Map).ToList();
+            var model = viewModels.Where(j => j.Id == id).FirstOrDefault();
             if (model == null)
             {
                 Response.StatusCode = 404;
@@ -69,7 +73,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpGet]
         public ActionResult Remove(int id)
         {
-            _jerseyRepository.RemoveJersey(id);
+            _jerseyRepository.Remove(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
@@ -81,13 +85,15 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Create(CreateJerseyViewModel createJerseyViewModel)
         {
-            _jerseyRepository.AddJersey(
+            _jerseyRepository.Add(
                     new JerseyData
                     {
                         AthleteName = createJerseyViewModel.AthleteName,
                         Club = createJerseyViewModel.Club,
                         Img = createJerseyViewModel.Img,
-                        Number = createJerseyViewModel.Number
+                        Number = createJerseyViewModel.Number,
+                        InStock = createJerseyViewModel.InStock,
+                        Price = createJerseyViewModel.Price
                     });
             return RedirectToAction(nameof(Index));
         }
@@ -99,7 +105,9 @@ namespace WebStoryFroEveryting.Controllers
                 Number = jerseyData.Number,
                 AthleteName = jerseyData.AthleteName,
                 Img = jerseyData.Img,
-                Club = jerseyData.Club
+                Club = jerseyData.Club,
+                InStock = jerseyData.InStock,
+                Price = jerseyData.Price
             };
         }
     }

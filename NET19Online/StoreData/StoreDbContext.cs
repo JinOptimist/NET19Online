@@ -11,6 +11,7 @@ namespace StoreData
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
 
+        public DbSet<JerseyData> Jerseys { get; set; }
 
         public StoreDbContext() { }
         public StoreDbContext(DbContextOptions option) : base(option) { }
