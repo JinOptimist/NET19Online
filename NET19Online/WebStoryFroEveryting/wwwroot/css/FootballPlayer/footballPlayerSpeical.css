@@ -42,3 +42,13 @@
     justify-content: center;
     align-items: center;
 }
+
+.buttons {
+    display: flex;
+}
+
+    .buttons .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
