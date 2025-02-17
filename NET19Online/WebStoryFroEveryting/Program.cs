@@ -40,6 +40,8 @@ builder.Services.AddScoped<MagicItemRepository>();
 builder.Services.AddScoped<TheBestUnderwaterHunters>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
+builder.Services.AddScoped<SingerRepository>();
+
 
 
 var app = builder.Build();

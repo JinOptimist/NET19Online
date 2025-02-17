@@ -1,25 +1,32 @@
 ﻿@using WebStoryFroEveryting.Models.Singers
-@model List<SingerViewModel>
+@model List<WebStoryFroEveryting.Models.Singers.SingerViewModel>
 
 @{
     Layout = "~/Views/Shared/_LayoutSinger.cshtml";
 }
+
 @section Styles {
     <link href="~/css/Singers/Singer.css" rel="stylesheet" />
 }
 
-    
-
-<div class="singers">
-    @foreach (var singers in Model)
-    {
-        <div class="singer">
-            <div class="name">@singers.Pseudonym</div>
-            <div class="image-container">
-                <img src="@singers.Src" />
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        @Model.FirstOrDefault()?.ErrorMessage
+    </div>
+}
+else
+{
+    <div class="singers">
+        @foreach (var singer in Model)
+        {
+            <div class="singer">
+                <div class="name">@singer.Pseudonym</div>
+                <div class="image-container">
+                    <img src="@singer.Src" />
+                </div>
+                <div class="style">Стиль Музыки: @singer.Style</div>
             </div>
-            <div class="style">Стиль Музыки: @singers.Style</div>
-            
-        </div>
-    }
-</div>
+        }
+    </div>
+}
