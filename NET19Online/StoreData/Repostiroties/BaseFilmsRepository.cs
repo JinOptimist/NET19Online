@@ -12,16 +12,16 @@ namespace StoreData.Repostiroties
     {
         protected FilmsDbContext _filmsDbContext;
         protected DbSet<DbModel> _filmsSet;
-        
+
         public BaseFilmsRepository(FilmsDbContext filmsDbContext)
         {
-           _filmsDbContext = filmsDbContext;
+            _filmsDbContext = filmsDbContext;
             _filmsSet = _filmsDbContext.Set<DbModel>();
         }
 
-        public virtual List<DbModel> GetAll ()
+        public virtual List<DbModel> GetAll()
         {
-           return _filmsSet.ToList();
+            return _filmsSet.ToList();
         }
 
         public virtual DbModel Get(int id)
