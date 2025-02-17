@@ -9,7 +9,7 @@ namespace StoreData
 
         public DbSet<IdolData> Idols { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
-
+        public DbSet<JerseyData> Jerseys { get; set; }
 
         public StoreDbContext() { }
         public StoreDbContext(DbContextOptions option) : base(option) { }
