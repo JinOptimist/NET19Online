@@ -16,10 +16,6 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult Index()
         {
             var singers = _singerRepository.GetSingers();
-            if (!singers.Any())
-            {
-                ViewBag.Message = "Нет доступных исполнителей.";
-            }
             var viewsModelSinger = singers.Select(s => new SingerViewModel()
             {
                 Id = s.Id,
@@ -27,6 +23,13 @@ namespace WebStoryFroEveryting.Controllers
                 Src = s.Src,
                 Style = s.Style
             }).ToList();
+
+            if (!singers.Any())
+            {
+                var errorMessage = "Нет доступных исполнителей.";
+                viewsModelSinger.Add(new SingerViewModel { ErrorMessage = errorMessage });
+            }
+
 
             return View(viewsModelSinger);
 

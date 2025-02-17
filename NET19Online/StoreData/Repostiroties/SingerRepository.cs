@@ -19,23 +19,17 @@ namespace StoreData.Repostiroties
             if (FakeDB.Count > 0)
             {
                 singer.Id = FakeDB.Count + 1;
-                FakeDB.Add(singer);
             }
             else
             {
-                {
-                    singer.Id = 1;
-                    FakeDB.Add(singer);
-                }
+                singer.Id = 1;
             }
+           
+            FakeDB.Add(singer);
         }
         public void RemoveSinger(int id)
         {
-            var singer = FakeDB.Where(s=>s.Id == id).FirstOrDefault();
-            if (singer != null)
-            {
-                FakeDB.Remove(singer);
-            }
+            var singer = FakeDB.FirstOrDefault(s => s.Id == id); 
         }
     }
 }

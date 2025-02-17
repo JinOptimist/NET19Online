@@ -8,5 +8,7 @@
         public string Src {  get; set; }
         
         public string Style { get; set; }
+        public string ErrorMessage { get; set; }
+
     }
 }
