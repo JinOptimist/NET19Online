@@ -1,41 +1,54 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebStoryFroEveryting.Models.Singers;
+using StoreData.Repostiroties;
+using StoreData.Models;
 
 namespace WebStoryFroEveryting.Controllers
 {
     public class SingerController : Controller
-    {
+    { 
+        private SingerRepository _singerRepository;
+        public SingerController(SingerRepository singerRepository)
+        {
+            _singerRepository = singerRepository;
+        }
         public IActionResult Index()
         {
-        var Singers = new List<SingerViewModel>
-        {
-              new()
-        {
-Pseudonym="Bruno Mars",
-Src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Bruno_Mars_Doowops.jpg/640px-Bruno_Mars_Doowops.jpg",
-Style="Поп"
-        },
-              new ()
-              {
-                  Pseudonym="Rammstein",
-                  Src="https://avatars.dzeninfra.ru/get-zen_doc/751940/pub_5aed0f7a9e29a23794d92d37_5aed1002fd96b16361b92f28/scale_1200",
-                  Style="Метал"
-              },
-              new ()
+            var singers = _singerRepository.GetSingers();
+            if (!singers.Any())
             {
-                  Pseudonym="Родион Газманов",
-                  Src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyxyvvJv7_NIVSFs5Uw0RVNqp27bmtBgaS7A&s",
-                  Style="Эстрада"
+                ViewBag.Message = "Нет доступных исполнителей.";
+            }
+            var viewsModelSinger = singers.Select(s => new SingerViewModel()
+            {
+                Id = s.Id,
+                Pseudonym = s.Pseudonym,
+                Src = s.Src,
+                Style = s.Style
+            }).ToList();
 
-              }
-        };
+            return View(viewsModelSinger);
 
-
-
-        // GET: SingerController
-        
-             return View(Singers);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(SingerViewModel singer)
+        {
+            var newSinger = new SingerData()
+            {
+                Pseudonym = singer.Pseudonym,
+                Src = singer.Src,
+                Style = singer.Style
+            };
+
+            _singerRepository.AddSinger(newSinger);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
