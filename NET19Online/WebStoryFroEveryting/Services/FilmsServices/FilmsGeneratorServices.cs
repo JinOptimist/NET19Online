@@ -7,41 +7,16 @@ namespace WebStoryFroEveryting.Services.FilmsServer
 {
     public class FilmsGeneratorServices
     {
-        private Dictionary<int, List<CreateFilmsViewModel>> _generatorName = new()
+
+        private List<CreateFilmsViewModel> _generatorName = new()
         {
-            {1, new List<CreateFilmsViewModel>
-                {
-                     new CreateFilmsViewModel
-                     {
-                          Name="Аватар ", Src="https://clck.ru/3GQKyT"
-                     }
-                }
-            },
-            {2, new List<CreateFilmsViewModel>
-                {
-                     new CreateFilmsViewModel
-                     {
-                          Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"
-                     }
-                }
-            },
-            {3, new List<CreateFilmsViewModel>
-                {
-                     new CreateFilmsViewModel
-                     {
-                          Name="Кунг-Фу Панда 4", Src="https://clck.ru/3GQL56"
-                     }
-                }
-            },
-            {4, new List<CreateFilmsViewModel>
-                {
-                     new CreateFilmsViewModel
-                     {
-                          Name="Fallou", Src="https://clck.ru/3GQL84"
-                     }
-                }
-            },
+            new CreateFilmsViewModel{Name="Аватар", Src="https://clck.ru/3GQKyT"},
+            new CreateFilmsViewModel{Name="Кунг-Фу Панда 4", Src="https://clck.ru/3GQL56"},
+            new CreateFilmsViewModel{Name="Fallou", Src="https://clck.ru/3GQL84"},
+            new CreateFilmsViewModel{Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"},
+
         };
+
         private Random _random = new();
 
         public FilmsGeneratorServices() { }
@@ -57,8 +32,8 @@ namespace WebStoryFroEveryting.Services.FilmsServer
                 var item = _generatorName[j];
                 var films = new FilmsViewModel()
                 {
-                    Name = item[0].Name,
-                    Src = item[0].Src,
+                    Name = item.Name,
+                    Src = item.Src,
                 };
                 itemsGenerator.Add(films);
             }

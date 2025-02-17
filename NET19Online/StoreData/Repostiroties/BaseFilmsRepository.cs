@@ -10,10 +10,10 @@ namespace StoreData.Repostiroties
 {
     public abstract class BaseFilmsRepository<DbModel> where DbModel : BaseModel
     {
-        protected FilmsDbContext _filmsDbContext;
+        protected StoreDbContext _filmsDbContext;
         protected DbSet<DbModel> _filmsSet;
 
-        public BaseFilmsRepository(FilmsDbContext filmsDbContext)
+        public BaseFilmsRepository(StoreDbContext filmsDbContext)
         {
             _filmsDbContext = filmsDbContext;
             _filmsSet = _filmsDbContext.Set<DbModel>();

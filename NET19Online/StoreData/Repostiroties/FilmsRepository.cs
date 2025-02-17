@@ -11,26 +11,6 @@ namespace StoreData.Repostiroties
     {
         private static List<FilmData> FilmsDatesBase = new();
 
-        public FilmsRepository(FilmsDbContext filmsDbContext): base(filmsDbContext) { }
-
-
-
-        //public List<DateFilm> GetItems()
-        //{
-        //    return FilmsDatesBase;
-        //}
-        //public void AddFilml(DateFilm films)
-        //{
-        //    films.IdFilm = FilmsDatesBase.Count > 0
-        //        ? FilmsDatesBase.Max(x => x.IdFilm) + 1
-        //        : 1;
-        //    FilmsDatesBase.Add(films);
-        //}
-
-        //public void RemoveFilm(int id)
-        //{
-        //    var t = FilmsDatesBase.FirstOrDefault(x => x.IdFilm==id);
-        //    FilmsDatesBase.Remove(t);
-        //}
+        public FilmsRepository(StoreDbContext filmsDbContext) : base(filmsDbContext) { }
     }
 }

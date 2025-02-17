@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StoreData.Migrations.FilmsDb
+namespace StoreData.Migrations
 {
     /// <inheritdoc />
     public partial class FilmsMigration : Migration
@@ -12,12 +12,11 @@ namespace StoreData.Migrations.FilmsDb
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DateFilms",
+                name: "FilmDatas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdFilm = table.Column<int>(type: "int", nullable: false),
                     FilmDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -25,7 +24,7 @@ namespace StoreData.Migrations.FilmsDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DateFilms", x => x.Id);
+                    table.PrimaryKey("PK_FilmDatas", x => x.Id);
                 });
         }
 
@@ -33,7 +32,7 @@ namespace StoreData.Migrations.FilmsDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DateFilms");
+                name: "FilmDatas");
         }
     }
 }

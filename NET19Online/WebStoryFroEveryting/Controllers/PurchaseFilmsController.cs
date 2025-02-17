@@ -29,13 +29,10 @@ namespace WebStoryFroEveryting.Controllers
                       Name = viewModel.Name,
                       Src = viewModel.Src,
                       Description = "Test"
-
-
                   }).ToList()
                   .ForEach(_filmsRepository.Add);
                 items = _filmsRepository.GetAll();
             }
-
 
             var viewModels = items.Select(Map).ToList();
             return View(viewModels);
@@ -76,11 +73,7 @@ namespace WebStoryFroEveryting.Controllers
                 Src = createFilmsViewModel.Src,
                 Description = "New"
             });
-
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
-
-
-
     }
 }
