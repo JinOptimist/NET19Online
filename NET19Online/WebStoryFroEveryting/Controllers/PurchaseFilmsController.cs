@@ -19,7 +19,7 @@ namespace WebStoryFroEveryting.Controllers
         }
         public IActionResult CreatePurchaseFilms()
         {
-            var items = _filmsRepository.GetItems();
+            var items = _filmsRepository.GetAll();
 
             if (!items.Any())
             {
@@ -28,9 +28,12 @@ namespace WebStoryFroEveryting.Controllers
                   {
                       Name = viewModel.Name,
                       Src = viewModel.Src,
+                      Description = "Test"
+                      
+
                   }).ToList()
-                  .ForEach(_filmsRepository.AddFilml);
-                items = _filmsRepository.GetItems();
+                  .ForEach(_filmsRepository.Add);
+                items = _filmsRepository.GetAll();
             }
 
 
@@ -40,7 +43,11 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult RemoveFilms(int id)
         {
-            _filmsRepository.RemoveFilm(id);
+            var items = _filmsRepository.Get(id);
+            if (items is not null)
+            {
+                _filmsRepository.Remove(items);
+            }
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
@@ -50,6 +57,7 @@ namespace WebStoryFroEveryting.Controllers
             { 
                Name=date.Name,
                Src=date.Src,
+               FilmId =date.Id
             };
         }
 
@@ -62,10 +70,11 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
         {
 
-            _filmsRepository.AddFilml(new DateFilm
+            _filmsRepository.Add(new DateFilm
             {
                 Name = createFilmsViewModel.Name,
-                Src = createFilmsViewModel.Src
+                Src = createFilmsViewModel.Src,
+                Description="New"
             });
 
             return RedirectToAction(nameof(CreatePurchaseFilms));

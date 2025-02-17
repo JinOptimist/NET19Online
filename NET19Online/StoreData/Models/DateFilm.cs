@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class DateFilm
+    public class DateFilm : BaseModel
     {
         public int IdFilm { get; set; }
         public DateTime FilmDate { get; set; }
