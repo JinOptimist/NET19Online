@@ -11,7 +11,6 @@ namespace WebStoryFroEveryting.Controllers
     {
         private FilmsRepository _filmsRepository;
         private FilmsGeneratorServices _filmsGeneratorServices;
-
         public PurchaseFilmsController(FilmsRepository filmsRepository, FilmsGeneratorServices filmsGeneratorServices)
         {
             _filmsRepository = filmsRepository;
