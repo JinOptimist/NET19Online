@@ -11,8 +11,7 @@ namespace StoreData
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<FilmData> FilmDatas { get; set; }
 
-        public StoreDbContext()
-        { }
+        public StoreDbContext() { }
         public StoreDbContext(DbContextOptions option) : base(option) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
