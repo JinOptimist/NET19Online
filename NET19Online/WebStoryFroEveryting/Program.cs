@@ -36,6 +36,11 @@ builder.Services.AddScoped<TheBestUnderwaterHunters>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
 
+builder.Services.AddScoped<SweetsNameGenerator>();
+builder.Services.AddScoped<SweetsModelGenerator>();
+builder.Services.AddScoped<SweetsRepository>();
+
+
 
 var app = builder.Build();
 

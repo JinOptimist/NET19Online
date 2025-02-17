@@ -9,16 +9,16 @@
 }
 
 <div class="idols">
-    @foreach (var idol in Model)
+    @foreach (var models in Model)
     {
-        <div class="idol">
-            <div class="name">@idol.Name</div>
+        <div class="models">
+            <div class="name">@models.Name</div>
             <div class="image-container">
-                <img src="@idol.Src" />
+                <img src="@models.Src" />
             </div>
             <div class="buttons">
                 <div class="button">+</div>
-                <div class="button">-</div>
+                <a href="/SweetsStore/Remove?id=@models.Id" class="button">-</a>
             </div>
         </div>
     }
