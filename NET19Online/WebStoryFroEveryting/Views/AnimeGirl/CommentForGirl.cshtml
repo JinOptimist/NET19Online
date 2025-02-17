@@ -1,0 +1,53 @@
+﻿@using WebStoryFroEveryting.Models.AnimeGirl
+@model IdolWithCommentViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAnime.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/AnimeGirl/animeGirlWithComments.css" rel="stylesheet" />
+}
+
+<div class="idol-with-comment">
+    <div class="idol-container">
+        <h1>@Model.Name</h1>
+        <div class="tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="tag">@tag</span>
+            }
+        </div>
+        <form method="post" action="/AnimeGirl/AddTag">
+            <input name="idolId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="tag" placeholder="type tag here" />
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+        <img src="@Model.Src" />
+    </div>
+    <div class="comments-container">
+        <div class="comments">
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment">
+                    @comment.Comment [@comment.Created]
+                </div>
+            }
+        </div>
+
+        <form method="post" action="/AnimeGirl/AddComment">
+            <input name="idolId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="comment" placeholder="type comment here" />
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+    </div>
+</div>
+

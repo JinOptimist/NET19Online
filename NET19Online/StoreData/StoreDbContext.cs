@@ -8,6 +8,8 @@ namespace StoreData
         public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Net19Store;Integrated Security=True;";
 
         public DbSet<IdolData> Idols { get; set; }
+        public DbSet<IdolCommentData> IdolComments { get; set; }
+        public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
 
@@ -21,6 +23,20 @@ namespace StoreData
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(CONNECTION_STRING);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdolData>()
+                .HasMany(idol => idol.Comments)
+                .WithOne(comment => comment.Idol)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<IdolData>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Idols);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

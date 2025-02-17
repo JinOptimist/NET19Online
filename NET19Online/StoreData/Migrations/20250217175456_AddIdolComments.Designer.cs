@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250217175456_AddIdolComments")]
+    partial class AddIdolComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace StoreData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("IdolDataIdolTagData", b =>
-                {
-                    b.Property<int>("IdolsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdolsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("IdolDataIdolTagData");
-                });
 
             modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
                 {
@@ -112,23 +100,6 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Idols");
-                });
-
-            modelBuilder.Entity("StoreData.Models.IdolTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdolTags");
                 });
 
             modelBuilder.Entity("StoreData.Models.JerseyData", b =>
@@ -229,21 +200,6 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FootballPlayers");
-                });
-
-            modelBuilder.Entity("IdolDataIdolTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.IdolData", null)
-                        .WithMany()
-                        .HasForeignKey("IdolsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreData.Models.IdolTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
