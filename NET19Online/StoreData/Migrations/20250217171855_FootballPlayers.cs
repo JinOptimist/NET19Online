@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class FootballPlayers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
