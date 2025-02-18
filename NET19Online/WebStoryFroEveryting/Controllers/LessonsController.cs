@@ -52,7 +52,8 @@ public class LessonsController: Controller
         {
             Title = lessonViewModel.Title,
             Preview = lessonViewModel.Preview,
-            Source = lessonViewModel.Source
+            Source = lessonViewModel.Source,
+            Level = lessonViewModel.Level
         });
         return RedirectToAction(nameof(Index));
     }

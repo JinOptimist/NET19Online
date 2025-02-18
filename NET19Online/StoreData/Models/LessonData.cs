@@ -1,16 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Enums.Lesson;
 
 namespace StoreData.Models;
-
-public enum Level
-{
-    [Display(Name = "Начинающий")]
-    Beginner,
-    [Display(Name = "Базовый")]
-    Base,
-    [Display(Name = "Продвинутый")]
-    Advanced,
-}
 
 public class LessonData : BaseModel
 {
@@ -18,6 +9,5 @@ public class LessonData : BaseModel
     public string Title { get; set; } = string.Empty;
     public string Source { get; set; } = string.Empty;
     public string Preview { get; set; } = string.Empty;
-    
     public Level Level { get; set; }
 }
