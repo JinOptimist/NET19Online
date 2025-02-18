@@ -21,6 +21,7 @@ builder.Services.AddScoped<NotebookRepository>();
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 builder.Services.AddScoped<LessonRepository>();
+builder.Services.AddScoped<LessonCommentRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();

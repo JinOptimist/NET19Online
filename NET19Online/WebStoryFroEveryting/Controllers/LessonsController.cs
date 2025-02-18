@@ -8,10 +8,12 @@ namespace WebStoryFroEveryting.Controllers;
 public class LessonsController: Controller
 {
     private readonly LessonRepository _lessonRepository;
+    private readonly LessonCommentRepository _commentRepository;
 
-    public LessonsController(LessonRepository lessonRepository)
+    public LessonsController(LessonRepository lessonRepository, LessonCommentRepository lessonCommentRepository)
     {
         _lessonRepository = lessonRepository;
+        _commentRepository = lessonCommentRepository;
     }
     public IActionResult Index()
     {
@@ -30,9 +32,7 @@ public class LessonsController: Controller
         {
             throw new ArgumentException("Id not found");
         }
-
-        return View(MapToViewModel(result));
-
+        return View(MapToCommentViewModel(result));
     }
 
     [HttpGet]
@@ -56,6 +56,13 @@ public class LessonsController: Controller
             Level = lessonViewModel.Level
         });
         return RedirectToAction(nameof(Index));
+    }
+    
+    [HttpPost]
+    public IActionResult CreateComment(int lessonId, string description)
+    {
+        _commentRepository.AddComment(lessonId, description);
+        return RedirectToAction(nameof(Details), new { id = lessonId });
     }
 
     public IActionResult Remove(int id)
@@ -83,6 +90,25 @@ public class LessonsController: Controller
         return RedirectToAction(nameof(Index));
     }
     
+    private LessonWithCommentViewModel MapToCommentViewModel(LessonData lessonData)
+    {
+        var commentsViewModel = lessonData.Comments
+            .Select(c => new LessonCommentViewModel()
+            {
+                Created = c.Created,
+                Description = c.Description,
+                Id = c.Id
+            })
+            .ToList();
+        return new LessonWithCommentViewModel()
+        {
+            Id = lessonData.Id,
+            Preview = lessonData.Preview,
+            Source = lessonData.Source,
+            Title = lessonData.Title,
+            Comments = commentsViewModel
+        };
+    }
     private LessonViewModel MapToViewModel(LessonData lessonData)
     {
         return new LessonViewModel()
@@ -93,6 +119,7 @@ public class LessonsController: Controller
             Title = lessonData.Title,
         };
     }
+    
     
     private LessonData MapToData(LessonViewModel lessonViewModel)
     {

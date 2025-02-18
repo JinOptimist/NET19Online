@@ -11,8 +11,8 @@ using StoreData;
 namespace StoreData.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20250214101827_Initial")]
-    partial class Initial
+    [Migration("20250216203416_AddLevelToLessonData")]
+    partial class AddLevelToLessonData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace StoreData.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Preview")
                         .IsRequired()

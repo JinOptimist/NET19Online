@@ -10,4 +10,6 @@ public class LessonData : BaseModel
     public string Source { get; set; } = string.Empty;
     public string Preview { get; set; } = string.Empty;
     public Level Level { get; set; }
+
+    public List<LessonCommentData> Comments { get; set; } = [];
 }

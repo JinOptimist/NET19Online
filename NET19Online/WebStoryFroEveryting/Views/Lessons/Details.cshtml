@@ -2,7 +2,7 @@
     Layout = "_LayoutLessons";
 }
 
-@model WebStoryFroEveryting.Models.Lessons.LessonViewModel
+@model WebStoryFroEveryting.Models.Lessons.LessonWithCommentViewModel
 
 @section Styles{
     <link href="~/css/Lessons/details.css" rel="stylesheet" />
@@ -13,6 +13,14 @@
         <iframe width="560" height="315" src=@Model.Source title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="lesson-details-title">@Model.Title</div>
+    <div>
+        @foreach (var comment in @Model.Comments)
+        {
+            <div>qwe</div>
+            <div>@comment.Description</div>
+            <div>@comment.Created</div>
+        }
+    </div>
     
     <div class="action-buttons">
         <a href="@Url.Action("Remove", "Lessons", new {id = @Model.Id})"
@@ -20,5 +28,16 @@
            class="btn-remove">Удалить</a>
         <a href="@Url.Action("Update", "Lessons", new {id = @Model.Id})"
            class="btn-edit">Изменить</a>
+    </div>
+    
+    <div>
+        <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id">
+            <div>
+                <textarea name="description" placeholder="Ваш комментарий"></textarea>
+            </div>
+            <div>
+                <button type="submit">Создать</button>
+            </div>
+        </form>
     </div>
 </div>
