@@ -47,16 +47,6 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
-        private FilmsViewModel Map(FilmData date)
-        {
-            return new FilmsViewModel
-            {
-                Name = date.Name,
-                Src = date.Src,
-                FilmId = date.Id
-            };
-        }
-
         public IActionResult CreateFilms()
         {
             return View();
@@ -73,6 +63,16 @@ namespace WebStoryFroEveryting.Controllers
                 Description = "New"
             });
             return RedirectToAction(nameof(CreatePurchaseFilms));
+        }
+
+        private FilmsViewModel Map(FilmData date)
+        {
+            return new FilmsViewModel
+            {
+                Name = date.Name,
+                Src = date.Src,
+                FilmId = date.Id
+            };
         }
     }
 }
