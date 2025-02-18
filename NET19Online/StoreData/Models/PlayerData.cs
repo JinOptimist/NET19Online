@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class PlayerData
+    public class PlayerData : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Src { get; set; }
         public string Position { get; set; }
