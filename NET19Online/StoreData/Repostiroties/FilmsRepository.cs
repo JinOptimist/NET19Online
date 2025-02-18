@@ -9,24 +9,24 @@ namespace StoreData.Repostiroties
 {
     public class FilmsRepository
     {
-        private static List<FilmsDate> FilmsDatesBase = new();
+        private static List<FilmData> FilmsDatesBase = new();
 
-        public List<FilmsDate> GetItems()
+        public List<FilmData> GetItems()
         {
             return FilmsDatesBase;
         }
-        public void AddFilml(FilmsDate films)
+        public void AddFilml(FilmData films)
         {
-            films.IdFilm = FilmsDatesBase.Count > 0
-                ? FilmsDatesBase.Max(x => x.IdFilm) + 1
+            films.Id = FilmsDatesBase.Count > 0
+                ? FilmsDatesBase.Max(x => x.Id) + 1
                 : 1;
             FilmsDatesBase.Add(films);
         }
 
         public void RemoveFilm(int id)
         {
-            var t = FilmsDatesBase.FirstOrDefault(x => x.IdFilm==id);
-            FilmsDatesBase.Remove(t);
+            var result = FilmsDatesBase.FirstOrDefault(x => x.Id == id);
+            FilmsDatesBase.Remove(result);
         }
     }
 }
