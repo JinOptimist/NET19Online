@@ -261,6 +261,34 @@ namespace StoreData.Migrations
                 {
                     b.Navigation("Comments");
                 });
+
+            modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MaxHuntingDepth")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NameHunter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnderwaterHunters");
+                });
 #pragma warning restore 612, 618
         }
     }

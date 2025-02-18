@@ -11,6 +11,8 @@ namespace StoreData
         public DbSet<IdolCommentData> IdolComments { get; set; }
         public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
+        public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
+        
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
 
         public DbSet<JerseyData> Jerseys { get; set; }
