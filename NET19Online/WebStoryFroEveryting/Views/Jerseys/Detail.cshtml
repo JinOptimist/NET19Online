@@ -1,5 +1,5 @@
 ﻿@using WebStoryFroEveryting.Models.Jerseys
-@model JerseyViewModel
+@model JerseyWithCommentsViewModel
 @{
     Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
@@ -19,6 +19,41 @@
         </div>
         <div class="jersey-detail-number">
             Номер: @Model.Number
+        </div>
+        <div class="tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="tag">@tag</span>
+            }
+        </div>
+        <form method="post" action="/jerseys/AddTag">
+            <input name="jerseyId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="tag" placeholder="type tag here" />
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+        <div class="comments-container">
+            <div class="comments">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="comment">
+                        @comment.Comment [@comment.Created]
+                    </div>
+                }
+            </div>
+
+            <form method="post" action="/jerseys/AddComment">
+                <input name="jerseyId" type="hidden" value="@Model.Id" />
+                <div>
+                    <input name="commenttext" placeholder="type comment here" />
+                </div>
+                <div>
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
         </div>
     </div>
     

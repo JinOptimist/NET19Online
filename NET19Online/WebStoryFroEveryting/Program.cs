@@ -30,6 +30,7 @@ builder.Services.AddScoped<IdolCommentRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
+builder.Services.AddScoped<JerseyCommentRepository>();
 
 builder.Services.AddScoped<MagicItemGenerator>();
 builder.Services.AddScoped<MagicItemCategoryGenerator>();
