@@ -1,0 +1,28 @@
+﻿@using WebStoryFroEveryting.Models.Aromatherapy
+@model List<AromaticObjectViewModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAromatherapy.cshtml";
+            // Aromatherapy/AromatherapyIndex
+}
+
+@section Styles {
+    <link href="~/css/Aromatherapy/AromaElementStyle.css" rel="stylesheet" />
+}
+
+<div class="flavors">
+    @foreach (var flavor in Model)
+    {
+        <div class="flavor-container">
+            <div class="flavor-card">
+                <img src="@flavor.Src" class="flavor-image" />
+                <h2 class="flavor-name">@flavor.Name</h2>
+                <p class="flavor-text flavor-accent-text-weight">Тип: @flavor.ObjectType</p>
+                <p class="flavor-text flavor-simple-text-weight"> @flavor.Description</p>
+                <p class="flavor-text flavor-accent-text-weight">Цена: @flavor.Price</p>
+                <button>Заказать</button>
+
+            </div>
+        </div>
+    }
+</div>
