@@ -3,6 +3,7 @@ using StoreData;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.FilmsServer;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,10 @@ builder.Services.AddScoped<NotebookRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
+builder.Services.AddScoped<FilmsGeneratorServices>();
+
+builder.Services.AddScoped<FilmsRepository>();
+builder.Services.AddScoped<LessonRepository>();
 //builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
