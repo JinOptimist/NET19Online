@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250218161916_AddTagsAndCommentsToJerseyStore")]
+    partial class AddTagsAndCommentsToJerseyStore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,6 @@ namespace StoreData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
 
             modelBuilder.Entity("IdolDataIdolTagData", b =>
                 {
@@ -61,20 +63,13 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FilmDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                         .IsRequired()
-                         .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -85,7 +80,6 @@ namespace StoreData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilmDatas");
                     b.ToTable("GamingDevices");
                 });
 
@@ -170,12 +164,12 @@ namespace StoreData.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("JerseyId")
+                    b.Property<int>("IdolId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JerseyId");
+                    b.HasIndex("IdolId");
 
                     b.ToTable("JerseysComments");
                 });
@@ -368,13 +362,13 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.JerseyCommentData", b =>
                 {
-                    b.HasOne("StoreData.Models.JerseyData", "Jersey")
+                    b.HasOne("StoreData.Models.JerseyData", "Idol")
                         .WithMany("Comments")
-                        .HasForeignKey("JerseyId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("IdolId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Jersey");
+                    b.Navigation("Idol");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolData", b =>
