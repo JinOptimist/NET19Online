@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250218185849_AddUnderwaterHunterCommentsMigration")]
+    partial class AddUnderwaterHunterCommentsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +249,7 @@ namespace StoreData.Migrations
                     b.Property<DateTime>("Create")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HunterIdId")
+                    b.Property<int?>("HunterIdId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -284,38 +287,6 @@ namespace StoreData.Migrations
                     b.ToTable("UnderwaterHunters");
                 });
 
-            modelBuilder.Entity("StoreData.Models.UnderwaterHunterTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UnderwaterHunterTags");
-                });
-
-            modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
-                {
-                    b.Property<int>("HuntersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("HuntersId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
-                });
-
             modelBuilder.Entity("IdolDataIdolTagData", b =>
                 {
                     b.HasOne("StoreData.Models.IdolData", null)
@@ -346,26 +317,9 @@ namespace StoreData.Migrations
                 {
                     b.HasOne("StoreData.Models.UnderwaterHunterData", "HunterId")
                         .WithMany("Comments")
-                        .HasForeignKey("HunterIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HunterIdId");
 
                     b.Navigation("HunterId");
-                });
-
-            modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.UnderwaterHunterData", null)
-                        .WithMany()
-                        .HasForeignKey("HuntersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreData.Models.UnderwaterHunterTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolData", b =>

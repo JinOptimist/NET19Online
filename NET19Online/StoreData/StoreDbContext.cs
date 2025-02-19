@@ -12,7 +12,8 @@ namespace StoreData
         public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
-        
+        public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
+        public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
 
         public DbSet<JerseyData> Jerseys { get; set; }
@@ -37,6 +38,14 @@ namespace StoreData
             modelBuilder.Entity<IdolData>()
                 .HasMany(x => x.Tags)
                 .WithMany(x => x.Idols);
+
+            modelBuilder.Entity<UnderwaterHunterData>()
+                .HasMany(x => x.Comments)
+                .WithOne(x => x.HunterId);
+
+            modelBuilder.Entity<UnderwaterHunterData>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Hunters);
 
             base.OnModelCreating(modelBuilder);
         }
