@@ -10,7 +10,6 @@ namespace WebStoryFroEveryting.Controllers
     {
         private HuntersGenerator _huntersGenerator;
         private UnderwarterHunterRepository _hunterRepository;
-        
 
         public UnderwaterHunterController(HuntersGenerator huntersGenerator, UnderwarterHunterRepository hunterRepository)
         {
@@ -19,12 +18,12 @@ namespace WebStoryFroEveryting.Controllers
         }
         public IActionResult CreatePageUnderwaterHunter()
         {
-            var hunterDatas = _hunterRepository.GetHunters();
+            var hunterDatas = _hunterRepository.GetAll();
             if (!hunterDatas.Any())
             {
                 var huntData = GetHuntersFromHunterGenerator();
-                huntData.ForEach(x => _hunterRepository.AddHunters(x));
-                hunterDatas = _hunterRepository.GetHunters();
+                huntData.ForEach(x => _hunterRepository.Add(x));
+                hunterDatas = _hunterRepository.GetAll();
             }
             var viewModel = hunterDatas.Select(ChangeBaseDataTypeToViewModelTypes).ToList();
             return View(viewModel);
@@ -39,7 +38,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult CreateNewHunter(CreateUnderwaterHunterModel hunterModel)
         {
-            _hunterRepository.AddHunters(new UnderwaterHunterData
+            _hunterRepository.Add(new UnderwaterHunterData
             {
                 NameHunter = hunterModel.NameHunter,
                 Nationality = hunterModel.Nationality,

@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 
 namespace StoreData.Repostiroties
 {
@@ -10,6 +11,35 @@ namespace StoreData.Repostiroties
         {
             _dbContext.Idols.AddRange(idols);
             _dbContext.SaveChanges();
+        }
+
+        public void AddTag(int idolId, string tagText)
+        {
+            var tag = _dbContext.IdolTags.FirstOrDefault(x => x.Tag == tagText);
+            if (tag is null)
+            {
+                tag = new IdolTagData { Tag = tagText };
+            }
+
+            var idol = Get(idolId);
+            idol.Tags.Add(tag);
+            _dbContext.SaveChanges();
+        }
+
+        public List<IdolData> GetAllWithTags(string? tag)
+        {
+            return _dbSet
+                .Include(x => x.Tags)
+                .Where(idol => tag == null || idol.Tags.Any(t => t.Tag == tag))
+                .ToList();
+        }
+
+        public IdolData GetWithCommentsAndTags(int idolId)
+        {
+            return _dbSet
+                .Include(x => x.Comments)
+                .Include(x => x.Tags)
+                .First(x => x.Id == idolId);
         }
     }
 }

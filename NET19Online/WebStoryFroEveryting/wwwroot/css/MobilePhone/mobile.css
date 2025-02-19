@@ -1,0 +1,23 @@
+.header {
+    font-size: 36px;
+    justify-content: center;
+    display: flex;
+    background: #00ff90
+}
+
+.menu-content {
+    display: flex;
+}
+
+.menu {
+    width: 150px;
+    padding: 10px;
+    background: orange;
+    min-height: 300px;
+}
+
+    .menu .linc {
+        border: green 2px solid;
+        border-radius: 3px;
+        margin: 3px;
+    }

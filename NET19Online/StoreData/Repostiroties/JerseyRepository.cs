@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,27 +8,38 @@ using System.Threading.Tasks;
 
 namespace StoreData.Repostiroties
 {
-    public class JerseyRepository
+    public class JerseyRepository : BaseRepository<JerseyData>
     {
-        private static List<JerseyData> JerseysDB = new List<JerseyData>();
-        public List<JerseyData> GetData()
+        public JerseyRepository(StoreDbContext dbContext) : base(dbContext) { }
+
+        public void AddTag(int jerseyId, string tagString)
         {
-            return JerseysDB;
-        }
-        public void AddJersey(JerseyData jerseyData)
-        {
-            jerseyData.Id = JerseysDB.Count == 0
-                ? 1
-                : JerseysDB.Max(j => j.Id) + 1;
-            JerseysDB.Add(jerseyData);
-        }
-        public void RemoveJersey(int id)
-        {
-            JerseyData jerseyData = JerseysDB.Where(j => j.Id == id).FirstOrDefault();
-            if (jerseyData != null)
+            var tag = _dbContext.JerseysTags.FirstOrDefault(tag => tag.Tag == tagString);
+
+            if (tag is null)
             {
-                JerseysDB.Remove(jerseyData);
+                tag = new JerseyTagData { Tag = tagString };
             }
+            var jersey = Get(jerseyId);
+            jersey.Tags.Add(tag);
+            _dbContext.SaveChanges();
         }
+
+        public JerseyData GetWithCommentsAndTags(int jerseyId)
+        {
+            return _dbSet
+                .Include(x => x.Comments)
+                .Include(x => x.Tags)
+                .First(x => x.Id == jerseyId);
+        }
+
+        public List<JerseyData> GetAllWithTags(string? tag)
+        {
+            return _dbSet
+                .Include(x => x.Tags)
+                .Where(x => tag == null || x.Tags.Any(t => t.Tag == tag))
+                .ToList();
+        }
+        
     }
 }
