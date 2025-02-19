@@ -9,7 +9,6 @@ namespace StoreData.Repostiroties
 {
     public class FilmsRepository : BaseFilmsRepository<FilmData>
     {
-        private static List<FilmData> FilmsDatesBase = new();
-        public FilmsRepository(StoreDbContext filmsDbContext) : base(filmsDbContext) { }
+         public FilmsRepository(StoreDbContext filmsDbContext) : base(filmsDbContext) { }
     }
 }
