@@ -21,15 +21,15 @@ builder.Services.AddScoped<NotebookRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
- builder.Services.AddScoped<FilmsGeneratorServices>();
+builder.Services.AddScoped<FilmsGeneratorServices>();
 
-builder.Services.AddScoped<FilmsRepository>(); 
+builder.Services.AddScoped<FilmsRepository>();
 builder.Services.AddScoped<LessonRepository>();
- //builder.Services.AddScoped<LessonRepository>();
+//builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
- 
+
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<IdolCommentRepository>();
 builder.Services.AddScoped<PlayerRepository>();
