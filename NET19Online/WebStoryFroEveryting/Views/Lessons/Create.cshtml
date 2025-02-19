@@ -1,29 +1,34 @@
+@using StoreData.Models
+@using Microsoft.EntityFrameworkCore.Query.Internal
 @model WebStoryFroEveryting.Models.Lessons.LessonViewModel
 
 @{
-    Layout = null;
+    Layout = "_LayoutLessons";
 }
-<!DOCTYPE html>
-<html>
-<head>
+
+@section Styles{
     <link href="~/css/Lessons/create.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="form-container">
-            <form method="post" action="/Lessons/CreatePost">
-                <div>
-                    @Html.TextBoxFor(x => x.Title, new { placeholder = "Заголовок" })
-                </div>
-                <div>
-                    @Html.TextBoxFor(x => x.Source, new { placeholder = "Ссылка на видео" })
-                </div>
-                <div>
-                    @Html.TextBoxFor(x => x.Preview, new { placeholder = "Ссылка на превью изображения" })
-                </div>
-                <div>
-                    <button type="submit">Создать</button>
-                </div>
-            </form>
+}
+<div class="form-container">
+    <form method="post" action="/Lessons/Create">
+        <div>
+            @Html.TextBoxFor(x => x.Title, new { placeholder = "Заголовок" })
+                
         </div>
-</body>
-</html>
+        <div>
+            @Html.TextBoxFor(x => x.Source, new { placeholder = "Ссылка на видео" })
+            @Html.ValidationMessageFor(x => x.Source)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Preview, new { placeholder = "Ссылка на превью изображения" })
+            @Html.ValidationMessageFor(x => x.Preview)
+        </div>
+        <div>
+            @Html.DropDownListFor(x => x.Level, Html.GetEnumSelectList<Level>(), "Выберите уровень");
+        </div>
+        <div>
+            <button type="submit">Создать</button>
+        </div>
+    </form>
+</div>
+
