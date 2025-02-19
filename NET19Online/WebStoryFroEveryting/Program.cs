@@ -12,8 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<StoreDbContext>(x => x.UseSqlServer(StoreDbContext.CONNECTION_STRING));
-//builder.Services.AddDbContext<SchoolDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
+builder.Services.AddDbContext<SchoolDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
 
@@ -21,11 +21,14 @@ builder.Services.AddScoped<NotebookRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
+
+builder.Services.AddScoped<LessonRepository>();
+builder.Services.AddScoped<LessonCommentRepository>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 
 builder.Services.AddScoped<FilmsRepository>();
 builder.Services.AddScoped<LessonRepository>();
-//builder.Services.AddScoped<LessonRepository>();
+
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
