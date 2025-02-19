@@ -12,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<StoreDbContext>(x => x.UseSqlServer(StoreDbContext.CONNECTION_STRING));
-
+//builder.Services.AddDbContext<SchoolDbContext>(options =>
+//    options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
 
@@ -26,6 +27,11 @@ builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>(); 
 builder.Services.AddScoped<LessonRepository>();
 
+builder.Services.AddScoped<GamingDeviceGenerator>();
+builder.Services.AddScoped<GamingDeviceRepository>();
+
+builder.Services.AddScoped<IdolRepository>();
+builder.Services.AddScoped<IdolCommentRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
@@ -39,6 +45,8 @@ builder.Services.AddScoped<MagicItemRepository>();
 builder.Services.AddScoped<TheBestUnderwaterHunters>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
+builder.Services.AddScoped<SingerRepository>();
+
 
 
 var app = builder.Build();
