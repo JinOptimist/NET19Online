@@ -23,7 +23,7 @@ namespace StoreData
 
 
         public StoreDbContext() { }
-        public StoreDbContext(DbContextOptions option) : base(option) { }
+        public StoreDbContext(DbContextOptions<StoreDbContext> option) : base(option) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
