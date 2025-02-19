@@ -13,14 +13,6 @@
         <iframe width="560" height="315" src=@Model.Source title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="lesson-details-title">@Model.Title</div>
-    <div>
-        @foreach (var comment in @Model.Comments)
-        {
-            <div>qwe</div>
-            <div>@comment.Description</div>
-            <div>@comment.Created</div>
-        }
-    </div>
     
     <div class="action-buttons">
         <a href="@Url.Action("Remove", "Lessons", new {id = @Model.Id})"
@@ -29,15 +21,22 @@
         <a href="@Url.Action("Update", "Lessons", new {id = @Model.Id})"
            class="btn-edit">Изменить</a>
     </div>
+
+</div>
+
     
-    <div>
-        <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id">
-            <div>
-                <textarea name="description" placeholder="Ваш комментарий"></textarea>
+<div class="comments-section">
+    <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id" class="comment-form">
+        <textarea name="description" placeholder="Ваш комментарий"></textarea>
+        <button type="submit">Создать</button>
+    </form>
+    <div class="comments-list">
+        @foreach (var comment in @Model.Comments)
+        {
+            <div class="comment-item">
+                <div class="comment-description">@comment.Description</div>
+                <div class="comment-created">@comment.Created.ToString("g")</div>
             </div>
-            <div>
-                <button type="submit">Создать</button>
-            </div>
-        </form>
+        }
     </div>
 </div>
