@@ -1,10 +1,15 @@
-﻿@{
+﻿@using WebStoryFroEveryting.Models.Home
+@model IndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<div>
+    Привет @Model.UserName
+</div>
 <div class="text-center">
     <a href="/FootballPlayer/ViewInfoAboutTeamPlayer">Состав ФК Динамо Москва</a>
-    <a href="/AnimeGirl/CreateOrderForAnimeGirl">Idols</a>
+    <a href="/AnimeGirl/Index">Idols</a>
     <a href="/PurchaseFilms/CreatePurchaseFilms">Films</a>
     <a href="/AnimeGirl/Index">Idols</a>
     <a href="/jerseys/">Jerseys Store</a>

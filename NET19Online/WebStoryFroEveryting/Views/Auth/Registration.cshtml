@@ -1,0 +1,15 @@
+﻿@using WebStoryFroEveryting.Models.Auth
+@model AuthViewModel
+
+
+<form method="post" action="/Auth/Registration">
+    <div>
+        @Html.TextBoxFor(x => x.UserName, new { placeholder = "UserName" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", @type = "password" })
+    </div>
+    <div>
+        <button type="submit">Зарегистрироваться</button>
+    </div>
+</form>
