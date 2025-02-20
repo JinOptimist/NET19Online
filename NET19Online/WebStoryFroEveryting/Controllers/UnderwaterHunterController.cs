@@ -10,25 +10,35 @@ namespace WebStoryFroEveryting.Controllers
     {
         private HuntersGenerator _huntersGenerator;
         private UnderwarterHunterRepository _hunterRepository;
+        private UnderwarterHunterCommentRepository _hunterCommentRepository;
 
-        public UnderwaterHunterController(HuntersGenerator huntersGenerator, UnderwarterHunterRepository hunterRepository)
+        public UnderwaterHunterController(HuntersGenerator huntersGenerator,
+                                           UnderwarterHunterRepository hunterRepository,
+                                            UnderwarterHunterCommentRepository hunterCommentRepository)
         {
             _huntersGenerator = huntersGenerator;
             _hunterRepository = hunterRepository;
+            _hunterCommentRepository = hunterCommentRepository;
         }
-        public IActionResult CreatePageUnderwaterHunter()
+
+        public IActionResult Index(string? tag)
         {
-            var hunterDatas = _hunterRepository.GetAll();
+            var hunterDatas = _hunterRepository.GetAllHuntersAndTags(tag);
             if (!hunterDatas.Any())
             {
                 var huntData = GetHuntersFromHunterGenerator();
                 huntData.ForEach(x => _hunterRepository.Add(x));
                 hunterDatas = _hunterRepository.GetAll();
             }
-            var viewModel = hunterDatas.Select(ChangeBaseDataTypeToViewModelTypes).ToList();
+            var viewModel = new HunterIndexViewModel();
+            viewModel.Hunters = hunterDatas.Select(ChangeBaseDataTypeToViewModelTypes).ToList();
+            viewModel.Tags = hunterDatas
+                .SelectMany(x => x.Tags)
+                .Select(x => x.Tag)
+                .Distinct()
+                .ToList();
             return View(viewModel);
         }
-
         [HttpGet]
         public IActionResult CreateNewHunter()
         {
@@ -45,12 +55,41 @@ namespace WebStoryFroEveryting.Controllers
                 MaxHuntingDepth = hunterModel.MaxHuntingDepth,
                 Src = hunterModel.Image
             });
-            return RedirectToAction(nameof(CreatePageUnderwaterHunter));
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Remove(int id)
         {
             _hunterRepository.Remove(id);
-            return RedirectToAction(nameof(CreatePageUnderwaterHunter));
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult CommentHunter(int id)
+        {
+            var hunter = _hunterRepository.GetHunterWithCommentAndTag(id);
+            var viewModel = new CommentHunterViewModel
+            {
+                Id = hunter.Id,
+                Src = hunter.Src,
+                Name = hunter.NameHunter,
+                Comments = hunter.Comments
+            };
+
+            viewModel.Tags = hunter.Tags
+                .Select(x => x.Tag)
+                .ToList();
+
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult AddTagHunter(int id, string tag)
+        {
+            _hunterRepository.AddTag(id, tag);
+            return RedirectToAction(nameof(CommentHunter), new { id });
+        }
+        [HttpPost]
+        public IActionResult AddCommentForHunter(int id, string comment)
+        {
+            _hunterCommentRepository.AddComment(id, comment);
+            return RedirectToAction(nameof(CommentHunter), new { id });
         }
         private List<UnderwaterHunterData> GetHuntersFromHunterGenerator()
         {

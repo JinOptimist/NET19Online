@@ -1,0 +1,20 @@
+.comment-hunter {
+    display: flex;
+    transform: translate(300px, 109px);
+}
+
+.imageHunter {
+    width: 400px;
+}
+
+.nameHunter {
+    transform: translate(349px, 94px);
+}
+
+.comments-base {
+    transform: translate(-170px, 56px);
+}
+
+.tags-hunter {
+    transform: translate(301px, 105px)
+}
