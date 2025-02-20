@@ -21,7 +21,7 @@ namespace StoreData.Repostiroties
             {
                 Comment = comment,
                 Create = DateTime.Now,
-                HunterId = hunterId
+                Hunter = hunterId
             };
             base.Add(hunterComment);
         }

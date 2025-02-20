@@ -1,6 +1,6 @@
 ﻿namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
 {
-    public class TheBestUnderwaterHunters
+    public class UnderwaterHunterViewModel
     {
         public int Id { get; set; }
         public string NameHunter { get; set; }

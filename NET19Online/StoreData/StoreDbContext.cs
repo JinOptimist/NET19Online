@@ -45,7 +45,7 @@ namespace StoreData
 
             modelBuilder.Entity<UnderwaterHunterData>()
                 .HasMany(x => x.Comments)
-                .WithOne(x => x.HunterId);
+                .WithOne(x => x.Hunter);
 
             modelBuilder.Entity<UnderwaterHunterData>()
                 .HasMany(x => x.Tags)

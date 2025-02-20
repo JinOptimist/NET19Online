@@ -71,6 +71,14 @@ namespace WebStoryFroEveryting.Controllers
                 Src = hunter.Src,
                 Name = hunter.NameHunter,
                 Comments = hunter.Comments
+                .Select(x => new UnderwaterHunterCommentViewModel
+                {
+                    Id = x.Id,
+                    Comment = x.Comment,
+                    Created = x.Create
+                })
+                .ToList()
+
             };
 
             viewModel.Tags = hunter.Tags
@@ -107,9 +115,9 @@ namespace WebStoryFroEveryting.Controllers
                     .ToList();
             return huntersD;
         }
-        private TheBestUnderwaterHunters ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
+        private UnderwaterHunterViewModel ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
         {
-            var hunter = new TheBestUnderwaterHunters
+            var hunter = new UnderwaterHunterViewModel()
             {
                 Id = hunterData.Id,
                 NameHunter = hunterData.NameHunter,

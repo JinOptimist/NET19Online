@@ -55,7 +55,7 @@ builder.Services.AddScoped<MagicItemNameGenerator>();
 
 builder.Services.AddScoped<MagicItemRepository>();
 
-builder.Services.AddScoped<TheBestUnderwaterHunters>();
+builder.Services.AddScoped<UnderwaterHunterViewModel>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
 builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
