@@ -3,16 +3,26 @@ using StoreData;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.FilmsServer;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services
+    .AddAuthentication(AuthService.AUTH_TYPE)
+    .AddCookie(AuthService.AUTH_TYPE, config =>
+    {
+        config.LoginPath = "/Auth/Login";
+    });
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<StoreDbContext>(x => x.UseSqlServer(StoreDbContext.CONNECTION_STRING));
-//builder.Services.AddDbContext<SchoolDbContext>(options =>
-//    options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
+builder.Services
+    .AddDbContext<StoreDbContext>(x => x.UseSqlServer(StoreDbContext.CONNECTION_STRING));
+builder.Services
+    .AddDbContext<SchoolDbContext>(
+        options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
 
@@ -20,7 +30,14 @@ builder.Services.AddScoped<NotebookRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
-//builder.Services.AddScoped<LessonRepository>();
+
+builder.Services.AddScoped<LessonRepository>();
+builder.Services.AddScoped<LessonCommentRepository>();
+builder.Services.AddScoped<FilmsGeneratorServices>();
+
+builder.Services.AddScoped<FilmsRepository>();
+builder.Services.AddScoped<LessonRepository>();
+
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
@@ -30,6 +47,7 @@ builder.Services.AddScoped<IdolCommentRepository>();
 builder.Services.AddScoped<PlayerRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
+builder.Services.AddScoped<JerseyCommentRepository>();
 
 builder.Services.AddScoped<MagicItemGenerator>();
 builder.Services.AddScoped<MagicItemCategoryGenerator>();
@@ -42,8 +60,11 @@ builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
 builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
 builder.Services.AddScoped<SingerRepository>();
+builder.Services.AddScoped<UserRepository>();
 
+builder.Services.AddScoped<AuthService>();
 
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -60,7 +81,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // Who you are?
+app.UseAuthorization();  // May I in?
 
 app.MapControllerRoute(
     name: "default",

@@ -11,15 +11,17 @@ namespace WebStoryFroEveryting.Controllers
     {
         private JerseyGenerator _jerseyGenerator;
         private JerseyRepository _jerseyRepository;
+        private JerseyCommentRepository _jerseyCommentRepository;
 
-        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository)
+        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository, JerseyCommentRepository jerseyCommentRepository)
         {
             _jerseyGenerator = jerseyGenerator;
             _jerseyRepository = jerseyRepository;
+            _jerseyCommentRepository = jerseyCommentRepository;
         }
-        public ActionResult Index()
+        public ActionResult Index(string? tag)
         {
-            var jerseys = _jerseyRepository.GetAll();
+            var jerseys = _jerseyRepository.GetAllWithTags(tag);
             if(!jerseys.Any())
             {
                 _jerseyGenerator.GenerateData()
@@ -37,41 +39,62 @@ namespace WebStoryFroEveryting.Controllers
                     .ForEach(_jerseyRepository.Add);
                 jerseys = _jerseyRepository.GetAll();
             }
-            var viewModels = jerseys.Select(Map).ToList();
-            return View(viewModels);
+            var viewModel = new JerseyIndexViewModel();
+            viewModel.Jerseys = jerseys.Select(Map).ToList();
+            viewModel.Tags = jerseys
+                .SelectMany(x => x.Tags)
+                .Select(x => x.Tag)
+                .Distinct()
+                .ToList();
+            viewModel.CurrentTag = tag;
+            return View(viewModel);
         }
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int jerseyId)
         {
-            var jerseys = _jerseyRepository.GetAll();
-            if (!jerseys.Any())
-            {
-                _jerseyGenerator.GenerateData()
-                    .Select(jersey =>
-                        new JerseyData
-                        {
-                            AthleteName = jersey.AthleteName,
-                            Club = jersey.Club,
-                            Img = jersey.Img,
-                            Number = jersey.Number,
-                            InStock = jersey.InStock,
-                            Price = jersey.Price
-                        })
-                    .ToList()
-                    .ForEach(_jerseyRepository.Add);
-                jerseys = _jerseyRepository.GetAll();
-            }
-            var viewModels = jerseys.Select(Map).ToList();
-            var model = viewModels.Where(j => j.Id == id).FirstOrDefault();
-            if (model == null)
+            var jersey = _jerseyRepository.GetWithCommentsAndTags(jerseyId);
+
+            if (jersey is null)
             {
                 Response.StatusCode = 404;
                 return View("JerseysError");
             }
-            
-            return View(model);
+            var viewModel = new JerseyWithCommentsViewModel 
+            {
+                Id = jersey.Id,
+                AthleteName = jersey.AthleteName,
+                Club = jersey.Club,
+                Img = jersey.Img,
+                Number = jersey.Number,
+                Price = jersey.Price
+            };
+            viewModel.Tags = jersey.Tags
+                .Select(x => x.Tag)
+                .ToList();
+            viewModel.Comments = jersey.Comments
+                .Select(x => new JerseyCommentViewModel
+                {
+                    Id = x.Id,
+                    Created = x.Created,
+                    Comment = x.Comment
+                }).ToList();
+           
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult AddComment(int jerseyId, string commentText)
+        {
+            _jerseyCommentRepository.AddComment(jerseyId, commentText);
+            return RedirectToAction(nameof(Detail), new { jerseyId });
+        }
+        [HttpPost]
+        public IActionResult AddTag(int jerseyId, string tag)
+        {
+            _jerseyRepository.AddTag(jerseyId, tag);
+
+            return RedirectToAction(nameof(Detail), new { jerseyId });
         }
         [HttpGet]
-        public ActionResult Remove(int id)
+        public IActionResult Remove(int id)
         {
             _jerseyRepository.Remove(id);
             return RedirectToAction(nameof(Index));
