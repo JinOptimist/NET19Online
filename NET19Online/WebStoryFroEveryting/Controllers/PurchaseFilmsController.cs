@@ -44,13 +44,6 @@ namespace WebStoryFroEveryting.Controllers
             _filmsRepository.Remove(id);
 
             return RedirectToAction(nameof(CreatePurchaseFilms));
-        private FilmsViewModel Map(FilmData date)
-        {
-            return new FilmsViewModel
-            {
-                Name = date.Name,
-                Src = date.Src,
-            };
         }
 
         public IActionResult CreateFilms()
@@ -63,7 +56,6 @@ namespace WebStoryFroEveryting.Controllers
         {
 
             _filmsRepository.Add(new FilmData
-            _filmsRepository.AddFilml(new FilmData
             {
                 Name = createFilmsViewModel.Name,
                 Src = createFilmsViewModel.Src,
@@ -78,7 +70,7 @@ namespace WebStoryFroEveryting.Controllers
             {
                 Name = date.Name,
                 Src = date.Src,
-                FilmId = date.Id
+                id = date.Id
             };
         }
 
