@@ -15,6 +15,10 @@ namespace WebStoryFroEveryting.Services.FilmsServer
             new CreateFilmsViewModel{Name="Fallou", Src="https://clck.ru/3GQL84"},
             new CreateFilmsViewModel{Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"},
 
+           new CreateFilmsViewModel{Name="Аватар", Src="https://clck.ru/3GQKyT"},
+           new CreateFilmsViewModel{Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"},
+           new CreateFilmsViewModel{Name="Кунг-Фу Панда 4", Src="https://clck.ru/3GQL56"},
+           new CreateFilmsViewModel{Name="Fallou", Src="https://clck.ru/3GQL84"},
         };
 
         private Random _random = new();
@@ -25,6 +29,7 @@ namespace WebStoryFroEveryting.Services.FilmsServer
         {
             var itemsGenerator = new List<FilmsViewModel>();
             var randomImagesIndex = Enumerable.Range(1, 4).OrderBy(x => _random.Next()).ToList();
+            var randomImagesIndex = Enumerable.Range(0, 4).OrderBy(x => _random.Next()).ToList();
             var numbers = new Queue<int>(randomImagesIndex);
             for (int i = 0; i < _generatorName.Count; i++)
             {
@@ -37,7 +42,6 @@ namespace WebStoryFroEveryting.Services.FilmsServer
                 };
                 itemsGenerator.Add(films);
             }
-
             return itemsGenerator;
         }
     }

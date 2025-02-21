@@ -11,6 +11,7 @@ namespace WebStoryFroEveryting.Controllers
     {
         private FilmsRepository _filmsRepository;
         private FilmsGeneratorServices _filmsGeneratorServices;
+
         public PurchaseFilmsController(FilmsRepository filmsRepository, FilmsGeneratorServices filmsGeneratorServices)
         {
             _filmsRepository = filmsRepository;
@@ -43,6 +44,13 @@ namespace WebStoryFroEveryting.Controllers
             _filmsRepository.Remove(id);
 
             return RedirectToAction(nameof(CreatePurchaseFilms));
+        private FilmsViewModel Map(FilmData date)
+        {
+            return new FilmsViewModel
+            {
+                Name = date.Name,
+                Src = date.Src,
+            };
         }
 
         public IActionResult CreateFilms()
@@ -55,6 +63,7 @@ namespace WebStoryFroEveryting.Controllers
         {
 
             _filmsRepository.Add(new FilmData
+            _filmsRepository.AddFilml(new FilmData
             {
                 Name = createFilmsViewModel.Name,
                 Src = createFilmsViewModel.Src,
@@ -72,5 +81,6 @@ namespace WebStoryFroEveryting.Controllers
                 FilmId = date.Id
             };
         }
+
     }
 }

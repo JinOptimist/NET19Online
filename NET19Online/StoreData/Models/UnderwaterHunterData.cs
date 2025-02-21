@@ -15,5 +15,7 @@ namespace StoreData.Models
         /// </summary>
         public int MaxHuntingDepth { get; set; }
         public string Src { get; set; }
+        public virtual List<UnderwaterHunterCommentData> Comments { get; set; }
+        public virtual List<UnderwaterHunterTagData> Tags { get; set; } = new List<UnderwaterHunterTagData>();
     }
 }

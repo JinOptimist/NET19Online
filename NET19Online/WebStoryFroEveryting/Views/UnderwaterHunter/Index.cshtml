@@ -1,13 +1,19 @@
 ﻿@using WebStoryFroEveryting.Models.UnderwaterHuntersWorld
-@model List<TheBestUnderwaterHunters>
+@model HunterIndexViewModel
 @{
 	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
 }
-<div class="text-header">
-	The best hunters in the world:
+<div class="filter-By-Tags">
+	<div>Filters:</div>
+	<div class="tags">
+		@foreach (var tag in Model.Tags)
+		{
+			<a href="/UnderwaterHunter/Index?tag=@tag" class="showTag">@tag, </a>
+		}
+	</div>
 </div>
 <div class="allHunters">
-	@foreach (var item in Model)
+	@foreach (var item in Model.Hunters)
 	{
 		<div class="hunters">
 			<div class="image">
@@ -16,10 +22,10 @@
 			<div class="name">@item.NameHunter</div>
 			<div class="nationality">Nationality: @item.Nationality</div>
 			<div class="maxDepth">Maximum hunting depth: @item.MaxHuntingDepth meters</div>
+			<a class="leave-comment" href="/UnderwaterHunter/CommentHunter?id=@item.Id">Add comment and tag</a>
 			<a href="/UnderwaterHunter/Remove?id=@item.Id" class="closeIcon">
 				Remove the hunter from the base!
 			</a>
 		</div>
-
 	}
 </div>

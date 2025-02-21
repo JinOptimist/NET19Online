@@ -1,0 +1,50 @@
+﻿@using WebStoryFroEveryting.Models.UnderwaterHuntersWorld
+@model CommentHunterViewModel
+
+@{
+	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
+}
+<link href="~/css/UnderwaterHunter/commentHunterForm.css" rel="stylesheet" />
+
+<h1 class="nameHunter">@Model.Name</h1>
+<div class="tags-hunter">
+	<div class="tags">
+		@foreach (var tag in Model.Tags)
+		{
+			<span class="tag">@tag</span>
+		}
+	</div>
+	<form method="post" action="/UnderwaterHunter/AddTagHunter">
+		<input name="id" type="hidden" value="@Model.Id" />
+		<div>
+			<input name="tag" placeholder="write tag here" />
+		</div>
+		<div>
+			<button type="submit">Add new tag</button>
+		</div>
+	</form>
+</div>
+<div>
+	<div class="comment-hunter">
+		<img class="imageHunter" src="@Model.Src" />
+		<form method="post" action="/UnderwaterHunter/AddCommentForHunter">
+			<input name="id" type="hidden" value="@Model.Id" />
+			<div>
+				<input name="comment" placeholder="write comment here" />
+			</div>
+			<div>
+				<button type="submit">Add comment</button>
+			</div>
+		</form>
+		<div class="comments-base">
+			@foreach (var comment in Model.Comments)
+			{
+				<div class="comment-result">
+					@comment.Comment
+					@comment.Create
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
