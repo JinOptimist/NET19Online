@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Repostiroties
 {
-    public class FilmsRepository : BaseFilmsRepository<FilmData>
+    public class FilmsRepository : BaseRepository<FilmData>
     {
          public FilmsRepository(StoreDbContext filmsDbContext) : base(filmsDbContext) { }
     }

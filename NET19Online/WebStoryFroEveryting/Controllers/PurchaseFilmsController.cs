@@ -39,11 +39,9 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult RemoveFilms(int id)
         {
-            var items = _filmsRepository.Get(id);
-            if (items is not null)
-            {
-                _filmsRepository.Remove(items);
-            }
+
+            _filmsRepository.Remove(id);
+
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 

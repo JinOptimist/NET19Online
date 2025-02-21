@@ -25,7 +25,7 @@ builder.Services.AddScoped<FilmsGeneratorServices>();
 
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>(); 
-builder.Services.AddScoped<LessonRepository>();
+//builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
