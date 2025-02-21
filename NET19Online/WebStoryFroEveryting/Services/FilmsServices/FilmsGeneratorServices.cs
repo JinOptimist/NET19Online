@@ -10,10 +10,10 @@ namespace WebStoryFroEveryting.Services.FilmsServer
 
         private List<CreateFilmsViewModel> _generatorName = new()
         {
-            new CreateFilmsViewModel{Name="Аватар", Src="https://clck.ru/3GQKyT"},
-            new CreateFilmsViewModel{Name="Кунг-Фу Панда 4", Src="https://clck.ru/3GQL56"},
-            new CreateFilmsViewModel{Name="Fallou", Src="https://clck.ru/3GQL84"},
-            new CreateFilmsViewModel{Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"},
+           new CreateFilmsViewModel{Name="Аватар", Src="https://clck.ru/3GQKyT"},
+           new CreateFilmsViewModel{Name="Кунг-Фу Панда 4", Src="https://clck.ru/3GQL56"},
+           new CreateFilmsViewModel{Name="Fallou", Src="https://clck.ru/3GQL84"},
+           new CreateFilmsViewModel{Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"},
 
            new CreateFilmsViewModel{Name="Аватар", Src="https://clck.ru/3GQKyT"},
            new CreateFilmsViewModel{Name="Тёмная Материя", Src="https://clck.ru/3GQL2w"},
@@ -32,8 +32,7 @@ namespace WebStoryFroEveryting.Services.FilmsServer
             var numbers = new Queue<int>(randomImagesIndex);
             for (int i = 0; i < _generatorName.Count; i++)
             {
-                var j = numbers.Dequeue();
-                var item = _generatorName[j];
+                var item = _generatorName[i];
                 var films = new FilmsViewModel()
                 {
                     Name = item.Name,
