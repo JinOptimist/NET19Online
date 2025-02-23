@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.AnimeGirl;
@@ -11,14 +12,17 @@ namespace WebStoryFroEveryting.Controllers
         private IdolGenerator _idolGenerator;
         private IdolRepository _idolRepository;
         private IdolCommentRepository _idolCommentRepository;
+        private AuthService _authService;
 
         public AnimeGirlController(IdolGenerator idolGenerator,
             IdolRepository idolRepository,
-            IdolCommentRepository idolCommentRepository)
+            IdolCommentRepository idolCommentRepository,
+            AuthService authService)
         {
             _idolGenerator = idolGenerator;
             _idolRepository = idolRepository;
             _idolCommentRepository = idolCommentRepository;
+            _authService = authService;
         }
 
         public IActionResult Index(string? tag)
@@ -47,6 +51,7 @@ namespace WebStoryFroEveryting.Controllers
                 .Distinct()
                 .ToList();
             viewModel.CurrentTag = tag;
+            viewModel.CanUserFillters = _authService.IsAuthenticated();
             return View(viewModel);
         }
 
@@ -57,12 +62,14 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(CreateIdolViewModel viewModel)
         {
             _idolRepository.Add(

@@ -14,5 +14,7 @@ namespace StoreData.Models
         public string Img { get; set; }
         public int InStock { get; set; }
         public decimal Price { get; set; }
+        public virtual List<JerseyCommentData> Comments { get; set; }
+        public virtual List<JerseyTagData> Tags { get; set; } = new List<JerseyTagData>();
     }
 }

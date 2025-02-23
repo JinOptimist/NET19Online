@@ -6,5 +6,6 @@
         public string Comment { get; set; }
 
         public virtual IdolData Idol { get; set; }
+        public virtual UserData? Author { get; set; }
     }
 }

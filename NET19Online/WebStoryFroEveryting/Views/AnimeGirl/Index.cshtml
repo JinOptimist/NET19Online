@@ -9,13 +9,17 @@
     <link href="~/css/AnimeGirl/animeGirlSpeical.css" rel="stylesheet" />
 }   
 
-<div class="tags">
-    <a href="/AnimeGirl/Index" class="tag">Сбросить фильтр</a>
-    @foreach (var tag in Model.Tags)
-    {
-        <a href="/AnimeGirl/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
-    }
-</div>
+@if (Model.CanUserFillters)
+{
+    <div class="tags">
+        <a href="/AnimeGirl/Index" class="tag">Сбросить фильтр</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/AnimeGirl/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+        }
+    </div>
+}
+
 <div class="idols">
     @foreach (var idol in Model.Idols)
     {

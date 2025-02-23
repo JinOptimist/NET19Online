@@ -37,6 +37,49 @@ namespace StoreData.Migrations
                     b.ToTable("IdolDataIdolTagData");
                 });
 
+            modelBuilder.Entity("JerseyDataJerseyTagData", b =>
+                {
+                    b.Property<int>("JerseysId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("JerseysId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("JerseyDataJerseyTagData");
+                });
+
+            modelBuilder.Entity("StoreData.Models.FilmData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FilmDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Films");
+                });
+
             modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
                 {
                     b.Property<int>("Id")
@@ -73,6 +116,9 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -84,6 +130,8 @@ namespace StoreData.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("IdolId");
 
@@ -131,6 +179,31 @@ namespace StoreData.Migrations
                     b.ToTable("IdolTags");
                 });
 
+            modelBuilder.Entity("StoreData.Models.JerseyCommentData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JerseyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JerseyId");
+
+                    b.ToTable("JerseysComments");
+                });
+
             modelBuilder.Entity("StoreData.Models.JerseyData", b =>
                 {
                     b.Property<int>("Id")
@@ -163,6 +236,23 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Jerseys");
+                });
+
+            modelBuilder.Entity("StoreData.Models.JerseyTagData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JerseysTags");
                 });
 
             modelBuilder.Entity("StoreData.Models.MagicItemData", b =>
@@ -231,35 +321,29 @@ namespace StoreData.Migrations
                     b.ToTable("FootballPlayers");
                 });
 
-            modelBuilder.Entity("IdolDataIdolTagData", b =>
+            modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
-                    b.HasOne("StoreData.Models.IdolData", null)
-                        .WithMany()
-                        .HasForeignKey("IdolsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("StoreData.Models.IdolTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-            modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.IdolData", "Idol")
-                        .WithMany("Comments")
-                        .HasForeignKey("IdolId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Navigation("Idol");
-                });
+                    b.Property<DateTime>("Create")
+                        .HasColumnType("datetime2");
 
-            modelBuilder.Entity("StoreData.Models.IdolData", b =>
-                {
-                    b.Navigation("Comments");
+                    b.Property<int>("HunterIdId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HunterIdId");
+
+                    b.ToTable("UnderwaterHunterComments");
                 });
 
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
@@ -288,6 +372,163 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UnderwaterHunters");
+                });
+
+            modelBuilder.Entity("StoreData.Models.UnderwaterHunterTagData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnderwaterHunterTags");
+                });
+
+            modelBuilder.Entity("StoreData.Models.UserData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
+                {
+                    b.Property<int>("HuntersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HuntersId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
+                });
+
+            modelBuilder.Entity("IdolDataIdolTagData", b =>
+                {
+                    b.HasOne("StoreData.Models.IdolData", null)
+                        .WithMany()
+                        .HasForeignKey("IdolsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.IdolTagData", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("JerseyDataJerseyTagData", b =>
+                {
+                    b.HasOne("StoreData.Models.JerseyData", null)
+                        .WithMany()
+                        .HasForeignKey("JerseysId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.JerseyTagData", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
+                {
+                    b.HasOne("StoreData.Models.UserData", "Author")
+                        .WithMany("IdolComments")
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("StoreData.Models.IdolData", "Idol")
+                        .WithMany("Comments")
+                        .HasForeignKey("IdolId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Idol");
+                });
+
+            modelBuilder.Entity("StoreData.Models.JerseyCommentData", b =>
+                {
+                    b.HasOne("StoreData.Models.JerseyData", "Jersey")
+                        .WithMany("Comments")
+                        .HasForeignKey("JerseyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Jersey");
+                });
+
+            modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
+                {
+                    b.HasOne("StoreData.Models.UnderwaterHunterData", "HunterId")
+                        .WithMany("Comments")
+                        .HasForeignKey("HunterIdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HunterId");
+                });
+
+            modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
+                {
+                    b.HasOne("StoreData.Models.UnderwaterHunterData", null)
+                        .WithMany()
+                        .HasForeignKey("HuntersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.UnderwaterHunterTagData", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreData.Models.IdolData", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("StoreData.Models.JerseyData", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("StoreData.Models.UserData", b =>
+                {
+                    b.Navigation("IdolComments");
                 });
 #pragma warning restore 612, 618
         }
