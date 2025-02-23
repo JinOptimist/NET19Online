@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250222135032_AddPlayerDescriptions")]
+    partial class AddPlayerDescriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,21 +53,6 @@ namespace StoreData.Migrations
                     b.HasIndex("TagsId");
 
                     b.ToTable("JerseyDataJerseyTagData");
-                });
-
-            modelBuilder.Entity("PlayerDataPlayerTagData", b =>
-                {
-                    b.Property<int>("PlayersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayersId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("PlayerDataPlayerTagData");
                 });
 
             modelBuilder.Entity("StoreData.Models.FilmData", b =>
@@ -344,9 +332,6 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -356,28 +341,9 @@ namespace StoreData.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
                     b.HasIndex("PlayerId");
 
                     b.ToTable("PlayerDescriptions");
-                });
-
-            modelBuilder.Entity("StoreData.Models.PlayerTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PlayerTags");
                 });
 
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
@@ -516,21 +482,6 @@ namespace StoreData.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlayerDataPlayerTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.PlayerData", null)
-                        .WithMany()
-                        .HasForeignKey("PlayersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreData.Models.PlayerTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
                 {
                     b.HasOne("StoreData.Models.UserData", "Author")
@@ -561,17 +512,11 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.PlayerDescriptionData", b =>
                 {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("PlayerDescriptions")
-                        .HasForeignKey("AuthorId");
-
                     b.HasOne("StoreData.Models.PlayerData", "Player")
                         .WithMany("Descriptions")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Player");
                 });
@@ -625,8 +570,6 @@ namespace StoreData.Migrations
             modelBuilder.Entity("StoreData.Models.UserData", b =>
                 {
                     b.Navigation("IdolComments");
-
-                    b.Navigation("PlayerDescriptions");
                 });
 #pragma warning restore 612, 618
         }

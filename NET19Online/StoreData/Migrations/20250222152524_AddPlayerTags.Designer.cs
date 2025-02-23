@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250222152524_AddPlayerTags")]
+    partial class AddPlayerTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -344,9 +347,6 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -355,8 +355,6 @@ namespace StoreData.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.HasIndex("PlayerId");
 
@@ -561,17 +559,11 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.PlayerDescriptionData", b =>
                 {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("PlayerDescriptions")
-                        .HasForeignKey("AuthorId");
-
                     b.HasOne("StoreData.Models.PlayerData", "Player")
                         .WithMany("Descriptions")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Player");
                 });
@@ -625,8 +617,6 @@ namespace StoreData.Migrations
             modelBuilder.Entity("StoreData.Models.UserData", b =>
                 {
                     b.Navigation("IdolComments");
-
-                    b.Navigation("PlayerDescriptions");
                 });
 #pragma warning restore 612, 618
         }

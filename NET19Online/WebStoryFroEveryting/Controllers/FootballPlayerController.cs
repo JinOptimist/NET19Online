@@ -2,21 +2,24 @@
 using StoreData.Repostiroties;
 using StoreData.Models;
 using WebStoryFroEveryting.Models.FootballPlayer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebStoryFroEveryting.Controllers
 {
     public class FootballPlayerController : Controller
     {
         private PlayerRepository _playerRepository;
+        private PlayerDescriptionRepository _playerDescriptionRepository;
 
-        public FootballPlayerController(PlayerRepository playerRepository)
+        public FootballPlayerController(PlayerRepository playerRepository, PlayerDescriptionRepository playerDescriptionRepository)
         {
             _playerRepository = playerRepository;
+            _playerDescriptionRepository = playerDescriptionRepository;
         }
 
-        public IActionResult ViewInfoAboutTeamPlayer()
+        public IActionResult Index(string? tag)
         {
-            var playerDatas = _playerRepository.GetAll();
+            var playerDatas = _playerRepository.GetAllWithTags(tag);
 
             if (!playerDatas.Any())
             {
@@ -34,7 +37,9 @@ namespace WebStoryFroEveryting.Controllers
                     });
             }
 
-            var viewModels = playerDatas.Select(
+            var viewModel = new PlayerIndexViewModel();
+
+            viewModel.Players = playerDatas.Select(
                 pd => new PlayerViewModel()
                 {
                     Id = pd.Id,
@@ -45,16 +50,26 @@ namespace WebStoryFroEveryting.Controllers
                     Height = pd.Height
                 }).ToList();
 
-            return View(viewModels);
+            viewModel.Tags = playerDatas
+                .SelectMany(pd => pd.Tags)
+                .Select(t => t.Tag)
+                .Distinct()
+                .ToList();
+
+            viewModel.CurrentTag = tag;
+
+            return View(viewModel);
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult CreatePlayer()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreatePlayer(CreatePlayerViewModel viewModel)
         {
             _playerRepository.Add(
@@ -67,13 +82,50 @@ namespace WebStoryFroEveryting.Controllers
                     Height = viewModel.Height
                 });
 
-            return RedirectToAction(nameof(ViewInfoAboutTeamPlayer));
+            return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public IActionResult RemovePlayer(int id)
         {
             _playerRepository.Remove(id);
-            return RedirectToAction(nameof(ViewInfoAboutTeamPlayer));
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult DescriptionForPlayer(int playerId)
+        {
+            var viewModel = new PlayerWithDescriptionViewModel();
+            var player = _playerRepository.GetWithDescriptionsAndTags(playerId);
+
+            viewModel.Id = player.Id;
+            viewModel.Src = player.Src;
+            viewModel.Descriptions = player.Descriptions.Select(pdd => new PlayerDescriptionViewModel
+            {
+                Id = pdd.Id,
+                Description = pdd.Description
+            }).ToList();
+
+            viewModel.Tags = player.Tags.Select(t => t.Tag).ToList();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddDescription(int playerId, string description)
+        {
+            _playerDescriptionRepository.AddDescription(playerId, description);
+
+            return RedirectToAction(nameof(DescriptionForPlayer), new { playerId });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AddTag(int playerId, string tag)
+        {
+            _playerRepository.AddTag(playerId, tag);
+
+            return RedirectToAction(nameof(DescriptionForPlayer), new { playerId });
         }
     }
 }
