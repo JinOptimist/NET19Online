@@ -64,6 +64,17 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
+        public IActionResult CreateDescriptionFilm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateDescriptionFilm (CreateDescriptionFilmViewModel descriptionFilm)
+        {
+            return View();
+        }
+                                                                              
         private FilmsViewModel Map(FilmData date)
         {
             return new FilmsViewModel

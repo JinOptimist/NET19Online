@@ -3,34 +3,36 @@
 }
 
 .image-container img {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 200px;
+    max-height: 200px;
 }
-.block-elements 
-{
+
+.block-elements {
     margin: 5px;
     border: 1px solid red;
     border-radius: 10px;
-    padding:5px;
+    padding: 5px;
 }
+
 .buttons {
     display: flex;
 }
-    .buttons .button {
-        flex: 1;
-        margin: 5px;
-        align-items: center;
-        border-radius: 1px;
-        background: aqua;
-        justify-self: center;
-        width: 20px;
-        max-height: 40px;
-        text-align:center;
-    }
+
+buttons .button {
+    flex: 1;
+    background: aqua;
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
 .name {
     justify-self: center;
     margin: 5px;
     max-width: 50px;
     align-items: center;
-    font-size:10px;
+    font-size: 10px;
 }
