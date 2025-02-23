@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,11 @@ namespace StoreData.Repostiroties
     {
         public FilmsRepository(StoreDbContext filmsDbContext) : base(filmsDbContext) { }
 
+        public FilmData GetDescription(int id)
+        {
+            var film = _dbSet
+                 .Include(x => x.DescriptionFilmData).First(x => x.Id == id);
+            return film;
+        }
     }
 }

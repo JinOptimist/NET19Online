@@ -40,9 +40,7 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult RemoveFilms(int id)
         {
-
             _filmsRepository.Remove(id);
-
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
@@ -64,17 +62,22 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
-        public IActionResult CreateDescriptionFilm()
+        public IActionResult CreateDescriptionFilm(int id)
         {
+            var descriptionFilmViewModel = new DescriptionFilmViewModel();
+            var descriptionFilm = _filmsRepository.GetDescription(id);
+            descriptionFilmViewModel.
+            descriptionFilmViewModel.Description = descriptionFilm.Description;
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateDescriptionFilm (CreateDescriptionFilmViewModel descriptionFilm)
+        public IActionResult CreateDescriptionFilm(DescriptionFilmViewModel descriptionFilm)
         {
             return View();
         }
-                                                                              
+
         private FilmsViewModel Map(FilmData date)
         {
             return new FilmsViewModel
