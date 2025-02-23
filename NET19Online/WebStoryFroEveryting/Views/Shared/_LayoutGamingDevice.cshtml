@@ -1,33 +1,39 @@
 ﻿<html>
-<head>
-    <link href="~/css/reset.css" rel="stylesheet" />
-    <link href="~/css/GamingDevice/gamingDevice.css" rel="stylesheet" />
-    @RenderSection("Styles", false)
-</head>
-<body>
-    <div class="header">
-        Gaming Devices
-    </div>
-    <div class="menu-and-content">
-        <div class="category-menu">
-            <div class="category">
-                <div class="brand">
-                    Razer
-                </div>
-                <div class="brand">
-                    HyperX
-                </div>
-                <div class="brand">
-                    LOGITECH
-                </div>
-                <div class="brand">
-                    STEELSERIES
+
+    <head>
+        <link href="~/css/reset.css" rel="stylesheet" />
+        <link href="~/css/GamingDevice/gamingDevice.css" rel="stylesheet" />
+        @RenderSection("Styles", false)
+    </head>
+
+    <body>
+        <div class="header">
+            Gaming Devices
+        </div>
+        <div class="menu-and-content">
+            <div class="category-menu">
+                <div class="category">
+                    <div class="brand">
+                        Razer
+                    </div>
+                    <div class="brand">
+                        HyperX
+                    </div>
+                    <div class="brand">
+                        LOGITECH
+                    </div>
+                    <div class="brand">
+                        STEELSERIES
+                    </div>
+                    <div class="create-button-link">
+                        <a href="/GamingDevices/Create">Add new device</a>
+                    </div>
                 </div>
             </div>
+            <div class="content">
+                @RenderBody()
+            </div>
         </div>
-        <div class="content">
-            @RenderBody()
-        </div>
-    </div>
-</body>
+    </body>
+
 </html>

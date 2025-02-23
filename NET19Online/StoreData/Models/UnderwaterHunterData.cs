@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class UnderwaterHunterData
+    public class UnderwaterHunterData : BaseModel
     {
-        public int Id { get; set; }
         public string NameHunter { get; set; }
         public string Nationality { get; set; }
         /// <summary>
@@ -16,5 +15,7 @@ namespace StoreData.Models
         /// </summary>
         public int MaxHuntingDepth { get; set; }
         public string Src { get; set; }
+        public virtual List<UnderwaterHunterCommentData> Comments { get; set; }
+        public virtual List<UnderwaterHunterTagData> Tags { get; set; } = new List<UnderwaterHunterTagData>();
     }
 }

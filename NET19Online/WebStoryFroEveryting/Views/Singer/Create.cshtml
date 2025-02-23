@@ -1,0 +1,21 @@
+﻿@using WebStoryFroEveryting.Models.Singers
+@model SingerViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutSinger.cshtml";
+}
+<h2>Добавление исполнителя</h2>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="Pseudonym">Псевдоним</label>
+        <input type="text" class="form-control" id="Pseudonym" name="Pseudonym" value="@Model?.Pseudonym" required />
+    </div>
+    <div class="form-group">
+        <label for="Src">Ссылка на изображение</label>
+        <input type="text" class="form-control" id="Src" name="Src" value="@Model?.Src" required />
+    </div>
+    <div class="form-group">
+        <label for="Style">Жанр</label>
+        <input type="text" class="form-control" id="Style" name="Style" value="@Model?.Style" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>

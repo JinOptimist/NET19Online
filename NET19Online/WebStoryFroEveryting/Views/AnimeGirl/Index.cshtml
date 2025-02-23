@@ -1,5 +1,5 @@
 ﻿@using WebStoryFroEveryting.Models.AnimeGirl
-@model List<IdolViewModel>
+@model IdolIndexViewModel
 
 @{
     Layout = "~/Views/Shared/_LayoutAnime.cshtml";
@@ -9,8 +9,19 @@
     <link href="~/css/AnimeGirl/animeGirlSpeical.css" rel="stylesheet" />
 }   
 
+@if (Model.CanUserFillters)
+{
+    <div class="tags">
+        <a href="/AnimeGirl/Index" class="tag">Сбросить фильтр</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/AnimeGirl/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+        }
+    </div>
+}
+
 <div class="idols">
-    @foreach (var idol in Model)
+    @foreach (var idol in Model.Idols)
     {
         <div class="idol">
             <div class="name">@idol.Name</div>
@@ -18,7 +29,7 @@
                 <img src="@idol.Src" />
             </div>
             <div class="buttons">
-                <div class="button">+</div>
+                <a href="/AnimeGirl/CommentForGirl?idolId=@idol.Id" class="button">+</a>
                 <a href="/AnimeGirl/Remove?id=@idol.Id" class="button">-</a>
             </div>
         </div>

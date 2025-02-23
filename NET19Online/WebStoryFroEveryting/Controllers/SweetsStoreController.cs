@@ -12,7 +12,7 @@ namespace WebStoryFroEveryting.Controllers
     {
         private SweetsModelGenerator _modelGenerator;
         private SweetsRepository _sweetsRepository;
-       
+
         public SweetsStoreController(SweetsModelGenerator modelGenerator, SweetsRepository sweetsRepository)
         {
             _modelGenerator = modelGenerator;
@@ -21,8 +21,8 @@ namespace WebStoryFroEveryting.Controllers
 
 
         public IActionResult CreateOrderForSweets()
-        { 
-            var sweetsData = _sweetsRepository.GetSweets();
+        {
+            var sweetsData = _sweetsRepository.GetAll();
             if (!sweetsData.Any())
             {
                 _modelGenerator
@@ -34,8 +34,8 @@ namespace WebStoryFroEveryting.Controllers
                          Src = x.Src
                      })
                      .ToList()
-                     .ForEach(_sweetsRepository.AddModel);
-                sweetsData = _sweetsRepository.GetSweets();
+                     .ForEach(_sweetsRepository.Add);
+                sweetsData = _sweetsRepository.GetAll();
 
             }
             var viewModels = sweetsData.Select(Map).ToList();
@@ -44,7 +44,7 @@ namespace WebStoryFroEveryting.Controllers
         }
         public IActionResult Remove(int id)
         {
-            _sweetsRepository.RemoveModel(id);
+            _sweetsRepository.Remove(id);
             return RedirectToAction(nameof(CreateOrderForSweets));
 
         }
@@ -57,10 +57,11 @@ namespace WebStoryFroEveryting.Controllers
         //public IActionResult Create(string name, string src)
         public IActionResult Create(CreateSweetsViewModel viewModel)
         {
-            _sweetsRepository.AddModel(
-                new SweetsData 
-                { Name = viewModel.Name,
-                  Src = viewModel.Src 
+            _sweetsRepository.Add(
+                new SweetsData
+                {
+                    Name = viewModel.Name,
+                    Src = viewModel.Src
                 });
 
             return RedirectToAction(nameof(CreateOrderForSweets));

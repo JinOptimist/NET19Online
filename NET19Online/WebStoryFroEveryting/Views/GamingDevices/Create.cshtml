@@ -1,0 +1,31 @@
+﻿@using WebStoryFroEveryting.Models.GamingDevice
+@model CreateGamingDeviceViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutGamingDevice.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/GamingDevice/gamingDeviceSpeical.css" rel="stylesheet" />
+}
+
+<div class="create-form">
+    <form method="post" action="/GamingDevices/CreateGamingDevice">
+        <div>
+            @Html.TextBoxFor(d => d.Name, new { placeholder = "Name" })
+        </div>
+        <div>
+            @Html.TextBoxFor(d => d.Brand, new { placeholder = "Brand" })
+        </div>
+        <div>
+            @Html.TextBoxFor(d => d.Price, new { placeholder = "Price" })
+        </div>
+        <div>
+            @Html.TextBoxFor(d => d.Src, new { placeholder = "Img src" })
+        </div>
+        <div>
+            <button type="submit">Create</button>
+        </div>
+    </form>
+</div>
+

@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,24 +8,38 @@ using System.Threading.Tasks;
 
 namespace StoreData.Repostiroties
 {
-    public class UnderwarterHunterRepository
+    public class UnderwarterHunterRepository : BaseRepository<UnderwaterHunterData>
     {
-        private static List<UnderwaterHunterData> ExampleBD = new();
+        public UnderwarterHunterRepository(StoreDbContext dbContext) : base(dbContext) { }
 
-        public List<UnderwaterHunterData> GetHunters() 
-        { 
-            return ExampleBD; 
-        }
-        public void AddHunters(UnderwaterHunterData hunter)
+        public UnderwaterHunterData GetHunterWithCommentAndTag(int id)
         {
-            hunter.Id = ExampleBD.Count > 0
-                ? ExampleBD.Max(x => x.Id) + 1
-                : 1;
-            ExampleBD.Add(hunter);
+            var hunter = _dbSet
+                 .Include(x => x.Comments)
+                 .Include(x => x.Tags)
+                 .First(x => x.Id == id);
+            return hunter;
         }
-        public void Remove(int id)
+        public void AddTag(int id, string tag)
         {
-            ExampleBD=ExampleBD.Where(x=>x.Id!=id).ToList();
+            var tagHunter = _dbContext.UnderwaterHunterTags
+                .FirstOrDefault(x => x.Tag == tag);
+            if (tagHunter is null)
+            {
+                tagHunter = new UnderwaterHunterTagData { Tag = tag };
+            }
+
+            var hunter = Get(id);
+            hunter.Tags.Add(tagHunter);
+            _dbContext.SaveChanges();
+        }
+        public List<UnderwaterHunterData> GetAllHuntersAndTags(string? tag)
+        {
+            var hunterWithTags = _dbSet
+                .Include(x => x.Tags)
+                .Where(hunter => tag == null || hunter.Tags.Any(x => x.Tag == tag))
+                .ToList();
+            return hunterWithTags;
         }
     }
 }

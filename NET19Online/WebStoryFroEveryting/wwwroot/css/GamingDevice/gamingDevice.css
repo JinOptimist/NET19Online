@@ -5,26 +5,58 @@
     background: gray;
 }
 
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+a {
+    color: inherit;
+}
+
 .menu-and-content {
     display: flex;
 }
 
-.category-menu {
-    display: flex;
-    background: black;
-}
-
-    .category {
-        width: 150px;
-        padding: 15px;
-        min-height: 300px;
+    .category-menu {
+        display: flex;
+        background: black;
     }
-
-        .category .brand {
-            display: flex;
-            color: red;
-            border: red 1px solid;
-            border-radius: 10px;
-            margin: 10px;
-            padding: 6px;
+        
+        .category {
+            width: 150px;
+            padding: 15px;
+            min-height: 300px;
         }
+
+            .category .brand {
+                display: flex;
+                color: red;
+                border: red 1px solid;
+                border-radius: 10px;
+                margin: 10px;
+                padding: 6px;
+            }
+
+            .category .create-button-link {
+                background-color: red;
+                border-radius: 10px;
+                margin: 10px;
+                margin-top: 130px;
+                padding: 6px;
+                text-align: center;
+            }
+
+
+    

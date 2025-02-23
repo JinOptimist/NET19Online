@@ -19,7 +19,7 @@ namespace WebStoryFroEveryting.Services
             _nameGenerator = nameGenerator;
         }
 
-        
+
         public List<SweetsViewModel> GenerateSweetsModel(int count)
         {
             var list = new List<SweetsViewModel>();
@@ -27,7 +27,7 @@ namespace WebStoryFroEveryting.Services
 
             for (int i = 0; i < count; i++)
             {
-                
+
                 var randomImagesIndex = random.Next(Images.Count);
                 var model = new SweetsViewModel
                 {

@@ -16,7 +16,7 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult ViewInfoAboutTeamPlayer()
         {
-            var playerDatas = _playerRepository.GetPlayers();
+            var playerDatas = _playerRepository.GetAll();
 
             if (!playerDatas.Any())
             {
@@ -57,7 +57,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult CreatePlayer(CreatePlayerViewModel viewModel)
         {
-            _playerRepository.AddPlayer(
+            _playerRepository.Add(
                 new PlayerData()
                 {
                     Name = viewModel.Name,
@@ -67,6 +67,12 @@ namespace WebStoryFroEveryting.Controllers
                     Height = viewModel.Height
                 });
 
+            return RedirectToAction(nameof(ViewInfoAboutTeamPlayer));
+        }
+
+        public IActionResult RemovePlayer(int id)
+        {
+            _playerRepository.Remove(id);
             return RedirectToAction(nameof(ViewInfoAboutTeamPlayer));
         }
     }

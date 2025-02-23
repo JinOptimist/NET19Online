@@ -1,15 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using WebStoryFroEveryting.Models.Home
+@model IndexViewModel
+@{
+	ViewData["Title"] = "Home Page";
 }
 
+<div>
+    Привет @Model.UserName
+</div>
 <div class="text-center">
-    <a href="/FootballPlayer/ViewInfoAboutTeamPlayer">Состав ФК Динамо Москва</a>
+	<a href="/FootballPlayer/ViewInfoAboutTeamPlayer">Состав ФК Динамо Москва</a>
+	<a href="/AnimeGirl/Index">Idols</a>
+	<a href="/jerseys/">Jerseys Store</a>
+	<a href="/Notebooks/CreateOrderForNotebooks">Notebooks</a>
+	<a href="/MagicItem/CreateOrderForMagicItem">MagicItems</a>
     <a href="/AnimeGirl/CreateOrderForAnimeGirl">Idols</a>
+    <a href="/PurchaseFilms/CreatePurchaseFilms">Films</a>
     <a href="/jerseys/">Jerseys Store</a>
     <a href="/Notebooks/CreateOrderForNotebooks">Notebooks</a>
     <a href="/MagicItem/CreateOrderForMagicItem">MagicItems</a>
     <a href="/SweetsStore/CreateOrderForSweets">SweetsStore</a>
 </div>
 <div class="iconForUnderwaterHunter">
-    <a href="/UnderwaterHunter/CreatePageUnderwaterHunter">Underwater hunters</a>
+	<a href="/UnderwaterHunter/Index">Underwater hunters</a>
+</div>
+<div>
+	<a href="/GamingDevices/GetGamingDevices">Gaming Devices</a>
 </div>
