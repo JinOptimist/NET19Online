@@ -9,19 +9,18 @@
 
 .block-elements {
     margin: 5px;
-    border: 1px solid red;
+    border: 1px solid #b6ff00;
     border-radius: 10px;
     padding: 5px;
 }
 
 .buttons {
     display: flex;
-}
+ }
 
 buttons .button {
     flex: 1;
     background: aqua;
-    display: flex;
     justify-content: center;
     margin: 2px;
     align-items: center;
