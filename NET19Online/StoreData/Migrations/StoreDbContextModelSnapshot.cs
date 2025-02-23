@@ -290,6 +290,27 @@ namespace StoreData.Migrations
                     b.ToTable("MagicItems");
                 });
 
+            modelBuilder.Entity("StoreData.Models.SweetsData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sweets");
+                });
+
             modelBuilder.Entity("StoreData.Models.PlayerData", b =>
                 {
                     b.Property<int>("Id")

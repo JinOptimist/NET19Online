@@ -1,0 +1,17 @@
+﻿@using WebStoryFroEveryting.Models.SweetsModel
+@model CreateSweetsViewModel
+@{
+	Layout = "~/Views/Shared/_LayoutSweets.cshtml";
+}
+<form method="post" action="/SweetsStore/Create">
+	<div>
+
+		@Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+	</div>
+	<div>
+		@Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+	</div>
+	<div>
+		<button type="submit">Создать</button>
+	</div>
+</form>

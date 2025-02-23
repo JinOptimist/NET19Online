@@ -1,6 +1,6 @@
 ﻿namespace WebStoryFroEveryting.Models.SweetsModel
 {
-    public class SweetsViewModel
+    public class CreateSweetsViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
