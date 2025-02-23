@@ -11,14 +11,16 @@ namespace StoreData.Repostiroties
     {
         public JerseyCommentRepository(StoreDbContext storeDbContext) : base(storeDbContext) { }
 
-        public void AddComment(int jerseyId, string comment)
+        public void AddComment(int jerseyId, string comment, int userId)
         {
             var jersey = _dbContext.Jerseys.First(x => x.Id == jerseyId);
+            var user = _dbContext.Users.First(x => x.Id == userId);
             var commentData = new JerseyCommentData
             {
                 Created = DateTime.Now,
                 Jersey = jersey,
-                Comment = comment
+                Comment = comment,
+                Author = user
             };
             Add(commentData);
         }

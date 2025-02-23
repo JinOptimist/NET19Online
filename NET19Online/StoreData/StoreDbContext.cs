@@ -66,6 +66,9 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.IdolComments)
                 .WithOne(c => c.Author);
+            modelBuilder.Entity<UserData>()
+               .HasMany(u => u.JerseyComments)
+               .WithOne(c => c.Author);
 
             base.OnModelCreating(modelBuilder);
         }
