@@ -1,6 +1,6 @@
 ﻿namespace WebStoryFroEveryting.Models.MagicItem
 {
-    public class MagicItemsListPage
+    public class CreateMagicItemViewModel
     {
         public string Name { get; set; }
         public string Src { get; set; }

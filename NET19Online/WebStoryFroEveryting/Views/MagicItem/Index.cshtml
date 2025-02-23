@@ -1,5 +1,5 @@
 ﻿@using WebStoryFroEveryting.Models.MagicItem
-@model List<MagicItemViewModel>
+@model MagicItemIndexViewModel
 
 @{
     Layout = "~/Views/Shared/_LayoutMagicItem.cshtml";
@@ -9,8 +9,19 @@
     <link href="~/css/MagicItem/magicItemSpecial.css" rel="stylesheet" />
 }
 
+@if (Model.CanUserFillters)
+{
+    <div class="tags">
+        <a href="/MagicItem/Index" class="tag">Reset filter</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/MagicItem/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+        }
+    </div>
+}
+
 <div class="magicItems">
-    @foreach (var magicItem in Model)
+    @foreach (var magicItem in Model.MagicItems)
     {
         <div class="magicItem">
             <div class="magicItem-header-container">
