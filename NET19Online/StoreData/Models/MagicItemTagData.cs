@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class MagicItemTagData
+    public class MagicItemTagData : BaseModel
     {
         public string Tag { get; set; }
 
