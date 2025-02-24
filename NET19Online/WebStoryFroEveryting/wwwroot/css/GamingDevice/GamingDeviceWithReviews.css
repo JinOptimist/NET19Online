@@ -1,0 +1,36 @@
+.idol-with-comment
+{
+    display: flex;
+}
+
+.device {
+    margin: 5px;
+    border: 1px solid red;
+    border-radius: 10px;
+    padding: 5px;
+    image-resolution: snap;
+}
+
+.device-with-reviews-and-stock-addresses {
+
+}
+
+        .reviews-and-stocks-container {
+
+        }
+
+            .reviews {
+
+            }
+
+                .review {
+
+                }
+
+            .addresses {
+
+            }
+
+                .address {
+
+                }

@@ -1,0 +1,60 @@
+﻿@using WebStoryFroEveryting.Models.GamingDevice
+@model GamingDeviceWithReviewViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutGamingDevice.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/GamingDevice/GamingDeviceWithReviews.css" rel="stylesheet" />
+}
+
+<div class="device-with-reviews-and-stock-addresses">
+    <div class="reviews-and-stocks-container">
+        <div class="reviews">
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="review">
+                    @review.Review [@review.Created]
+                </div>
+            }
+            <form method="post" action="/GamingDevice/AddReview">
+                <input name="deviceId" type="hidden" value="@Model.Id" />
+                <div>
+                    <input name="review" placeholder="leave review here" />
+                </div>
+                <div>
+                    <button type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+        <div class="stock-addresses-container">
+            <div class="addresses">
+                @foreach (var address in Model.StockAddresses)
+                {
+                    <span class="address">@address</span>
+                }
+                <form method="post" action="/GamingDevice/AddStockAddress">
+                    <input name="deviceId" type="hidden" value="@Model.Id" />
+                    <div>
+                        <input name="stockAddress" placeholder="add stock address here" />
+                    </div>
+                    <div>
+                        <button type="submit">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <div class="device">
+        <h1>@Model.Name</h1>
+        <h1>@Model.Brand</h1>
+        <div class="image-container">
+            <img src="@Model.Src"/>
+        </div>
+        <img src="@Model.Price" />
+    </div>
+    
+</div>
+

@@ -1,5 +1,6 @@
 .devices {
     display: flex;
+    flex-wrap: wrap;
 }
 .device {
     margin: 5px;
