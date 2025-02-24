@@ -30,6 +30,11 @@ builder.Services.AddScoped<NotebookRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
+builder.Services.AddScoped<FilmsGeneratorServices>();
+
+builder.Services.AddScoped<IdolRepository>();
+builder.Services.AddScoped<FilmsRepository>();
+//builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<LessonRepository>();
 builder.Services.AddScoped<LessonCommentRepository>();
@@ -66,6 +71,11 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<SweetsNameGenerator>();
+builder.Services.AddScoped<SweetsModelGenerator>();
+builder.Services.AddScoped<SweetsRepository>();
+
+
 
 var app = builder.Build();
 

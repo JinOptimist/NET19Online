@@ -11,9 +11,13 @@ namespace StoreData
         public DbSet<IdolCommentData> IdolComments { get; set; }
         public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
+        public DbSet<FilmData> Films { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
+      
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
+        public DbSet<SweetsData> Sweets { get; set; } 
+
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
         public DbSet<GamingDeviceReviewData> GamingDeviceReviews { get; set; }
@@ -24,6 +28,7 @@ namespace StoreData
         public DbSet<JerseyCommentData> JerseysComments { get; set; }
         public DbSet<PlayerData> FootballPlayers { get; set; }
         public DbSet<UserData> Users { get; set; }
+
 
 
         public StoreDbContext() { }
