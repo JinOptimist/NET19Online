@@ -4,22 +4,22 @@
 	Layout = "~/Views/Shared/_LayoutSweets.cshtml";
 }
 
-@section Styles{
-    <link href="~/css/SweetsStore/SweetsStoreSpeical.css" rel="stylesheet" />
+@section Styles {
+	<link href="~/css/SweetsStore/SweetsStoreSpeical.css" rel="stylesheet" />
 }
 
 <div class="idols">
-    @foreach (var idol in Model)
-    {
-        <div class="idol">
-            <div class="name">@idol.Name</div>
-            <div class="image-container">
-                <img src="@idol.Src" />
-            </div>
-            <div class="buttons">
-                <div class="button">+</div>
-                <div class="button">-</div>
-            </div>
-        </div>
-    }
+	@foreach (var models in Model)
+	{
+		<div class="models">
+			<div class="name">@models.Name</div>
+			<div class="image-container">
+				<img src="@models.Src" />
+			</div>
+			<div class="buttons">
+				<div class="button">+</div>
+				<a href="/SweetsStore/Remove?id=@models.Id" class="button">-</a>
+			</div>
+		</div>
+	}
 </div>

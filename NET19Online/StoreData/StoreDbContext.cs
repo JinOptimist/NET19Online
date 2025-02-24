@@ -18,6 +18,8 @@ namespace StoreData
       
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
+        public DbSet<SweetsData> Sweets { get; set; } 
+
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
 

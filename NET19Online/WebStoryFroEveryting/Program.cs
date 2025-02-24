@@ -72,6 +72,11 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<SweetsNameGenerator>();
+builder.Services.AddScoped<SweetsModelGenerator>();
+builder.Services.AddScoped<SweetsRepository>();
+
+
 
 var app = builder.Build();
 
