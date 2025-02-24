@@ -11,5 +11,6 @@ namespace StoreData.Models
         public DateTime Create { get; set; }
         public string Comment { get; set; }
         public virtual UnderwaterHunterData Hunter { get; set; }
+        public virtual UserData? Author { get; set; }
     }
 }

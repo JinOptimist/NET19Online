@@ -10,5 +10,6 @@
         /// </summary>
         public int MaxHuntingDepth { get; set; }
         public string Src { get; set; }
+        public bool isAuthenticated { get; set; }
     }
 }

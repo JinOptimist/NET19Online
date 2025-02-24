@@ -6,5 +6,6 @@
         public string Password { get; set; }
 
         public virtual List<IdolCommentData> IdolComments { get; set; }
+        public virtual List<UnderwaterHunterCommentData> HunterComments { get; set; }
     }
 }

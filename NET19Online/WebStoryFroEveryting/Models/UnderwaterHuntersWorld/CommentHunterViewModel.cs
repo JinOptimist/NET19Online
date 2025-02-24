@@ -9,6 +9,6 @@ namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
         public string Src { get; set; }
         public List<UnderwaterHunterCommentViewModel> Comments { get; set; }
         public List<string>? Tags { get; set; }
-
+        public string Author { get; set; }
     }
 }
