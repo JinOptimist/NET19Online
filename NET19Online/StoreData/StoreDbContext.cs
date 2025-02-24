@@ -11,6 +11,8 @@ namespace StoreData
         public DbSet<IdolCommentData> IdolComments { get; set; }
         public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
+        public DbSet<MagicItemCommentData> MagicItemComments { get; set; }
+        public DbSet<MagicItemTagData> MagicItemTags { get; set; }
         public DbSet<FilmData> Films { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
       
@@ -64,6 +66,15 @@ namespace StoreData
             modelBuilder.Entity<JerseyData>()
                 .HasMany(jersey => jersey.Tags)
                 .WithMany(tags => tags.Jerseys);
+
+            modelBuilder.Entity<MagicItemData>()
+                .HasMany(idol => idol.Comments)
+                .WithOne(comment => comment.MagicItem)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<MagicItemData>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.MagicItems);
 
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.IdolComments)
