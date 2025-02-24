@@ -4,17 +4,25 @@
     Layout = "~/Views/Shared/_LayoutFilms.cshtml";
 }
 @section Styles {
-    <link href="~/css/Films/StyleDescription.css" rel="stylesheet"/>
+    <link href="~/css/Films/StyleDescription.css" rel="stylesheet" />
 }
 
 <form method="post">
     <div class="main">
-        <div class="Film">
-            <img src="@Model.Films.Src"/>
+        <div class="image-container">
+            <img src="@Model.Films.Src" />
         </div>
-
-        <div class="Description">
-            Description Description Description Description
+        <div class="description">
+            <h2>@Model.Description</h2>
         </div>
     </div>
+</form>
+<form method="post">
+    <div class="comment-created">
+        <h2>Comments</h2>
+        <div>
+            <input name="Text" placeholder="Comments" style="width:500px;height:50px;"/>
+        </div>
+    </div>
+
 </form>
