@@ -27,9 +27,8 @@ namespace StoreData
         public DbSet<JerseyTagData> JerseysTags { get; set; }
         public DbSet<JerseyCommentData> JerseysComments { get; set; }
         public DbSet<PlayerData> FootballPlayers { get; set; }
+        public DbSet<RoleData> Roles { get; set; }
         public DbSet<UserData> Users { get; set; }
-
-
 
         public StoreDbContext() { }
         public StoreDbContext(DbContextOptions<StoreDbContext> option) : base(option) { }
@@ -84,6 +83,10 @@ namespace StoreData
                 .HasMany(u => u.HunterComments)
                 .WithOne(c => c.Author);
 
+            modelBuilder.Entity<UserData>()
+                .HasOne(u => u.Role)
+                .WithMany(c => c.Users)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UserData>()
                .HasMany(u => u.JerseyComments)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Enums.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
@@ -65,6 +66,11 @@ namespace WebStoryFroEveryting.Controllers
         [Authorize]
         public IActionResult Create()
         {
+            if (!_authService.HasPermission(Permisson.CanAddIdol))
+            {
+                return Forbid();
+            }
+
             return View();
         }
 
@@ -72,6 +78,11 @@ namespace WebStoryFroEveryting.Controllers
         [Authorize]
         public IActionResult Create(CreateIdolViewModel viewModel)
         {
+            if (!_authService.HasPermission(Permisson.CanAddIdol))
+            {
+                return Forbid();
+            }
+
             _idolRepository.Add(
                 new IdolData
                 {
