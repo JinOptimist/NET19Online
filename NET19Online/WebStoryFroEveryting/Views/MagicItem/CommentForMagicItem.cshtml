@@ -1,0 +1,53 @@
+﻿@using WebStoryFroEveryting.Models.MagicItem
+@model MagicItemWithCommentViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutMagicItem.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/MagicItem/magicItemWithComments.css" rel="stylesheet" />
+}
+
+<div class="magicItem-with-comment">
+    <div class="magicItem-container">
+        <h1>@Model.Name</h1>
+        <div class="tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="tag">@tag</span>
+            }
+        </div>
+        <form method="post" action="/MagicItem/AddTag">
+            <input name="magicItemId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="tag" placeholder="type tag here" />
+            </div>
+            <div>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+        <img src="@Model.Src" />
+    </div>
+    <div class="comments-container">
+        <div class="comments">
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment">
+                    @comment.Comment [@comment.Created]
+                </div>
+            }
+        </div>
+
+        <form method="post" action="/MagicItem/AddComment">
+            <input name="magicItemId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="comment" placeholder="type comment here" />
+            </div>
+            <div>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+

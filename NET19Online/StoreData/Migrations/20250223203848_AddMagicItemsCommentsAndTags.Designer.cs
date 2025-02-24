@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250223203848_AddMagicItemsCommentsAndTags")]
+    partial class AddMagicItemsCommentsAndTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,9 +205,6 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -216,8 +216,6 @@ namespace StoreData.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.HasIndex("JerseyId");
 
@@ -340,6 +338,23 @@ namespace StoreData.Migrations
                     b.ToTable("MagicItems");
                 });
 
+            modelBuilder.Entity("StoreData.Models.MagicItemTagData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MagicItemTags");
+                });
+
             modelBuilder.Entity("StoreData.Models.PlayerData", b =>
                 {
                     b.Property<int>("Id")
@@ -371,87 +386,6 @@ namespace StoreData.Migrations
                     b.ToTable("FootballPlayers");
                 });
 
-            modelBuilder.Entity("StoreData.Models.MagicItemTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MagicItemTags");
-                });
-
-            modelBuilder.Entity("StoreData.Models.PlayerData", b =>
-            modelBuilder.Entity("StoreData.Models.SweetsCommentsData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SweetsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SweetsId");
-
-                    b.ToTable("SweetsComments");
-                });
-
-            modelBuilder.Entity("StoreData.Models.SweetsData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Src")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sweets");
-                });
-
-            modelBuilder.Entity("StoreData.Models.SweetsTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SweetsTags");
-                });
-
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
                     b.Property<int>("Id")
@@ -460,9 +394,6 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -470,14 +401,12 @@ namespace StoreData.Migrations
                     b.Property<DateTime>("Create")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HunterId")
+                    b.Property<int>("HunterIdId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("HunterId");
+                    b.HasIndex("HunterIdId");
 
                     b.ToTable("UnderwaterHunterComments");
                 });
@@ -546,21 +475,6 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("SweetsDataSweetsTagData", b =>
-                {
-                    b.Property<int>("SweetsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SweetsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("SweetsDataSweetsTagData");
                 });
 
             modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
@@ -642,17 +556,11 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.JerseyCommentData", b =>
                 {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("JerseyComments")
-                        .HasForeignKey("AuthorId");
-
                     b.HasOne("StoreData.Models.JerseyData", "Jersey")
                         .WithMany("Comments")
                         .HasForeignKey("JerseyId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Jersey");
                 });
@@ -674,47 +582,15 @@ namespace StoreData.Migrations
                     b.Navigation("MagicItem");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SweetsCommentsData", b =>
-                {
-                    b.HasOne("StoreData.Models.SweetsData", "Sweets")
-                        .WithMany("Comments")
-                        .HasForeignKey("SweetsId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Sweets");
-                });
-
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("HunterComments")
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("StoreData.Models.UnderwaterHunterData", "Hunter")
+                    b.HasOne("StoreData.Models.UnderwaterHunterData", "HunterId")
                         .WithMany("Comments")
-                        .HasForeignKey("HunterId")
+                        .HasForeignKey("HunterIdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
-
-                    b.Navigation("Hunter");
-                });
-
-            modelBuilder.Entity("SweetsDataSweetsTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.SweetsData", null)
-                        .WithMany()
-                        .HasForeignKey("SweetsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreData.Models.SweetsTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("HunterId");
                 });
 
             modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
@@ -747,11 +623,6 @@ namespace StoreData.Migrations
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SweetsData", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
                 {
                     b.Navigation("Comments");
@@ -759,11 +630,7 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.UserData", b =>
                 {
-                    b.Navigation("HunterComments");
-
                     b.Navigation("IdolComments");
-
-                    b.Navigation("JerseyComments");
                 });
 #pragma warning restore 612, 618
         }

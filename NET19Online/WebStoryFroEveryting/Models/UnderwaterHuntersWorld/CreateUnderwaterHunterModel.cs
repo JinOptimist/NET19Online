@@ -1,7 +1,7 @@
 ﻿namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
 {
     public class CreateUnderwaterHunterModel
-    {             
+    {
         public string NameHunter { get; set; }
         public string Nationality { get; set; }
         /// <summary>
@@ -9,5 +9,6 @@
         /// </summary>
         public int MaxHuntingDepth { get; set; }
         public string Image { get; set; }
+        public bool isAuthenticated { get; set; }
     }
 }

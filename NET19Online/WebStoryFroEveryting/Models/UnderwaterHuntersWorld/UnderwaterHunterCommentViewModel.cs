@@ -1,10 +1,11 @@
-﻿namespace WebStoryFroEveryting.Models.Jerseys
+﻿using StoreData.Models;
+
+namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
 {
-    public class JerseyCommentViewModel
+    public class UnderwaterHunterCommentViewModel
     {
         public int Id { get; set; }
         public string Comment { get; set; }
         public DateTime Created { get; set; }
-        public string UserName { get; set; }
     }
 }
