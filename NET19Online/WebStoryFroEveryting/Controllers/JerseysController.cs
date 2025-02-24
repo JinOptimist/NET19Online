@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
@@ -12,20 +13,22 @@ namespace WebStoryFroEveryting.Controllers
         private JerseyGenerator _jerseyGenerator;
         private JerseyRepository _jerseyRepository;
         private JerseyCommentRepository _jerseyCommentRepository;
+        private AuthService _authService;
 
-        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository, JerseyCommentRepository jerseyCommentRepository)
+        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository, JerseyCommentRepository jerseyCommentRepository, AuthService authService)
         {
             _jerseyGenerator = jerseyGenerator;
             _jerseyRepository = jerseyRepository;
             _jerseyCommentRepository = jerseyCommentRepository;
+            _authService = authService;
         }
         public ActionResult Index(string? tag)
         {
             var jerseys = _jerseyRepository.GetAllWithTags(tag);
-            if(!jerseys.Any())
+            if (!jerseys.Any())
             {
                 _jerseyGenerator.GenerateData()
-                    .Select(jersey => 
+                    .Select(jersey =>
                         new JerseyData
                         {
                             AthleteName = jersey.AthleteName,
@@ -58,7 +61,7 @@ namespace WebStoryFroEveryting.Controllers
                 Response.StatusCode = 404;
                 return View("JerseysError");
             }
-            var viewModel = new JerseyWithCommentsViewModel 
+            var viewModel = new JerseyWithCommentsViewModel
             {
                 Id = jersey.Id,
                 AthleteName = jersey.AthleteName,
@@ -67,6 +70,8 @@ namespace WebStoryFroEveryting.Controllers
                 Number = jersey.Number,
                 Price = jersey.Price
             };
+            viewModel.IsTagCreatingEnable = _authService.IsAuthenticated() && _authService.GetUserId() == 1;
+            viewModel.IsAuthenticated = _authService.IsAuthenticated();
             viewModel.Tags = jersey.Tags
                 .Select(x => x.Tag)
                 .ToList();
@@ -75,18 +80,23 @@ namespace WebStoryFroEveryting.Controllers
                 {
                     Id = x.Id,
                     Created = x.Created,
-                    Comment = x.Comment
+                    Comment = x.Comment,
+                    UserName = x.Author is null ? "Аноним": x.Author.UserName
+
                 }).ToList();
-           
+
             return View(viewModel);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult AddComment(int jerseyId, string commentText)
         {
-            _jerseyCommentRepository.AddComment(jerseyId, commentText);
+            var userId = _authService.GetUserId();
+            _jerseyCommentRepository.AddComment(jerseyId, commentText, userId);
             return RedirectToAction(nameof(Detail), new { jerseyId });
         }
         [HttpPost]
+        [Authorize]
         public IActionResult AddTag(int jerseyId, string tag)
         {
             _jerseyRepository.AddTag(jerseyId, tag);
@@ -94,18 +104,21 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(Detail), new { jerseyId });
         }
         [HttpGet]
+        [Authorize]
         public IActionResult Remove(int id)
         {
             _jerseyRepository.Remove(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(CreateJerseyViewModel createJerseyViewModel)
         {
             _jerseyRepository.Add(
