@@ -7,5 +7,6 @@
 
         public virtual List<IdolCommentData> IdolComments { get; set; }
         public virtual List<JerseyCommentData> JerseyComments { get; set; }
+        public virtual List<UnderwaterHunterCommentData> HunterComments { get; set; }
     }
 }

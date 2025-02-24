@@ -1,13 +1,16 @@
 .label-and-header {
     display: flex;
 }
+    .nameUser {
+        transform: translate(60px, 44px);
+    }
 
-.label img {
-    display: inline-block;
-    transform: translate(7em, 1em);
-    border-radius: 10px;
-    width: 224px;
-}
+    .label img {
+        display: inline-block;
+        transform: translate(7em, 1em);
+        border-radius: 10px;
+        width: 224px;
+    }
 
 .header {
     display: inline-block;
@@ -62,7 +65,7 @@
 }
 
 .buttonsMenu-links {
-    transform: translate(-19em, 7em);
+    transform: translate(-20em, 7em);
     font-size: 34px;
     width: 237px;
     background: burlywood;
@@ -106,4 +109,7 @@
     background: cornsilk;
     border-radius: 10px;
     width: 1222px;
+}
+.userName {
+    transform: translate(25px, -74px);
 }

@@ -2,6 +2,7 @@
 using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
+using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 namespace WebStoryFroEveryting.Controllers
@@ -11,14 +12,16 @@ namespace WebStoryFroEveryting.Controllers
         private HuntersGenerator _huntersGenerator;
         private UnderwarterHunterRepository _hunterRepository;
         private UnderwarterHunterCommentRepository _hunterCommentRepository;
-
+        private AuthService _authService;
         public UnderwaterHunterController(HuntersGenerator huntersGenerator,
                                            UnderwarterHunterRepository hunterRepository,
-                                            UnderwarterHunterCommentRepository hunterCommentRepository)
+                                            UnderwarterHunterCommentRepository hunterCommentRepository,
+                                             AuthService authService)
         {
             _huntersGenerator = huntersGenerator;
             _hunterRepository = hunterRepository;
             _hunterCommentRepository = hunterCommentRepository;
+            _authService = authService;
         }
 
         public IActionResult Index(string? tag)
@@ -37,12 +40,17 @@ namespace WebStoryFroEveryting.Controllers
                 .Select(x => x.Tag)
                 .Distinct()
                 .ToList();
+            viewModel.isAuthenticated = _authService.IsAuthenticated();
+            viewModel.Author = _authService.GetUserName();
             return View(viewModel);
         }
         [HttpGet]
         public IActionResult CreateNewHunter()
         {
-            return View();
+            var viewModel = new CreateUnderwaterHunterModel();
+            viewModel.isAuthenticated= _authService.IsAuthenticated();
+            
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -55,6 +63,7 @@ namespace WebStoryFroEveryting.Controllers
                 MaxHuntingDepth = hunterModel.MaxHuntingDepth,
                 Src = hunterModel.Image
             });
+
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Remove(int id)
@@ -71,11 +80,20 @@ namespace WebStoryFroEveryting.Controllers
                 Src = hunter.Src,
                 Name = hunter.NameHunter,
                 Comments = hunter.Comments
+                .Select(x => new UnderwaterHunterCommentViewModel
+                {
+                    Id = x.Id,
+                    Comment = x.Comment,
+                    Created = x.Create
+                })
+                .ToList()
+
             };
 
             viewModel.Tags = hunter.Tags
                 .Select(x => x.Tag)
                 .ToList();
+            viewModel.Author = _authService.GetUserName();
 
             return View(viewModel);
         }
@@ -107,9 +125,9 @@ namespace WebStoryFroEveryting.Controllers
                     .ToList();
             return huntersD;
         }
-        private TheBestUnderwaterHunters ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
+        private UnderwaterHunterViewModel ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
         {
-            var hunter = new TheBestUnderwaterHunters
+            var hunter = new UnderwaterHunterViewModel()
             {
                 Id = hunterData.Id,
                 NameHunter = hunterData.NameHunter,
