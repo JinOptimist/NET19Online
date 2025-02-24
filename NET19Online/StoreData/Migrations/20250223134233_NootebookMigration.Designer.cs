@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250223134233_NootebookMigration")]
+    partial class NootebookMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,31 +265,6 @@ namespace StoreData.Migrations
                     b.ToTable("MagicItems");
                 });
 
-            modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NotebookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NotebookId");
-
-                    b.ToTable("NotebookComments");
-                });
-
             modelBuilder.Entity("StoreData.Models.NotebookData", b =>
                 {
                     b.Property<int>("Id")
@@ -503,17 +481,6 @@ namespace StoreData.Migrations
                     b.Navigation("Jersey");
                 });
 
-            modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.NotebookData", "Notebook")
-                        .WithMany("Comments")
-                        .HasForeignKey("NotebookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Notebook");
-                });
-
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
                     b.HasOne("StoreData.Models.UnderwaterHunterData", "HunterId")
@@ -546,11 +513,6 @@ namespace StoreData.Migrations
                 });
 
             modelBuilder.Entity("StoreData.Models.JerseyData", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("StoreData.Models.NotebookData", b =>
                 {
                     b.Navigation("Comments");
                 });
