@@ -41,6 +41,7 @@ builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
+builder.Services.AddScoped<GamingDeviceReviewRepository>();
 
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<IdolCommentRepository>();
