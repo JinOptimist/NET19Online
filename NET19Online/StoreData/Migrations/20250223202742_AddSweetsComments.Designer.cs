@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
 #nullable disable
 
-namespace StoreData.Migrations
+namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250223202742_AddSweetsComments")]
+    partial class AddSweetsComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -367,23 +370,6 @@ namespace StoreData.Migrations
                     b.ToTable("Sweets");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SweetsTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SweetsTags");
-                });
-
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
                     b.Property<int>("Id")
@@ -473,21 +459,6 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("SweetsDataSweetsTagData", b =>
-                {
-                    b.Property<int>("SweetsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SweetsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("SweetsDataSweetsTagData");
                 });
 
             modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
@@ -583,21 +554,6 @@ namespace StoreData.Migrations
                         .IsRequired();
 
                     b.Navigation("HunterId");
-                });
-
-            modelBuilder.Entity("SweetsDataSweetsTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.SweetsData", null)
-                        .WithMany()
-                        .HasForeignKey("SweetsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StoreData.Models.SweetsTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>

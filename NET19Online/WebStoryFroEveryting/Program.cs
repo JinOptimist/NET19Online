@@ -73,6 +73,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SweetsNameGenerator>();
 builder.Services.AddScoped<SweetsModelGenerator>();
 builder.Services.AddScoped<SweetsRepository>();
+builder.Services.AddScoped<SweetsCommentsRepository>();
 
 
 

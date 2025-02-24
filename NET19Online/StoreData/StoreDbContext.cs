@@ -13,11 +13,12 @@ namespace StoreData
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<FilmData> Films { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
-      
+
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
-        public DbSet<SweetsData> Sweets { get; set; } 
-
+        public DbSet<SweetsData> Sweets { get; set; }
+        public DbSet<SweetsCommentsData> SweetsComments { get; set; }
+        public DbSet<SweetsTagData> SweetsTags { get; set; }
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
 
@@ -68,6 +69,15 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.IdolComments)
                 .WithOne(c => c.Author);
+
+            modelBuilder.Entity<SweetsData>()
+                .HasMany(Sweets => Sweets.Comments)
+                .WithOne(comment => comment.Sweets)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<SweetsData>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Sweets);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -12,11 +12,13 @@ namespace WebStoryFroEveryting.Controllers
     {
         private SweetsModelGenerator _modelGenerator;
         private SweetsRepository _sweetsRepository;
+        private SweetsCommentsRepository _sweetsCommentsRepository;
 
-        public SweetsStoreController(SweetsModelGenerator modelGenerator, SweetsRepository sweetsRepository)
+        public SweetsStoreController(SweetsModelGenerator modelGenerator, SweetsRepository sweetsRepository, SweetsCommentsRepository sweetsCommentsRepository)
         {
             _modelGenerator = modelGenerator;
             _sweetsRepository = sweetsRepository;
+            _sweetsCommentsRepository = sweetsCommentsRepository;
         }
 
 
@@ -54,7 +56,6 @@ namespace WebStoryFroEveryting.Controllers
             return View();
         }
         [HttpPost]
-        //public IActionResult Create(string name, string src)
         public IActionResult Create(CreateSweetsViewModel viewModel)
         {
             _sweetsRepository.Add(
@@ -65,6 +66,38 @@ namespace WebStoryFroEveryting.Controllers
                 });
 
             return RedirectToAction(nameof(CreateOrderForSweets));
+        }
+        public IActionResult CommentForSweets(int sweetsId)
+        {
+            var viewModel = new SweetsWithCommentViewModel();
+            var sweets = _sweetsRepository.GetWithCommentsAndTags(sweetsId);
+            viewModel.Id = sweets.Id;
+            viewModel.Src = sweets.Src;
+            viewModel.Comments = sweets
+                .Comments
+                .Select(x => new SweetsCommentViewModel
+                {
+                    Id = x.Id,
+                    Comment = x.Comment,
+                    Created = x.Created,
+                })
+                .ToList();
+            viewModel.Tags = sweets.Tags.Select(x => x.Tag).ToList();
+            return View(viewModel);
+        }
+        [HttpPost]
+        public IActionResult AddComment(int sweetsId, string comment)
+        {
+            _sweetsCommentsRepository.AddComment(sweetsId, comment);
+
+            return RedirectToAction(nameof(CommentForSweets), new { sweetsId });
+        }
+        [HttpPost]
+        public IActionResult AddTag(int sweetsId, string tag)
+        {
+            _sweetsRepository.AddTag(sweetsId, tag);
+
+            return RedirectToAction(nameof(CommentForSweets), new { sweetsId });
         }
         private SweetsViewModel Map(SweetsData model)
         {

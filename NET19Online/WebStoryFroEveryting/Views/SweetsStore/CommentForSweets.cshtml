@@ -1,0 +1,50 @@
+﻿@using WebStoryFroEveryting.Models.SweetsModel
+@model SweetsWithCommentViewModel
+@{
+	Layout = "~/Views/Shared/_LayoutSweets.cshtml";
+}
+@section Styles {
+	<link href="~/css/SweetsStore/SweetsWithComments.css" rel="stylesheet" />
+}
+<div class="sweets-and-comment">
+	<div class="sweets-image">
+		<h1>@Model.Name</h1>
+		<div class="tags">
+			@foreach (var tag in Model.Tags)
+			{
+				<span class="tag">@tag</span>
+			}
+		</div>
+		<form method="post" action="/SweetsStore/AddTag">
+			<input name="sweetsId" type="hidden" value="@Model.Id" />
+			<div>
+				<input name="coment" placeholder="type tag here" />
+			</div>
+			<div>
+				<button type="submit">Добавить</button>
+			</div>
+		</form>
+		<img src="@Model.Src" />
+	</div>
+	<div class="comments-box">
+		<div class="comments">
+			@foreach (var comment in Model.Comments)
+			{
+				<div class=" comment">
+					@comment.Comment [@comment.Created]
+				</div>
+			}
+		</div>
+		<form method="post" action="/SweetsStore/AddComment">
+			<input name="sweetsId" type="hidden" value="@Model.Id" />
+			<div>
+				<input name="coment" placeholder="type comment here" />
+			</div>
+			<div>
+				<button type="submit">Добавить комментарий</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+

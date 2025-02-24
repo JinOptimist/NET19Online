@@ -10,5 +10,7 @@ namespace StoreData.Models
     {
         public string Name { get; set; }
         public string Src { get; set; }
+        public virtual List<SweetsCommentsData> Comments { get; set; }
+        public virtual List<SweetsTagData> Tags { get; set; } = new List<SweetsTagData> { };
     }
 }
