@@ -50,7 +50,7 @@ namespace StoreData
 
             modelBuilder.Entity<UnderwaterHunterData>()
                 .HasMany(x => x.Comments)
-                .WithOne(x => x.HunterId);
+                .WithOne(x => x.Hunter);
 
             modelBuilder.Entity<UnderwaterHunterData>()
                 .HasMany(x => x.Tags)
@@ -68,6 +68,11 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.IdolComments)
                 .WithOne(c => c.Author);
+            
+            modelBuilder.Entity<UserData>()
+                .HasMany(u => u.HunterComments)
+                .WithOne(c => c.Author);
+
 
             base.OnModelCreating(modelBuilder);
         }

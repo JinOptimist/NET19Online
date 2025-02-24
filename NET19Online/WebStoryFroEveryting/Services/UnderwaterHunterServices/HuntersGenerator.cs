@@ -4,25 +4,25 @@ namespace WebStoryFroEveryting.Services.UnderwaterHunterServices
 {
     public class HuntersGenerator
     {
-        private TheBestUnderwaterHunters _theBestUnderwaterHunters;
+        private UnderwaterHunterViewModel _theBestUnderwaterHunters;
 
-        public HuntersGenerator(TheBestUnderwaterHunters theBestUnderwaterHunters)
+        public HuntersGenerator(UnderwaterHunterViewModel theBestUnderwaterHunters)
         {
             _theBestUnderwaterHunters = theBestUnderwaterHunters;
         }
 
-        public List<TheBestUnderwaterHunters> GenerateHunters()
+        public List<UnderwaterHunterViewModel> GenerateHunters()
         {
-            var hunters = new List<TheBestUnderwaterHunters>
+            var hunters = new List<UnderwaterHunterViewModel>
             {
-                new TheBestUnderwaterHunters
+                new UnderwaterHunterViewModel
                 {
                     NameHunter="Pedro Carbonell",
                     Nationality = "Spanish",
                     MaxHuntingDepth= 40,
                     Src = "https://avatars.mds.yandex.net/i?id=d37489e48b123dee24adcce63e1304a5_l-5312143-images-thumbs&n=13"
                 },
-                new TheBestUnderwaterHunters
+                new UnderwaterHunterViewModel
                 {
                     NameHunter="Gabriele Delbene",
                     Nationality = "Italian",
