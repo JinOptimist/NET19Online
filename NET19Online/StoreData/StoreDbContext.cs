@@ -15,7 +15,7 @@ namespace StoreData
         public DbSet<MagicItemTagData> MagicItemTags { get; set; }
         public DbSet<FilmData> Films { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
-      
+
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
         public DbSet<SweetsData> Sweets { get; set; } 
@@ -29,6 +29,9 @@ namespace StoreData
         public DbSet<PlayerData> FootballPlayers { get; set; }
         public DbSet<RoleData> Roles { get; set; }
         public DbSet<UserData> Users { get; set; }
+        public DbSet<PlayerDescriptionData> PlayerDescriptions { get; set; }
+        public DbSet<PlayerTagData> PlayerTags { get; set; }
+
 
         public StoreDbContext() { }
         public StoreDbContext(DbContextOptions<StoreDbContext> option) : base(option) { }
@@ -91,6 +94,19 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                .HasMany(u => u.JerseyComments)
                .WithOne(c => c.Author);
+
+            modelBuilder.Entity<PlayerData>()
+                .HasMany(player => player.Descriptions)
+                .WithOne(description => description.Player)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PlayerData>()
+                .HasMany(player => player.Tags)
+                .WithMany(tag => tag.Players);
+
+            modelBuilder.Entity<UserData>()
+                .HasMany(u => u.PlayerDescriptions)
+                .WithOne(c => c.Author);
 
             base.OnModelCreating(modelBuilder);
         }

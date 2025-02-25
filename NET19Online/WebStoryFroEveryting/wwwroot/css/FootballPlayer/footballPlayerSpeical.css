@@ -51,4 +51,23 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-decoration: none;
     }
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    display: flex;
+    border: 1px black solid;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 3px;
+}
+
+    .tag.active {
+        border-color: red;
+    }
+

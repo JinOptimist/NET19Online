@@ -52,6 +52,7 @@ builder.Services.AddScoped<GamingDeviceRepository>();
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<IdolCommentRepository>();
 builder.Services.AddScoped<PlayerRepository>();
+builder.Services.AddScoped<PlayerDescriptionRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
 builder.Services.AddScoped<JerseyCommentRepository>();
