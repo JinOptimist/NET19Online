@@ -14,5 +14,9 @@ public class LessonCommentConfiguration : IEntityTypeConfiguration<LessonComment
             .WithMany(l => l.Comments)
             .HasForeignKey(c => c.LessonId)
             .IsRequired();
+        builder
+            .HasOne(c => c.User)
+            .WithMany(u => u.Comments)
+            .IsRequired();
     }
 }

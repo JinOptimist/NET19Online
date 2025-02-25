@@ -69,6 +69,7 @@ builder.Services.AddScoped<UnderwarterHunterRepository>();
 builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
 builder.Services.AddScoped<SingerRepository>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<SchoolUserRepository>();
 
 builder.Services.AddScoped<AuthService>();
 
