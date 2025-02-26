@@ -388,7 +388,7 @@ namespace StoreData.Migrations
                     b.ToTable("MagicItemTags");
                 });
 
-            modelBuilder.Entity("StoreData.Models.PlayerData", b =>
+            
             modelBuilder.Entity("StoreData.Models.SweetsCommentsData", b =>
                 {
                     b.Property<int>("Id")
