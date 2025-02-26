@@ -17,5 +17,13 @@ namespace Enums.User
         CanAddIdolTag = 16,         // => 0001 0000
         [Display(Name = "CanDeleteIdolTag")]
         CanDeleteIdolTag = 32,      // => 0010 0000
+        [Display(Name = "CanCreatHunter")]
+        CanCreatHunter = 64,
+        [Display(Name = "CanDeleteHunterComment")]
+        CanDeleteHunterComment = 128,
+        [Display(Name = "CanDeleteHunterTag")]
+        CanDeleteHunterTag = 256,
+        [Display(Name = "CanDeleteHunter")]
+        CanDeleteHunter = 512,
     }
 }
