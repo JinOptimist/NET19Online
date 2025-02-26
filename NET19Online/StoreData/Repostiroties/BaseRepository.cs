@@ -36,5 +36,10 @@ namespace StoreData.Repostiroties
             _dbSet.Remove(item);
             _dbContext.SaveChanges();
         }
+
+        public virtual bool Any()
+        {
+            return _dbSet.Any();
+        }
     }
 }

@@ -83,6 +83,9 @@ builder.Services.AddScoped<SweetsRepository>();
 
 var app = builder.Build();
 
+var seed = new Seed();
+seed.CheckAndFillWithDefaultEntytiesDatabase(app.Services);
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
