@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.AnimeGirl;
 using WebStoryFroEveryting.Services;
 
@@ -64,23 +65,20 @@ namespace WebStoryFroEveryting.Controllers
 
         [HttpGet]
         [Authorize]
+        [HasPermission(Permisson.CanAddIdol)]
         public IActionResult Create()
         {
-            if (!_authService.HasPermission(Permisson.CanAddIdol))
-            {
-                return Forbid();
-            }
-
             return View();
         }
 
         [HttpPost]
         [Authorize]
+        [HasPermission(Permisson.CanAddIdol)]
         public IActionResult Create(CreateIdolViewModel viewModel)
         {
-            if (!_authService.HasPermission(Permisson.CanAddIdol))
+            if (!ModelState.IsValid)
             {
-                return Forbid();
+                return View(viewModel);
             }
 
             _idolRepository.Add(
@@ -115,6 +113,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
+        [HasPermission(Permisson.CanAddIdolComment)]
         public IActionResult AddComment(int idolId, string comment)
         {
             _idolCommentRepository.AddComment(idolId, comment);

@@ -4,10 +4,12 @@ using StoreData.Models;
 using StoreData.Repostiroties;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.User;
 
 namespace WebStoryFroEveryting.Controllers
 {
+    [IsAdmin]
     public class UserController : Controller
     {
         private UserRepository _userRepository;

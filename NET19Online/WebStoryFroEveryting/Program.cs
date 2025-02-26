@@ -14,6 +14,7 @@ builder.Services
     .AddCookie(AuthService.AUTH_TYPE, config =>
     {
         config.LoginPath = "/Auth/Login";
+        config.AccessDeniedPath = "/Auth/YouCanSeeIt";
     });
 
 // Add services to the container.

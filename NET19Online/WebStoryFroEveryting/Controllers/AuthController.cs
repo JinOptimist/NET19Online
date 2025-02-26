@@ -59,7 +59,17 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Registration(AuthViewModel viewModel)
         {
-            
+            var isNameNotUniq = _userRepository.Any(viewModel.UserName);
+            if (isNameNotUniq)
+            {
+                ModelState.AddModelError(nameof(AuthViewModel.UserName), "Not uniq name");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             _userRepository.Registration(viewModel.UserName, viewModel.Password);
 
             return RedirectToAction("Login");

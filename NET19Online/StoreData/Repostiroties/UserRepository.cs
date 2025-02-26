@@ -13,6 +13,11 @@ namespace StoreData.Repostiroties
             throw new Exception("DO NOT use Add for creating user. We have method Registration for it");
         }
 
+        public bool Any(string name)
+        {
+            return _dbSet.Any(x => x.UserName == name);
+        }
+
         public List<UserData> GetAllWithRole()
         {
             return _dbSet

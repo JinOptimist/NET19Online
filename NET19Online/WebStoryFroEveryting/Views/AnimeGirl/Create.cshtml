@@ -8,9 +8,11 @@
 <form method="post" action="/AnimeGirl/Create">
     <div>
         @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+        @Html.ValidationMessageFor(x => x.Src)
     </div>
     <div>
         <button type="submit">Создать</button>
