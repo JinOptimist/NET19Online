@@ -31,7 +31,7 @@ namespace WebStoryFroEveryting.Controllers
                       Name = viewModel.Name,
                       Src = viewModel.Src,
                       Description = "Test",
-                      Id=viewModel.id
+                      Id = viewModel.id
 
                   }).ToList()
                   .ForEach(_filmsRepository.Add);
@@ -69,6 +69,8 @@ namespace WebStoryFroEveryting.Controllers
         {
             var descriptionFilmViewModel = new DescriptionFilmViewModel();
             var descriptionFilm = _filmsRepository.GetDescription(id);
+            descriptionFilmViewModel.Films.Src = descriptionFilm.Src;
+            descriptionFilmViewModel.Films.Name = descriptionFilm.Name;
             descriptionFilmViewModel.Description = descriptionFilm.DescriptionFilmData.DescriptionFilm;
             descriptionFilmViewModel.Id = descriptionFilm.Id;
 
