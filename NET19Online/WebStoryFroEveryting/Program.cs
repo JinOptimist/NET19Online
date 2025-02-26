@@ -26,8 +26,8 @@ builder.Services
         options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
-
 builder.Services.AddScoped<NotebookRepository>();
+builder.Services.AddScoped<NotebookCommentRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();

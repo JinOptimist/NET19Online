@@ -10,6 +10,8 @@ namespace StoreData
         public DbSet<IdolData> Idols { get; set; }
         public DbSet<IdolCommentData> IdolComments { get; set; }
         public DbSet<IdolTagData> IdolTags { get; set; }
+        public DbSet<NotebookData> Notebooks { get; set; }
+        public DbSet<NotebookCommentData> NotebookComments { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<MagicItemCommentData> MagicItemComments { get; set; }
         public DbSet<MagicItemTagData> MagicItemTags { get; set; }
