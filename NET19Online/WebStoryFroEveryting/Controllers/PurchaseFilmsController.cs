@@ -19,7 +19,7 @@ namespace WebStoryFroEveryting.Controllers
         }
         public IActionResult CreatePurchaseFilms()
         {
-            var items = _filmsRepository.GetItems();
+            var items = _filmsRepository.GetAll();
 
             if (!items.Any())
             {
@@ -28,11 +28,11 @@ namespace WebStoryFroEveryting.Controllers
                   {
                       Name = viewModel.Name,
                       Src = viewModel.Src,
+                      Description = "Test"
                   }).ToList()
-                  .ForEach(_filmsRepository.AddFilml);
-                items = _filmsRepository.GetItems();
+                  .ForEach(_filmsRepository.Add);
+                items = _filmsRepository.GetAll();
             }
-
 
             var viewModels = items.Select(Map).ToList();
             return View(viewModels);
@@ -40,17 +40,10 @@ namespace WebStoryFroEveryting.Controllers
 
         public IActionResult RemoveFilms(int id)
         {
-            _filmsRepository.RemoveFilm(id);
-            return RedirectToAction(nameof(CreatePurchaseFilms));
-        }
 
-        private FilmsViewModel Map(FilmData date)
-        {
-            return new FilmsViewModel
-            {
-                Name = date.Name,
-                Src = date.Src,
-            };
+            _filmsRepository.Remove(id);
+
+            return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
         public IActionResult CreateFilms()
@@ -62,13 +55,24 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
         {
 
-            _filmsRepository.AddFilml(new FilmData
+            _filmsRepository.Add(new FilmData
             {
                 Name = createFilmsViewModel.Name,
-                Src = createFilmsViewModel.Src
+                Src = createFilmsViewModel.Src,
+                Description = "New"
             });
-
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
+
+        private FilmsViewModel Map(FilmData date)
+        {
+            return new FilmsViewModel
+            {
+                Name = date.Name,
+                Src = date.Src,
+                id = date.Id
+            };
+        }
+
     }
 }

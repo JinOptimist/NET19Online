@@ -1,0 +1,25 @@
+﻿@using WebStoryFroEveryting.Models.User
+@model IndexUserViewModel
+
+<div class="users">
+    @foreach (var user in Model.Users)
+    {
+        <div class="user">
+            @user.Name
+            <form method="post" action="/User/UpdateUserRole">
+                <input type="hidden" name="id" value="@user.Id" />
+                <select name="roleId">
+                    @foreach (var role in Model.Roles)
+                    {
+                        <option value="@role.Id"
+                                selected=@(user.RoleId == role.Id ? "selected" : null )>
+                            @role.Name
+                        </option>
+                    }
+                </select>
+                <button type="submit">Обновить</button>
+            </form>
+        </div>
+    }
+</div>
+
