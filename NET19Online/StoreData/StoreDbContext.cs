@@ -12,9 +12,10 @@ namespace StoreData
         public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<FilmData> Films { get; set; }
+        public DbSet<FilmCommentData> FilmCommentDatas { get; set; }
         public DbSet<DescriptionFilmData> DescriptionFilms { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
-      
+
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
 
@@ -44,9 +45,14 @@ namespace StoreData
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<FilmData>()
+                .HasMany(filmData => filmData.Comments)
+                .WithOne(coment => coment.Film)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<FilmData>()
                 .HasOne(films => films.DescriptionFilmData)
                 .WithOne(description => description.FilmData)
-                .HasForeignKey<DescriptionFilmData>(f=>f.Id);
+                .HasForeignKey<DescriptionFilmData>(f => f.Id);
 
             modelBuilder.Entity<IdolData>()
                 .HasMany(x => x.Tags)

@@ -15,5 +15,6 @@ namespace StoreData.Models
         public string Src { get; set; }
 
         public virtual DescriptionFilmData DescriptionFilmData { get; set; }
+        public virtual List<FilmCommentData> Comments { get; set; }
     }
 }

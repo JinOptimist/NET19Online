@@ -11,11 +11,13 @@ namespace WebStoryFroEveryting.Controllers
     {
         private FilmsRepository _filmsRepository;
         private FilmsGeneratorServices _filmsGeneratorServices;
+        private FilmCommentRepository _filmCommentRepository;
 
-        public PurchaseFilmsController(FilmsRepository filmsRepository, FilmsGeneratorServices filmsGeneratorServices)
+        public PurchaseFilmsController(FilmsRepository filmsRepository, FilmsGeneratorServices filmsGeneratorServices, FilmCommentRepository filmCommentRepository)
         {
             _filmsRepository = filmsRepository;
             _filmsGeneratorServices = filmsGeneratorServices;
+            _filmCommentRepository = filmCommentRepository;
         }
         public IActionResult CreatePurchaseFilms()
         {
@@ -28,7 +30,9 @@ namespace WebStoryFroEveryting.Controllers
                   {
                       Name = viewModel.Name,
                       Src = viewModel.Src,
-                      Description = "Test"
+                      Description = "Test",
+                      Id=viewModel.id
+
                   }).ToList()
                   .ForEach(_filmsRepository.Add);
                 items = _filmsRepository.GetAll();
@@ -52,7 +56,6 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
         {
-
             _filmsRepository.Add(new FilmData
             {
                 Name = createFilmsViewModel.Name,
@@ -62,18 +65,18 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
-        public IActionResult CreateDescriptionFilm(int id)
+        public IActionResult DescriptionFilm(int id)
         {
             var descriptionFilmViewModel = new DescriptionFilmViewModel();
             var descriptionFilm = _filmsRepository.GetDescription(id);
-            descriptionFilmViewModel.Films.Src = descriptionFilm.Src;
             descriptionFilmViewModel.Description = descriptionFilm.DescriptionFilmData.DescriptionFilm;
+            descriptionFilmViewModel.Id = descriptionFilm.Id;
 
             return View(descriptionFilmViewModel);
         }
 
         [HttpPost]
-        public IActionResult CreateDescriptionFilm(DescriptionFilmViewModel descriptionFilm)
+        public IActionResult AddComment(int filmid, string comment)
         {
             return View();
         }
