@@ -80,6 +80,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult AddComment(int filmid, string comment)
         {
+            _filmCommentRepository.AddComment(filmid, comment);
             return View();
         }
 

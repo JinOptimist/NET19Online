@@ -7,9 +7,17 @@ using System.Threading.Tasks;
 
 namespace StoreData.Repostiroties
 {
-    public class FilmCommentRepository  :BaseRepository<FilmCommentData>
+    public class FilmCommentRepository : BaseRepository<FilmCommentData>
     {
         public FilmCommentRepository(StoreDbContext dbContext) : base(dbContext) { }
 
+        public void AddComment(int filmid, string comment)
+        {
+            var filmComment = new FilmCommentData();
+            filmComment.Id = filmid;
+            filmComment.Comment = comment;
+            _dbContext.Add(filmComment);
+            _dbContext.SaveChanges();
+        }
     }
 }
