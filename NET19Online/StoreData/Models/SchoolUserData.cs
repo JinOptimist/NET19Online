@@ -9,4 +9,5 @@ public class SchoolUserData : BaseModel
     public string Email { get; set; }
     public string Password { get; set; }
     public List<LessonCommentData> Comments { get; set; } = [];
+    public SchoolRoleData? Role { get; set; }
 }

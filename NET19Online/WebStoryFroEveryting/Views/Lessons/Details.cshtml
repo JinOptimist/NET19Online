@@ -36,8 +36,8 @@
         @foreach (var comment in @Model.Comments)
         {
             <div class="comment-item">
-                <div class="comment-description">@comment.Description</div>
                 <div class="comment-description">@comment.User.Username</div>
+                <div class="comment-description">@comment.Description</div>
                 <div class="comment-created">@comment.Created.ToString("g")</div>
             </div>
         }

@@ -13,5 +13,8 @@ public class SchoolUserConfiguration : IEntityTypeConfiguration<SchoolUserData>
             .HasMany(u => u.Comments)
             .WithOne(c => c.User)
             .IsRequired();
+        builder
+            .HasOne(u => u.Role)
+            .WithMany(r => r.Users);
     }
 }
