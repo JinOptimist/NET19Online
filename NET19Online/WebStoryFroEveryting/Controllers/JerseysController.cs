@@ -5,6 +5,8 @@ using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.Jerseys;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
+using Enums.User;
 
 namespace WebStoryFroEveryting.Controllers
 {
@@ -96,7 +98,7 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(Detail), new { jerseyId });
         }
         [HttpPost]
-        [Authorize]
+        [HasPermission(Permisson.CanCreateJerseyTag)]
         public IActionResult AddTag(int jerseyId, string tag)
         {
             _jerseyRepository.AddTag(jerseyId, tag);
@@ -104,23 +106,27 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(Detail), new { jerseyId });
         }
         [HttpGet]
-        [Authorize]
-        public IActionResult Remove(int id)
+        [HasPermission(Permisson.CanRemoveJersey)]
+        public IActionResult Remove(int jerseyId)
         {
-            _jerseyRepository.Remove(id);
+            _jerseyRepository.Remove(jerseyId);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        [Authorize]
+        [HasPermission(Permisson.CanCreateJersey)]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [HasPermission(Permisson.CanCreateJersey)]
         public IActionResult Create(CreateJerseyViewModel createJerseyViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(createJerseyViewModel);
+            }
             _jerseyRepository.Add(
                     new JerseyData
                     {

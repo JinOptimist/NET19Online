@@ -25,5 +25,11 @@ namespace Enums.User
         CanDeleteHunterTag = 256,
         [Display(Name = "CanDeleteHunter")]
         CanDeleteHunter = 512,
+        [Display(Name = "CanCreateJersey")]
+        CanCreateJersey = 1024,
+        [Display(Name = "CanRemoveJersey")]
+        CanRemoveJersey = 2048,
+        [Display(Name = "CanCreateJerseyTag")]
+        CanCreateJerseyTag = 4096
     }
 }
