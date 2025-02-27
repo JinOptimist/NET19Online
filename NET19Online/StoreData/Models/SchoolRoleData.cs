@@ -6,7 +6,7 @@ public class SchoolRoleData : BaseModel
 {
     public string Name { get; set; }
 
-    public SchoolPermission Permisson { get; set; }
+    public SchoolPermission Permission { get; set; }
 
     public List<SchoolUserData> Users { get; set; } = [];
 }

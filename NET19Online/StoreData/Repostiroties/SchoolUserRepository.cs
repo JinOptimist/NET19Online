@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using StoreData.Models;
 
 namespace StoreData.Repostiroties;
@@ -11,6 +12,13 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
     public override void Add(SchoolUserData item)
     {
         throw new Exception("DO NOT use Add for creating user. We have method Registration for it");
+    }
+
+    public List<SchoolUserData> GetAllWithRole()
+    {
+        return _dbSet
+            .Include(u => u.Role)
+            .ToList();
     }
 
     public void Registration(string username, string email, string password)

@@ -23,9 +23,7 @@ public abstract class BaseSchoolRepository<DbModel> where DbModel : BaseModel
 
     public virtual List<DbModel> GetAll()
     {
-        return _dbSet
-            .AsNoTracking()
-            .ToList();
+        return _dbSet.ToList();
     }
 
     public virtual void Add(DbModel item)
