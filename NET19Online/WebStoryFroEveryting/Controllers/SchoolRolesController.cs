@@ -23,6 +23,23 @@ public class SchoolRolesController : Controller
     }
 
     [HttpPost]
+    public IActionResult Add(string roleName)
+    {
+        var role = new SchoolRoleData()
+        {
+            Name = roleName,
+        };
+        _schoolRoleRepository.Add(role);
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Delete(int roleId)
+    {
+        _schoolRoleRepository.Remove(roleId);
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
     public IActionResult Update(int roleId, List<int> permissions)
     {
         var role = _schoolRoleRepository.Get(roleId);

@@ -34,12 +34,13 @@ public class SchoolAuthController : Controller
     
                 var claims = new List<Claim>
                 {
-                    new Claim(AuthService.CLAIM_KEY_ID, user.Id.ToString()),
-                    new Claim(AuthService.CLAIM_KEY_NAME, user.Username.ToString()),
-                    new Claim(ClaimTypes.AuthenticationMethod, AuthService.AUTH_TYPE)
+                    new Claim(SchoolAuthService.CLAIM_KEY_ID, user.Id.ToString()),
+                    new Claim(SchoolAuthService.CLAIM_KEY_NAME, user.Username.ToString()),
+                    new Claim(SchoolAuthService.CLAIM_KEY_PERMISSION, ((int?)user.Role?.Permission ?? -1).ToString()),
+                    new Claim(ClaimTypes.AuthenticationMethod, SchoolAuthService.AUTH_TYPE)
                 };
     
-                var identity = new ClaimsIdentity(claims, AuthService.AUTH_TYPE);
+                var identity = new ClaimsIdentity(claims, SchoolAuthService.AUTH_TYPE);
     
                 var principal = new ClaimsPrincipal(identity);
     
@@ -47,7 +48,7 @@ public class SchoolAuthController : Controller
                     .SignInAsync(principal)
                     .Wait();
     
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Lessons");
             }
     
             public IActionResult Registration()
@@ -61,11 +62,11 @@ public class SchoolAuthController : Controller
                 _userRepository.Registration(viewModel.Username,viewModel.Email, viewModel.Password);
                 return RedirectToAction("Login");
             }
-    
+            
             public IActionResult Logout()
             {
                 HttpContext.SignOutAsync().Wait();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Lessons");
             }
         
 }

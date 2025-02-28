@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using Enums.SchoolUser;
 using Microsoft.EntityFrameworkCore;
 using StoreData.Models;
 
@@ -7,7 +8,11 @@ namespace StoreData.Repostiroties;
 
 public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
 {
-    public SchoolUserRepository(SchoolDbContext dbContext) : base(dbContext) { }
+    private readonly SchoolRoleRepository _schoolRoleRepository;
+    public SchoolUserRepository(SchoolDbContext dbContext, SchoolRoleRepository schoolRoleRepository) : base(dbContext)
+    {
+        _schoolRoleRepository = schoolRoleRepository;
+    }
 
     public override void Add(SchoolUserData item)
     {
@@ -27,7 +32,8 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
         {
             Username = username,
             Email = email,
-            Password = HashPassword(password)
+            Password = HashPassword(password),
+            Role = _schoolRoleRepository.GetRoleByName("User")
         };
         _dbSet.Add(user);
         _dbContext.SaveChanges();
@@ -36,14 +42,16 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
     public SchoolUserData Login(string username, string password)
     {
         var hashPassword = HashPassword(password);
-        return _dbSet.First(u => u.Username == username && u.Password == hashPassword);
+        return _dbSet
+            .Include(x => x.Role)
+            .First(u => u.Username == username && u.Password == hashPassword);
     }
     
     public string HashPassword(string password)
     {
         using var sha256 = SHA256.Create();
-        byte[] inputBytes = Encoding.UTF8.GetBytes(password);
-        byte[] hashBytes = sha256.ComputeHash(inputBytes);
+        var inputBytes = Encoding.UTF8.GetBytes(password);
+        var hashBytes = sha256.ComputeHash(inputBytes);
         return Convert.ToHexString(hashBytes);
     }
 }

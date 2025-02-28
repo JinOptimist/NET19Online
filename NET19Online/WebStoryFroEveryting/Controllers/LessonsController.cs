@@ -1,7 +1,9 @@
+using Enums.SchoolUser;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.Lessons;
+using WebStoryFroEveryting.Services;
 
 namespace WebStoryFroEveryting.Controllers;
 
@@ -9,11 +11,16 @@ public class LessonsController: Controller
 {
     private readonly LessonRepository _lessonRepository;
     private readonly LessonCommentRepository _commentRepository;
+    private readonly SchoolAuthService _authService;
 
-    public LessonsController(LessonRepository lessonRepository, LessonCommentRepository lessonCommentRepository)
+    public LessonsController(
+        LessonRepository lessonRepository, 
+        LessonCommentRepository lessonCommentRepository,
+        SchoolAuthService authService)
     {
         _lessonRepository = lessonRepository;
         _commentRepository = lessonCommentRepository;
+        _authService = authService;
     }
     public IActionResult Index()
     {
@@ -38,12 +45,20 @@ public class LessonsController: Controller
     [HttpGet]
     public IActionResult Create()
     {
+        if (!_authService.HasPermission(SchoolPermission.CanAddLesson))
+        {
+            return Forbid();
+        }
         return View();
     }
 
     [HttpPost]
     public IActionResult Create(LessonViewModel lessonViewModel)
     {
+        if (!_authService.HasPermission(SchoolPermission.CanAddLesson))
+        {
+            return Forbid();
+        }
         if (!ModelState.IsValid)
         {
             return View(lessonViewModel);

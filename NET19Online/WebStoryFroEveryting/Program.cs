@@ -16,6 +16,13 @@ builder.Services
         config.LoginPath = "/Auth/Login";
     });
 
+builder.Services
+    .AddAuthentication(SchoolAuthService.AUTH_TYPE)
+    .AddCookie(SchoolAuthService.AUTH_TYPE, config =>
+    {
+        config.LoginPath = "/SchoolAuth/Login";
+    });
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -71,6 +78,7 @@ builder.Services.AddScoped<SingerRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<SchoolUserRepository>();
 builder.Services.AddScoped<SchoolRoleRepository>();
+builder.Services.AddScoped<SchoolAuthService>();
 
 builder.Services.AddScoped<AuthService>();
 
