@@ -11,6 +11,7 @@ public class LessonRepository : BaseSchoolRepository<LessonData>
         return _dbSet
             .AsNoTracking()
             .Include(l => l.Comments)
+                .ThenInclude(c => c.User)
             .First(x => x.Id == id);
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StoreData;
@@ -11,9 +12,11 @@ using StoreData;
 namespace StoreData.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250225155634_AddLessonComment")]
+    partial class AddLessonComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,14 +43,9 @@ namespace StoreData.Migrations
                     b.Property<int>("LessonId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("LessonId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -80,31 +78,6 @@ namespace StoreData.Migrations
                     b.ToTable("Lessons");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SchoolUserData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("StoreData.Models.LessonCommentData", b =>
                 {
                     b.HasOne("StoreData.Models.LessonData", "Lesson")
@@ -113,23 +86,10 @@ namespace StoreData.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StoreData.Models.SchoolUserData", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Lesson");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StoreData.Models.LessonData", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("StoreData.Models.SchoolUserData", b =>
                 {
                     b.Navigation("Comments");
                 });

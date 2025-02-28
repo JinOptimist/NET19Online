@@ -6,4 +6,5 @@ public class LessonCommentData : BaseModel
     public DateTime Created { get; set; }
     public int LessonId { get; set; }
     public LessonData Lesson { get; set; } = null!;
+    public virtual SchoolUserData User { get; set; }
 }

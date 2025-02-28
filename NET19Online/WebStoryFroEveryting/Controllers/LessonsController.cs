@@ -59,9 +59,9 @@ public class LessonsController: Controller
     }
     
     [HttpPost]
-    public IActionResult CreateComment(int lessonId, string description)
+    public IActionResult CreateComment(int lessonId,int userId, string description)
     {
-        _commentRepository.AddComment(lessonId, description);
+        _commentRepository.AddComment(lessonId,userId, description);
         return RedirectToAction(nameof(Details), new { id = lessonId });
     }
 
@@ -97,7 +97,8 @@ public class LessonsController: Controller
             {
                 Created = c.Created,
                 Description = c.Description,
-                Id = c.Id
+                Id = c.Id,
+                User = new SchoolUserViewModel(){Username = c.User.Username}
             })
             .ToList();
         return new LessonWithCommentViewModel()
