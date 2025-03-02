@@ -25,5 +25,8 @@ namespace Enums.User
         CanDeleteHunterTag = 256,
         [Display(Name = "CanDeleteHunter")]
         CanDeleteHunter = 512,
+        [Display(Name = "CanAddFilm")]
+        CanAddFilm = 1024,             // => 0000 0001
+
     }
 }
