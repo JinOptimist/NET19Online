@@ -15,7 +15,7 @@ namespace StoreData.Repostiroties
         public FilmData GetFilm(int id)
         {
             var film = _dbSet
-                 .Include(x => x.DescriptionFilmData)
+                 .Include(x => x.DescriptionFilms)
                  .Include(x=>x.Comments)
                  .First(x => x.Id == id);
             return film;
@@ -24,7 +24,7 @@ namespace StoreData.Repostiroties
         public FilmData GetFilmComment(int filmid)
         {
             var film = _dbSet.Include(x => x.Comments)
-                .Include(x=>x.DescriptionFilmData)
+                .Include(x=>x.DescriptionFilms)
                 .First(x => x.Id == filmid);
             return film;
         }

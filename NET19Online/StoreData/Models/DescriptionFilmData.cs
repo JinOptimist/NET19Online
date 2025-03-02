@@ -10,6 +10,6 @@ namespace StoreData.Models
     {
         public string DescriptionFilm { get; set; }
         public DateTime? Created { get; set; }
-        public virtual FilmData FilmData { get; set; }
+        public virtual FilmData Films { get; set; }
     }
 }

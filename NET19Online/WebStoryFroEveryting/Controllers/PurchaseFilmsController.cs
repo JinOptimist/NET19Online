@@ -71,7 +71,7 @@ namespace WebStoryFroEveryting.Controllers
             var descriptionFilm = _filmsRepository.GetFilm(id);
             descriptionFilmViewModel.Films.Src = descriptionFilm.Src;
             descriptionFilmViewModel.Films.Name = descriptionFilm.Name;
-            descriptionFilmViewModel.DescriptionFilm = descriptionFilm.DescriptionFilmData.DescriptionFilm;
+            descriptionFilmViewModel.DescriptionFilm = descriptionFilm.DescriptionFilms.DescriptionFilm;
             descriptionFilmViewModel.Id = descriptionFilm.Id;
             descriptionFilmViewModel.Films.Comments = descriptionFilm.Comments
                 .Select(x => new FilmCommentViewModel

@@ -13,7 +13,7 @@ namespace StoreData.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Src { get; set; }
-        public virtual DescriptionFilmData DescriptionFilmData { get; set; }
+        public virtual DescriptionFilmData DescriptionFilms { get; set; }
         public virtual List<FilmCommentData> Comments { get; set; }
     }
 }

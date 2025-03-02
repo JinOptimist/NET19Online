@@ -57,8 +57,8 @@ namespace StoreData
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<FilmData>()
-                .HasOne(films => films.DescriptionFilmData)
-                .WithOne(description => description.FilmData)
+                .HasOne(films => films.DescriptionFilms)
+                .WithOne(description => description.Films)
                 .HasForeignKey<DescriptionFilmData>(f => f.Id);
 
             modelBuilder.Entity<IdolData>()
