@@ -68,20 +68,28 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult DescriptionFilm(int id)
         {
             var descriptionFilmViewModel = new DescriptionFilmViewModel();
-            var descriptionFilm = _filmsRepository.GetDescription(id);
+            var descriptionFilm = _filmsRepository.GetFilm(id);
             descriptionFilmViewModel.Films.Src = descriptionFilm.Src;
             descriptionFilmViewModel.Films.Name = descriptionFilm.Name;
-            descriptionFilmViewModel.Description = descriptionFilm.DescriptionFilmData.DescriptionFilm;
+            descriptionFilmViewModel.DescriptionFilm = descriptionFilm.DescriptionFilmData.DescriptionFilm;
             descriptionFilmViewModel.Id = descriptionFilm.Id;
+            descriptionFilmViewModel.Films.Comments = descriptionFilm.Comments
+                .Select(x => new FilmCommentViewModel
+                {
+                    Id = x.Id,
+                    Comment = x.Comment,
+                }).ToList();
+
 
             return View(descriptionFilmViewModel);
         }
+ 
 
         [HttpPost]
-        public IActionResult AddComment(int filmid, string comment)
+        public IActionResult AddComment(int id, string comment)
         {
-            _filmCommentRepository.AddComment(filmid, comment);
-            return View();
+            _filmCommentRepository.AddComment(id, comment);
+            return RedirectToAction(nameof(DescriptionFilm), new { id });
         }
 
         private FilmsViewModel Map(FilmData date)

@@ -13,17 +13,28 @@
             <img src="@Model.Films.Src" />
         </div>
         <div class="description">
-            <h2>@Model.Description</h2>
+            <h2>@Model.DescriptionFilm</h2>
         </div>
+
     </div>
-</form >
+</form>
+
 <form method="post" action="/PurchaseFilms/AddComment">
     <div class="comment-created">
         <h2>Comments</h2>
         <div>
-            <input name="filmid" type="hidden" value="@Model.Id" />
-            <input name="comment" placeholder="Comments"  />
+            <input name="id" type="hidden" value="@Model.Id" />
+            <input name="comment" placeholder="Comments" />
             <button type="submit">Создать</button>
+        </div>
+
+        <div class="comment">
+            @foreach (var comment in Model.Films.Comments)
+            {
+                <div class="comment">
+                    @comment.Comment [@comment.Created]
+                </div>
+            }
         </div>
     </div>
 </form>

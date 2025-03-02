@@ -14,7 +14,7 @@ namespace StoreData.Repostiroties
         public void AddComment(int filmid, string comment)
         {
             var filmComment = new FilmCommentData();
-            filmComment.Id = filmid;
+            filmComment.FilmId = filmid;
             filmComment.Comment = comment;
             _dbContext.Add(filmComment);
             _dbContext.SaveChanges();

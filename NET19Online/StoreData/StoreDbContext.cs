@@ -36,7 +36,6 @@ namespace StoreData
         {
             optionsBuilder.UseSqlServer(CONNECTION_STRING);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<IdolData>()
