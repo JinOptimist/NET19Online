@@ -52,6 +52,7 @@ namespace WebStoryFroEveryting.Controllers
                 .Distinct()
                 .ToList();
             viewModel.CurrentTag = tag;
+            viewModel.IsAdmin = _authService.IsAdmin();
             return View(viewModel);
         }
         public ActionResult Detail(int jerseyId)

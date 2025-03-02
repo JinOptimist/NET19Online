@@ -35,7 +35,11 @@ namespace WebStoryFroEveryting.Models.CustomValidationAttribute
                 isValid = false;
                 errorMessage.Append($"Пароль должен содержать хотя бы одну цифру. ");
             }
-
+            if (!viewModel.Password.Any(c => char.IsUpper(c)))
+            {
+                isValid = false;
+                errorMessage.Append($"Пароль должен содержать хотя бы одну букву в верхнем регистре. ");
+            }
             if (!isValid) return new ValidationResult(errorMessage.ToString());
 
             return ValidationResult.Success;
