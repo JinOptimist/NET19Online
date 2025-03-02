@@ -8,6 +8,7 @@ namespace WebStoryFroEveryting.Models.Auth
         public string UserName { get; set; }
 
         [AuthPassword]
+        [IsStrongPassword]
         public string Password { get; set; }
     }
 }

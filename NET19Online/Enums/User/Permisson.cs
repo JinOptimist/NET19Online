@@ -25,5 +25,13 @@ namespace Enums.User
         CanDeleteHunterTag = 256,
         [Display(Name = "CanDeleteHunter")]
         CanDeleteHunter = 512,
+        [Display(Name = "CanAddPlayer")]
+        CanAddPlayer = 134_217_728,
+        [Display(Name = "CanDeletePlayer")]
+        CanDeletePlayer = 268_435_456,
+        [Display(Name = "CanAddPlayerDescriptions")]
+        CanAddPlayerDescription = 536_870_912,
+        [Display(Name = "CanAddPlayerTag")]
+        CanAddPlayerTag = 1_073_741_824,
     }
 }
