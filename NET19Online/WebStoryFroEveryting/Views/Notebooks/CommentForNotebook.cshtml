@@ -1,0 +1,38 @@
+﻿@using WebStoryFroEveryting.Models.Notebook
+@model NotebookWithCoomentViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutNotebooks.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/Notebooks/NotebooksWithComment.css" rel="stylesheet" />
+}
+
+<div class="notebook-with-cooment">
+    <div class="notebook-container">
+        <h1>@Model.Name</h1>
+        <img src="@Model.Src" />      
+    </div>
+    <div class="comments-container">
+        <div class="comments">
+            @foreach (var cooment in Model.Comments)
+            {
+                <div class="comment">
+                    @cooment.Comment [@cooment.Created]
+                </div>
+            }
+        </div>
+
+        <form method="post" action="/Notebooks/AddComment">
+            <input name="notebookId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="comment" placeholder="type comment here" />
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
+    </div>
+</div>
+

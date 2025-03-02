@@ -1,4 +1,6 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
+using System.Xml.Serialization;
 
 namespace StoreData.Repostiroties
 {
@@ -11,10 +13,23 @@ namespace StoreData.Repostiroties
             throw new Exception("DO NOT use Add for creating user. We have method Registration for it");
         }
 
-        public UserData Login(string userName, string password)
+        public bool Any(string name)
+        {
+            return _dbSet.Any(x => x.UserName == name);
+        }
+
+        public List<UserData> GetAllWithRole()
+        {
+            return _dbSet
+                .Include(x => x.Role)
+                .ToList();
+        }
+
+        public UserData? Login(string userName, string password)
         {
             var securePassword = BuildSecurePassword(password);
             return _dbSet
+                .Include(x => x.Role)
                 .FirstOrDefault(x => x.UserName == userName && x.Password == securePassword);
         }
 
@@ -27,6 +42,18 @@ namespace StoreData.Repostiroties
             };
 
             _dbSet.Add(userData);
+            _dbContext.SaveChanges();
+        }
+
+        public void UpdateRole(int id, int? roleId)
+        {
+            var user = _dbSet
+                .Include(x => x.Role)
+                .First(x => x.Id == id);
+            var role = roleId == null
+                ? null
+                : _dbContext.Roles.First(x => x.Id == roleId);
+            user.Role = role;
             _dbContext.SaveChanges();
         }
 

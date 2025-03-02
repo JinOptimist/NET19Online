@@ -1,25 +1,34 @@
-﻿@using WebStoryFroEveryting.Models.UnderwaterHuntersWorld
-@model CreateUnderwaterHunterModel;
+﻿@using WebStoryFroEveryting.Services
+@using WebStoryFroEveryting.Models.UnderwaterHuntersWorld
+@model CreateUnderwaterHunterModel
+
 @{
 	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
 }
 <form method="post" action="/UnderwaterHunter/CreateNewHunter">
 	<div class="blockForCreating">
-		<div>
-			@Html.TextBoxFor(x => x.NameHunter, new { placeholder = "set name hunter" })
-		</div>
-		<div>
-			@Html.TextBoxFor(x => x.Nationality, new { placeholder = "nationality" })
-		</div>
-		<div>
-			@Html.TextBoxFor(x => x.Image, new { placeholder = "URL image" })
-		</div>
-		<div>
-			@Html.TextBoxFor(x => x.MaxHuntingDepth, new { placeholder = "Max depth" })
-		</div>
-
-		<div>
-			<button type="submit">Create</button>
-		</div>
+		@if (Model.isAuthenticated)
+		{
+			<div>
+				@Html.TextBoxFor(x => x.NameHunter, new { placeholder = "set name hunter" })
+			</div>
+			<div>
+				@Html.TextBoxFor(x => x.Nationality, new { placeholder = "nationality" })
+			</div>
+			<div>
+				@Html.TextBoxFor(x => x.Image, new { placeholder = "URL image" })
+			</div>
+			<div>
+				@Html.TextBoxFor(x => x.MaxHuntingDepth, new { placeholder = "Max depth" })
+			</div>
+			<div>
+				<button type="submit">Create</button>
+			</div>
+		}
+		else
+		{
+			<div class="notAuthenticated">You need authenticate!</div>
+			<a href="/Auth/Login">Login</a>
+		}
 	</div>
 </form>

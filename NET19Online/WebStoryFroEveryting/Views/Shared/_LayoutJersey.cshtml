@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using WebStoryFroEveryting.Services
+@inject AuthService authservice
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -6,7 +8,7 @@
     <title>@ViewBag.Title</title>
     <link href="~/css/reset.css" rel="stylesheet" />
     <link href="~/css/jerseys/Jerseys.css" rel="stylesheet" />
-    @RenderSection("Styles",false)
+    @RenderSection("Styles", false)
 </head>
 <body>
     <div id="header">
@@ -18,9 +20,13 @@
                 <li>
                     <a href="/jerseys/">Спортивные майки</a>
                 </li>
-                <li>
-                <a href="/jerseys/create/">Создать майку</a>
-                </li>
+                @if (authservice.IsAuthenticated() && authservice.GetUserId() == 1)
+                {
+                    <li>
+                        <a href="/jerseys/create/">Создать майку</a>
+                    </li>
+                }
+
             </ul>
         </div>
     </div>

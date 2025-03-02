@@ -36,6 +36,7 @@ namespace WebStoryFroEveryting.Controllers
             {
                 new Claim(AuthService.CLAIM_KEY_ID, user.Id.ToString()),
                 new Claim(AuthService.CLAIM_KEY_NAME, user.UserName.ToString()),
+                new Claim(AuthService.CLAIM_KEY_PERMISSION, ((int?)user.Role?.Permisson ?? -1).ToString()),
                 new Claim(ClaimTypes.AuthenticationMethod, AuthService.AUTH_TYPE)
             };
 
@@ -58,7 +59,17 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Registration(AuthViewModel viewModel)
         {
-            
+            var isNameNotUniq = _userRepository.Any(viewModel.UserName);
+            if (isNameNotUniq)
+            {
+                ModelState.AddModelError(nameof(AuthViewModel.UserName), "Not uniq name");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             _userRepository.Registration(viewModel.UserName, viewModel.Password);
 
             return RedirectToAction("Login");

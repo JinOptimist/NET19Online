@@ -5,9 +5,11 @@
 <form method="post" action="/Auth/Registration">
     <div>
         @Html.TextBoxFor(x => x.UserName, new { placeholder = "UserName" })
+        @Html.ValidationMessageFor(x => x.UserName)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", @type = "password" })
+        @Html.ValidationMessageFor(x => x.Password)
     </div>
     <div>
         <button type="submit">Зарегистрироваться</button>

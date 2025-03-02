@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StoreData;
+using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
@@ -13,6 +14,7 @@ builder.Services
     .AddCookie(AuthService.AUTH_TYPE, config =>
     {
         config.LoginPath = "/Auth/Login";
+        config.AccessDeniedPath = "/Auth/YouCanSeeIt";
     });
 
 // Add services to the container.
@@ -25,13 +27,14 @@ builder.Services
         options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
-
 builder.Services.AddScoped<NotebookRepository>();
+builder.Services.AddScoped<NotebookCommentRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 
+builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>();
 builder.Services.AddScoped<FilmCommentRepository>();
@@ -51,6 +54,7 @@ builder.Services.AddScoped<GamingDeviceRepository>();
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<IdolCommentRepository>();
 builder.Services.AddScoped<PlayerRepository>();
+builder.Services.AddScoped<PlayerDescriptionRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
 builder.Services.AddScoped<JerseyRepository>();
 builder.Services.AddScoped<JerseyCommentRepository>();
@@ -60,8 +64,9 @@ builder.Services.AddScoped<MagicItemCategoryGenerator>();
 builder.Services.AddScoped<MagicItemNameGenerator>();
 
 builder.Services.AddScoped<MagicItemRepository>();
+builder.Services.AddScoped<MagicItemCommentRepository>();
 
-builder.Services.AddScoped<TheBestUnderwaterHunters>();
+builder.Services.AddScoped<UnderwaterHunterViewModel>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
 builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
@@ -71,8 +76,16 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<SweetsNameGenerator>();
+builder.Services.AddScoped<SweetsModelGenerator>();
+builder.Services.AddScoped<SweetsRepository>();
+
+
 
 var app = builder.Build();
+
+var seed = new Seed();
+seed.CheckAndFillWithDefaultEntytiesDatabase(app.Services);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

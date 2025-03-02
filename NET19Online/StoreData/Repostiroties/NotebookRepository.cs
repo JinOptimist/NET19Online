@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,25 +8,21 @@ using System.Threading.Tasks;
 
 namespace StoreData.Repostiroties
 {
-    public class NotebookRepository
-    {
-        private static List<NotebookData> FakeDB = new();
+    public class NotebookRepository : BaseRepository<NotebookData>
+    {       
 
-        public List<NotebookData> GetNotebooks() 
+        public NotebookRepository(StoreDbContext dbContext):base(dbContext) { }
+
+        public void AddNotebooks(List<NotebookData> notebooks)
         {
-            return FakeDB; 
-        }
-
-        public void AddNotebook(NotebookData notebook)
+            _dbContext.Notebooks.AddRange(notebooks);
+            _dbContext.SaveChanges();
+        }        
+         public NotebookData GetWithComments(int notebookId)
         {
-            notebook.Id = FakeDB.Count > 0 ? FakeDB.Max(x => x.Id) + 1:  1;
-            FakeDB.Add(notebook);
+            return _dbSet
+                .Include(x => x.Comments)
+                .First(x => x.Id == notebookId);
         }
-
-        public void Remove(int id) 
-        {
-            FakeDB = FakeDB.Where(x => x.Id != id).ToList();
-        }
-
     }
 }

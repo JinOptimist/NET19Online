@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Enums.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.AnimeGirl;
 using WebStoryFroEveryting.Services;
 
@@ -63,6 +65,7 @@ namespace WebStoryFroEveryting.Controllers
 
         [HttpGet]
         [Authorize]
+        [HasPermission(Permisson.CanAddIdol)]
         public IActionResult Create()
         {
             return View();
@@ -70,8 +73,14 @@ namespace WebStoryFroEveryting.Controllers
 
         [HttpPost]
         [Authorize]
+        [HasPermission(Permisson.CanAddIdol)]
         public IActionResult Create(CreateIdolViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             _idolRepository.Add(
                 new IdolData
                 {
@@ -104,6 +113,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
+        [HasPermission(Permisson.CanAddIdolComment)]
         public IActionResult AddComment(int idolId, string comment)
         {
             _idolCommentRepository.AddComment(idolId, comment);
