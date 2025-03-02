@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Enums.User;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.Films;
 using WebStoryFroEveryting.Services.FilmsServer;
 
@@ -41,7 +43,7 @@ namespace WebStoryFroEveryting.Controllers
             var viewModels = items.Select(Map).ToList();
             return View(viewModels);
         }
-
+        [IsAdmin]
         public IActionResult RemoveFilms(int id)
         {
             _filmsRepository.Remove(id);
@@ -54,7 +56,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
+         public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
         {
             _filmsRepository.Add(new FilmData
             {
