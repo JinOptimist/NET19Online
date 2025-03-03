@@ -31,6 +31,8 @@ public class SchoolAuthController : Controller
                 {
                     return RedirectToAction("Login");
                 }
+                
+                
     
                 var claims = new List<Claim>
                 {
@@ -59,6 +61,10 @@ public class SchoolAuthController : Controller
             [HttpPost]
             public IActionResult Registration(SchoolAuthViewModel viewModel)
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(viewModel);
+                }
                 _userRepository.Registration(viewModel.Username,viewModel.Email, viewModel.Password);
                 return RedirectToAction("Login");
             }

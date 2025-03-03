@@ -26,6 +26,19 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
             .ToList();
     }
 
+    public SchoolUserData? GetByUsername(string username)
+    {
+        return _dbSet
+            .FirstOrDefault(u => u.Username == username);
+    }
+
+    public override SchoolUserData Get(int id)
+    {
+        return _dbSet
+            .Include(u => u.Role)
+            .First(u => u.Id == id);
+    }
+
     public void Registration(string username, string email, string password)
     {
         var user = new SchoolUserData()

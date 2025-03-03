@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.SchoolUser;
+using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
 
 namespace WebStoryFroEveryting.Controllers;
 
+[IsRole("Admin")]
 public class SchoolRolesController : Controller
 {
     private readonly SchoolRoleRepository _schoolRoleRepository;

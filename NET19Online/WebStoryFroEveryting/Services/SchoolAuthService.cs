@@ -1,4 +1,5 @@
 using Enums.SchoolUser;
+using StoreData.Repostiroties;
 
 namespace WebStoryFroEveryting.Services;
 
@@ -10,10 +11,12 @@ public class SchoolAuthService
             public const string CLAIM_KEY_PERMISSION = "Permission";
     
             private IHttpContextAccessor _contextAccessor;
+            private readonly SchoolUserRepository _userRepository;
     
-            public SchoolAuthService(IHttpContextAccessor contextAccessor)
+            public SchoolAuthService(IHttpContextAccessor contextAccessor, SchoolUserRepository userRepository)
             {
                 _contextAccessor = contextAccessor;
+                _userRepository = userRepository;
             }
     
             public string GetUserName()
@@ -59,5 +62,10 @@ public class SchoolAuthService
                     .Claims
                     .FirstOrDefault(x => x.Type == key)
                     ?.Value;
+            }
+
+            public string? GetRoleName()
+            {
+                return _userRepository.Get(GetUserId()).Role?.Name;
             }
 }

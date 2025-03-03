@@ -7,12 +7,14 @@
 <form method="post" action="/SchoolAuth/Registration">
     <div>
         @Html.TextBoxFor(x => x.Username, new { placeholder = "Username" })
+        @Html.ValidationMessageFor(x => x.Username)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Email, new { placeholder = "Email" })
     </div>
     <div>
         @Html.TextBoxFor(x => x.Password, new { placeholder = "Password" })
+        @Html.ValidationMessageFor(x => x.Password)
     </div>
     <div>
         <button type="submit">Зарегистрироваться</button>
