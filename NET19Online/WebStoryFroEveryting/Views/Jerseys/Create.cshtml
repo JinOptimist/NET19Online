@@ -1,5 +1,5 @@
 ﻿@using WebStoryFroEveryting.Models.Jerseys
-@model JerseyViewModel
+@model CreateJerseyViewModel
 @{
     Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
@@ -7,21 +7,27 @@
 <form method="post" action="/Jerseys/Create">
     <div>
         @Html.TextBoxFor(x => x.AthleteName, new { placeholder = "Name" })
+        @Html.ValidationMessageFor(x => x.AthleteName)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Img, new { placeholder = "Src for image" })
+        @Html.ValidationMessageFor(x => x.Img)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Number, new { placeholder = "Number" })
+        @Html.ValidationMessageFor(x => x.Number)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Club, new { placeholder = "Club" })
+        @Html.ValidationMessageFor(x => x.Club)
     </div>
     <div>
         @Html.TextBoxFor(x => x.InStock, new { placeholder = "In Stock" })
+        @Html.ValidationMessageFor(x => x.InStock)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Price, new { placeholder = "Price" })
+        @Html.ValidationMessageFor(x => x.Price)
     </div>
     <div>
         <button type="submit">Создать</button>
