@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Enums.User;
+using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
@@ -45,17 +47,24 @@ namespace WebStoryFroEveryting.Controllers
             return View(viewModel);
         }
         [HttpGet]
+        [HasPermission(Permisson.CanCreatHunter)]
         public IActionResult CreateNewHunter()
         {
             var viewModel = new CreateUnderwaterHunterModel();
-            viewModel.isAuthenticated= _authService.IsAuthenticated();
-            
+            viewModel.isAuthenticated = _authService.IsAuthenticated();
+
             return View(viewModel);
         }
 
         [HttpPost]
+        [HasPermission(Permisson.CanCreatHunter)]
         public IActionResult CreateNewHunter(CreateUnderwaterHunterModel hunterModel)
         {
+            if (!ModelState.IsValid)
+            {
+                hunterModel.isAuthenticated = _authService.IsAuthenticated();
+                return View(hunterModel);
+            }
             _hunterRepository.Add(new UnderwaterHunterData
             {
                 NameHunter = hunterModel.NameHunter,
