@@ -5,8 +5,7 @@ using WebStoryFroEveryting.Models.Auth;
 namespace WebStoryFroEveryting.Models.CustomValidationAttributeForUnderwaterHunter
 {
     /// <summary>
-    /// return true if value has only English letters and value isn't null,
-    /// otherwise false  
+    /// return true if value is zero
     /// </summary>    
     public class isDepthNotZero : ValidationAttribute
     {
