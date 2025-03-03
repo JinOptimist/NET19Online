@@ -11,7 +11,8 @@ namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
         /// <summary>
         /// meters
         /// </summary>
-        public int MaxHuntingDepth { get; set; }
+        [isDepthNotZero]
+        public int MaxHuntingDepth { get; set; }        
         public string Image { get; set; }
         public bool isAuthenticated { get; set; }
     }

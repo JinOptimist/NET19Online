@@ -8,20 +8,14 @@ namespace WebStoryFroEveryting.Models.CustomValidationAttribute
     /// return true if value has only English letters and value isn't null,
     /// otherwise false  
     /// </summary>    
-    public class IsOnlyEnglishSymbolAttribute : ValidationAttribute
+    public class isDepthNotZero : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var str = value as string;
-            if (str == null)
+            var depth = (int)value!;
+            if (depth == 0)
             {
-                return new ValidationResult("The line must be filled!");
-            }
-
-            var pattern = new Regex("^[a-zA-Z0-9. -_?]*$");
-            if (!pattern.IsMatch(str))
-            {
-                return new ValidationResult("The line must contain only English letters");
+                return new ValidationResult("The depth mustn't be zero!");
             }
 
             return ValidationResult.Success;
