@@ -1,4 +1,5 @@
 ﻿using WebStoryFroEveryting.Models.CustomValidationAttribute;
+using WebStoryFroEveryting.Models.CustomValidationAttributeForUnderwaterHunter;
 
 namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
 {

@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using WebStoryFroEveryting.Models.Auth;
 
-namespace WebStoryFroEveryting.Models.CustomValidationAttribute
+namespace WebStoryFroEveryting.Models.CustomValidationAttributeForUnderwaterHunter
 {
     /// <summary>
     /// return true if value has only English letters and value isn't null,
