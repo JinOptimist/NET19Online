@@ -35,3 +35,11 @@
         </div>
     }
 </div>
+<div class="user-with-idol-ages">
+    @foreach (var userIdol in Model.UserAndIdolsAges)
+    {
+        <div>
+            @userIdol.UserName [@(userIdol.AvgAge is null ? "???" : userIdol.AvgAge)]
+        </div>
+    }
+</div>
