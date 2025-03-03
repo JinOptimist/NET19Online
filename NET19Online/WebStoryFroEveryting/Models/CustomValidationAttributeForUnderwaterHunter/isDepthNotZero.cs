@@ -7,7 +7,7 @@ namespace WebStoryFroEveryting.Models.CustomValidationAttributeForUnderwaterHunt
     /// <summary>
     /// return true if value is zero
     /// </summary>    
-    public class isDepthNotZero : ValidationAttribute
+    public class isDepthNotZeroAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
