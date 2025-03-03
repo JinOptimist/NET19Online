@@ -20,16 +20,8 @@ namespace StoreData.Migrations.StoreDb
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FilmId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FilmCommentDatas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FilmCommentDatas_Films_FilmId",
-                        column: x => x.FilmId,
-                        principalTable: "Films",
-                        principalColumn: "Id");
-                });
+                }
+               );  
 
 
             migrationBuilder.CreateIndex(
