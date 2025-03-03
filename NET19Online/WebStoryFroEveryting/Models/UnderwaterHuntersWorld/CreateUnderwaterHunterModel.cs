@@ -1,8 +1,12 @@
-﻿namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
+﻿using WebStoryFroEveryting.Models.CustomValidationAttribute;
+
+namespace WebStoryFroEveryting.Models.UnderwaterHuntersWorld
 {
     public class CreateUnderwaterHunterModel
     {
+        [IsOnlyEnglishSymbol]
         public string NameHunter { get; set; }
+        [IsOnlyEnglishSymbol]
         public string Nationality { get; set; }
         /// <summary>
         /// meters

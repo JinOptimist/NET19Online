@@ -11,15 +11,18 @@
 		{
 			<div>
 				@Html.TextBoxFor(x => x.NameHunter, new { placeholder = "set name hunter" })
+				@Html.ValidationMessageFor(x => x.NameHunter)
 			</div>
 			<div>
 				@Html.TextBoxFor(x => x.Nationality, new { placeholder = "nationality" })
+				@Html.ValidationMessageFor(x => x.Nationality)
 			</div>
 			<div>
 				@Html.TextBoxFor(x => x.Image, new { placeholder = "URL image" })
+				@Html.ValidationMessageFor(x => x.Image)
 			</div>
 			<div>
-				@Html.TextBoxFor(x => x.MaxHuntingDepth, new { placeholder = "Max depth" })
+				@Html.TextBoxFor(x => x.MaxHuntingDepth, new { placeholder = "Max depth" })				
 			</div>
 			<div>
 				<button type="submit">Create</button>
