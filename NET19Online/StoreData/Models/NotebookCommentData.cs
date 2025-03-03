@@ -14,6 +14,8 @@ namespace StoreData.Models
 
             public virtual NotebookData Notebook { get; set; }
 
+            public virtual UserData? Author { get; set; }
+
         }
     
 }

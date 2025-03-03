@@ -1,5 +1,5 @@
 ﻿@using WebStoryFroEveryting.Models.Notebook
-@model List<NotebookViewModel>
+@model NotebookIndexViewModel
 
 @{
     Layout = "~/Views/Shared/_LayoutNotebooks.cshtml";
@@ -9,9 +9,19 @@
     <link href="~/css/Notebooks/NotebooksSpeical.css" rel="stylesheet" />
 }
 
+@if (Model.CanUserFillters)
+{
+    <div class="tags">
+        <a href="/Notebook/Index" class="tag">Сбросить фильтр</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/Notebook/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+        }
+    </div>
+}
 
 <div class="Notebooks">
-    @foreach(var notebook in Model)
+    @foreach (var notebook in Model.Notebooks)
     {
         <div class="notebook">
             <div class="name">@notebook.Name</div>

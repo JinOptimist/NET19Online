@@ -12,6 +12,21 @@
 <div class="notebook-with-cooment">
     <div class="notebook-container">
         <h1>@Model.Name</h1>
+        <div class="tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="tag">@tag</span>
+            }
+        </div>
+        <form method="post" action="/Notebooks/AddTag">
+            <input name="notebookId" type="hidden" value="@Model.Id" />
+            <div>
+                <input name="tag" placeholder="type tag here" />
+            </div>
+            <div>
+                <button type="submit">Добавить</button>
+            </div>
+        </form>
         <img src="@Model.Src" />      
     </div>
     <div class="comments-container">

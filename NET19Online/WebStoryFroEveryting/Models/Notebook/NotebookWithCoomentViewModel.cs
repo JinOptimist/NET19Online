@@ -7,5 +7,6 @@
         public string Name { get; set; }
 
         public List<NotebookCoomentViewModel> Comments { get; set; } = new List<NotebookCoomentViewModel>();
+        public List<string> Tags { get; set; } = new List<string>();
     }
 }

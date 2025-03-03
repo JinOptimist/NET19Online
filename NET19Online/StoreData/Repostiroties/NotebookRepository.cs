@@ -18,10 +18,32 @@ namespace StoreData.Repostiroties
             _dbContext.Notebooks.AddRange(notebooks);
             _dbContext.SaveChanges();
         }        
-         public NotebookData GetWithComments(int notebookId)
+
+        public void AddTag(int notebookId, string tagText)
+        {
+            var tag = _dbContext.NotebookTags.FirstOrDefault(x => x.Tag == tagText);
+            if (tag is null) 
+            {
+                tag = new NotebookTagData { Tag = tagText };
+            }
+
+            var notebook = Get(notebookId);
+            notebook.Tags.Add(tag);
+            _dbContext.SaveChanges();
+        }
+
+        public List<NotebookData> GetAllWithTags(string? tag)
+        {
+            return _dbSet
+                .Include(x => x.Tags)
+                .Where(notebook=> tag == null || notebook.Tags.Any(t => t.Tag == tag))
+                .ToList();
+        }
+         public NotebookData GetWithCommentsAndTags(int notebookId)
         {
             return _dbSet
                 .Include(x => x.Comments)
+                .Include(x => x.Tags)
                 .First(x => x.Id == notebookId);
         }
     }

@@ -1,5 +1,6 @@
 .Notebooks {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .Notebook{
@@ -42,4 +43,21 @@
 
     .buttons .button:last-child {
        border-bottom-right-radius: 5px;
+    }
+
+    .tags{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .tag{
+        display: flex;
+        border: 1px black solid;
+        border-radius: 5px;
+        margin: 3px;
+        padding: 3px;
+    }
+
+    .tag.active{
+        border-color:red;
     }

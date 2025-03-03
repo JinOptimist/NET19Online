@@ -12,5 +12,6 @@ namespace StoreData.Models
         public string Src { get; set; }
 
         public virtual List<NotebookCommentData> Comments { get; set; }
+        public virtual List<NotebookTagData> Tags { get; set; } = new List<NotebookTagData>();
     }
 }
