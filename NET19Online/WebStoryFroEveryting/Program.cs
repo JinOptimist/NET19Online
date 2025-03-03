@@ -37,6 +37,7 @@ builder.Services.AddScoped<FilmsGeneratorServices>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>();
+builder.Services.AddScoped<FilmCommentRepository>();
 //builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<LessonRepository>();

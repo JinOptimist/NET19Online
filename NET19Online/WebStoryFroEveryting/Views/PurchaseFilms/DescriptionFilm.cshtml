@@ -1,0 +1,40 @@
+﻿@using WebStoryFroEveryting.Models.Films
+@model DescriptionFilmViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutFilms.cshtml";
+}
+@section Styles {
+    <link href="~/css/Films/StyleDescription.css" rel="stylesheet" />
+}
+
+<form method="post" action="/PurchaseFilms/DescriptionFilm">
+    <div class="main">
+        <div class="image-container">
+            <img src="@Model.Films.Src" />
+        </div>
+        <div class="description">
+            <h2>@Model.DescriptionFilm</h2>
+        </div>
+
+    </div>
+</form>
+
+<form method="post" action="/PurchaseFilms/AddComment">
+    <div class="comment-created">
+        <h2>Comments</h2>
+        <div>
+            <input name="id" type="hidden" value="@Model.Id" />
+            <input name="comment" placeholder="Comments" />
+            <button type="submit">Создать</button>
+        </div>
+
+        <div class="comment">
+            @foreach (var comment in Model.Films.Comments)
+            {
+                <div class="comment">
+                    @comment.Comment [@comment.Created]
+                </div>
+            }
+        </div>
+    </div>
+</form>
