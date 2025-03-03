@@ -10,6 +10,8 @@ public class SchoolDbContext : DbContext
 
     public DbSet<LessonData> Lessons { get; set; }
     public DbSet<LessonCommentData> Comments { get; set; }
+    public DbSet<SchoolUserData> Users { get; set; }
+    public DbSet<SchoolRoleData> Roles { get; set; }
     public SchoolDbContext(){}
     public SchoolDbContext(DbContextOptions<SchoolDbContext> option) : base(option) { }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,6 +23,8 @@ public class SchoolDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new LessonConfiguration());
         modelBuilder.ApplyConfiguration(new LessonCommentConfiguration());
+        modelBuilder.ApplyConfiguration(new SchoolUserConfiguration());
+        modelBuilder.ApplyConfiguration(new SchoolRoleConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 }

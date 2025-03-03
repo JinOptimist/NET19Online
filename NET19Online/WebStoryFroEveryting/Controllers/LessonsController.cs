@@ -1,7 +1,10 @@
+using Enums.SchoolUser;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.Lessons;
+using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
+using WebStoryFroEveryting.Services;
 
 namespace WebStoryFroEveryting.Controllers;
 
@@ -9,11 +12,16 @@ public class LessonsController: Controller
 {
     private readonly LessonRepository _lessonRepository;
     private readonly LessonCommentRepository _commentRepository;
+    private readonly SchoolAuthService _authService;
 
-    public LessonsController(LessonRepository lessonRepository, LessonCommentRepository lessonCommentRepository)
+    public LessonsController(
+        LessonRepository lessonRepository, 
+        LessonCommentRepository lessonCommentRepository,
+        SchoolAuthService authService)
     {
         _lessonRepository = lessonRepository;
         _commentRepository = lessonCommentRepository;
+        _authService = authService;
     }
     public IActionResult Index()
     {
@@ -36,14 +44,20 @@ public class LessonsController: Controller
     }
 
     [HttpGet]
+    [HasPermission(SchoolPermission.CanAddLesson)]
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
+    [HasPermission(SchoolPermission.CanAddLesson)]
     public IActionResult Create(LessonViewModel lessonViewModel)
     {
+        if (!_authService.HasPermission(SchoolPermission.CanAddLesson))
+        {
+            return Forbid();
+        }
         if (!ModelState.IsValid)
         {
             return View(lessonViewModel);
@@ -59,18 +73,21 @@ public class LessonsController: Controller
     }
     
     [HttpPost]
-    public IActionResult CreateComment(int lessonId, string description)
+    [HasPermission(SchoolPermission.CanAddComment)]
+    public IActionResult CreateComment(int lessonId,int userId, string description)
     {
-        _commentRepository.AddComment(lessonId, description);
+        _commentRepository.AddComment(lessonId,userId, description);
         return RedirectToAction(nameof(Details), new { id = lessonId });
     }
 
+    [HasPermission(SchoolPermission.CanDeleteLesson)]
     public IActionResult Remove(int id)
     {
         _lessonRepository.Remove(id);
         return RedirectToAction(nameof(Index));
     }
 
+    [HasPermission(SchoolPermission.CanUpdateLesson)]
     public IActionResult Update(int id)
     {
         var result = _lessonRepository.Get(id);
@@ -84,6 +101,7 @@ public class LessonsController: Controller
     }
     
     [HttpPost]
+    [HasPermission(SchoolPermission.CanUpdateLesson)]
     public IActionResult Edit(LessonViewModel lessonViewModel)
     {
         _lessonRepository.Update(MapToData(lessonViewModel));
@@ -97,7 +115,8 @@ public class LessonsController: Controller
             {
                 Created = c.Created,
                 Description = c.Description,
-                Id = c.Id
+                Id = c.Id,
+                User = new SchoolUserViewModel(){Username = c.User.Username}
             })
             .ToList();
         return new LessonWithCommentViewModel()
