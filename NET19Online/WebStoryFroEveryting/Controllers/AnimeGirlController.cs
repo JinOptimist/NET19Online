@@ -143,6 +143,17 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CommentForGirl), new { idolId });
         }
 
+        [HttpPost]
+        public IActionResult BigRemove(string idsToRemove)
+        {
+            var ids = idsToRemove
+                .Split(",")
+                .Select(idStr => int.Parse(idStr));
+            _idolRepository.Remove(ids);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private IdolViewModel Map(IdolData idol)
         {
             return new IdolViewModel

@@ -37,6 +37,13 @@ namespace StoreData.Repostiroties
             _dbContext.SaveChanges();
         }
 
+        public virtual void Remove(IEnumerable<int> ids)
+        {
+            var items = _dbSet.Where(x => ids.Contains(x.Id));
+            _dbSet.RemoveRange(items);
+            _dbContext.SaveChanges();
+        }
+
         public virtual bool Any()
         {
             return _dbSet.Any();

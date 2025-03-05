@@ -5,9 +5,13 @@
     Layout = "~/Views/Shared/_LayoutAnime.cshtml";
 }
 
-@section Styles{
+@section Styles {
     <link href="~/css/AnimeGirl/animeGirlSpeical.css" rel="stylesheet" />
-}   
+}
+
+@section Scripts {
+    <script src="/js/Idol/index.js"></script>
+}
 
 @if (Model.CanUserFillters)
 {
@@ -23,13 +27,14 @@
 <div class="idols">
     @foreach (var idol in Model.Idols)
     {
-        <div class="idol">
+        <div class="idol" data-id="@idol.Id">
             <div class="name">@idol.Name</div>
             <div class="image-container">
                 <img src="@idol.Src" />
             </div>
             <div class="buttons">
                 <a href="/AnimeGirl/CommentForGirl?idolId=@idol.Id" class="button">+</a>
+                <a href="#" class="button soft-remove">Soft-</a>
                 <a href="/AnimeGirl/Remove?id=@idol.Id" class="button">-</a>
             </div>
         </div>
@@ -42,4 +47,10 @@
             @userIdol.UserName [@(userIdol.AvgAge is null ? "???" : userIdol.AvgAge)]
         </div>
     }
+</div>
+<div>
+    <form action="/AnimeGirl/BigRemove" method="post">
+        <input name="idsToRemove" type="hidden" value="" />
+        <button class="remove-all-selected-button">Remove All Selected</button>
+    </form>
 </div>
