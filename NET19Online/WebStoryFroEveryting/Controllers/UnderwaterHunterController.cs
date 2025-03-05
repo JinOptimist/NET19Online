@@ -103,6 +103,16 @@ namespace WebStoryFroEveryting.Controllers
                 .Select(x => x.Tag)
                 .ToList();
             viewModel.Author = _authService.GetUserName();
+            viewModel.AuthorId = _authService.GetUserId();
+
+            viewModel.CommentsWithoutDuplicates = _hunterCommentRepository
+                .ShowCommentsWithoutDuplicates()
+                .Select(x => new HunterCommentsWithoutDuplicatesViewModel
+                {
+                    Comment = x.Comment,
+                    UserName = x.UserName
+                })
+                .ToList();
 
             return View(viewModel);
         }
@@ -113,9 +123,10 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CommentHunter), new { id });
         }
         [HttpPost]
-        public IActionResult AddCommentForHunter(int id, string comment)
+        public IActionResult AddCommentForHunter(int id, string comment, int authorId)
         {
-            _hunterCommentRepository.AddComment(id, comment);
+
+            _hunterCommentRepository.AddComment(id, comment, authorId);
             return RedirectToAction(nameof(CommentHunter), new { id });
         }
         private List<UnderwaterHunterData> GetHuntersFromHunterGenerator()
