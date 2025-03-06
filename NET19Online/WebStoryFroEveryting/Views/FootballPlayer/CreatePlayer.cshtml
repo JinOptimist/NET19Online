@@ -8,18 +8,23 @@
 <form method="post" action="/FootballPlayer/CreatePlayer">
     <div>
         @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+        @Html.ValidationMessageFor(x => x.Src)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Position, new { placeholder = "Position" })
+        @Html.ValidationMessageFor(x => x.Position)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Weight, new { placeholder = "Weight" })
+        @Html.ValidationMessageFor(x => x.Weight)
     </div>
     <div>
         @Html.TextBoxFor(x => x.Height, new { placeholder = "Height" })
+        @Html.ValidationMessageFor(x => x.Height)
     </div>
     <div>
         <button type="submit">Создать</button>

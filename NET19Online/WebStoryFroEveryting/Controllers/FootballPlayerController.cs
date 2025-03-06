@@ -3,9 +3,12 @@ using StoreData.Repostiroties;
 using StoreData.Models;
 using WebStoryFroEveryting.Models.FootballPlayer;
 using Microsoft.AspNetCore.Authorization;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
+using Enums.User;
 
 namespace WebStoryFroEveryting.Controllers
 {
+    [Authorize]
     public class FootballPlayerController : Controller
     {
         private PlayerRepository _playerRepository;
@@ -17,6 +20,7 @@ namespace WebStoryFroEveryting.Controllers
             _playerDescriptionRepository = playerDescriptionRepository;
         }
 
+        [AllowAnonymous]
         public IActionResult Index(string? tag)
         {
             var playerDatas = _playerRepository.GetAllWithTags(tag);
@@ -62,16 +66,21 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [HasPermission(Permisson.CanAddPlayer)]
         public IActionResult CreatePlayer()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [HasPermission(Permisson.CanAddPlayer)]
         public IActionResult CreatePlayer(CreatePlayerViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
             _playerRepository.Add(
                 new PlayerData()
                 {
@@ -85,13 +94,14 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        [HasPermission(Permisson.CanDeletePlayer)]
         public IActionResult RemovePlayer(int id)
         {
             _playerRepository.Remove(id);
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public IActionResult DescriptionForPlayer(int playerId)
         {
             var viewModel = new PlayerWithDescriptionViewModel();
@@ -111,7 +121,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [HasPermission(Permisson.CanAddPlayerDescription)]
         public IActionResult AddDescription(int playerId, string description)
         {
             _playerDescriptionRepository.AddDescription(playerId, description);
@@ -120,7 +130,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [HasPermission(Permisson.CanAddPlayerTag)]
         public IActionResult AddTag(int playerId, string tag)
         {
             _playerRepository.AddTag(playerId, tag);
