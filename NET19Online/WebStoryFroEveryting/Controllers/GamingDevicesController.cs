@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Enums.User;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.GamingDevice;
 using WebStoryFroEveryting.Services;
 
@@ -43,6 +46,8 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [HasPermission(Permisson.CanAddGamingDevice)]
         public IActionResult Create()
         {
             return View();
@@ -63,6 +68,8 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(GetGamingDevices));
         }
 
+        [Authorize]
+        [HasPermission(Permisson.CanDeleteGamingDevice)]
         public IActionResult RemoveGamingDevice(int id)
         {
             _gamingDeviceRepository.Remove(id);
