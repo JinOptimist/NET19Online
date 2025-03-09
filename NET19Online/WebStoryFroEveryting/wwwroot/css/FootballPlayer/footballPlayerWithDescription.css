@@ -1,3 +1,24 @@
 .player-with-description {
     display: flex;
 }
+
+.active {
+    opacity: 0;
+}
+
+.image-description-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .image-description-container img {
+        max-width: 500px;
+        max-height: 500px;
+    }
+
+.tag-border {
+    border: blue 1px solid;
+    border-radius: 5px;
+    margin: 3px;
+}
