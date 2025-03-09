@@ -9,6 +9,10 @@
     <link href="~/css/FootballPlayer/footballPlayerWithDescription.css" rel="stylesheet" />
 }
 
+@section Scripts {
+    <script src="~/js/Player/description.js"> </script>
+}
+
 <div class="player-with-description">
     <div class="player-container">
         <h1>@Model.Name</h1>
@@ -27,8 +31,10 @@
                 <button type="submit">Добавить</button>
             </div>
         </form>
+        <div class="image-description-container">
+            <img src="@Model.Src" />
+        </div>
 
-        <img src="@Model.Src" />
     </div>
 
     <div class="description">

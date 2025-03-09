@@ -137,5 +137,12 @@ namespace WebStoryFroEveryting.Controllers
 
             return RedirectToAction(nameof(DescriptionForPlayer), new { playerId });
         }
+
+        public IActionResult DeleteDescriptionDuplicates()
+        {
+            _playerDescriptionRepository.DeleteDescriptionDuplicates();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

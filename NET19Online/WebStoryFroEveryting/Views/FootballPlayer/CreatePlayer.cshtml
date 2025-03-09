@@ -5,28 +5,54 @@
     Layout = "~/Views/Shared/_LayoutFootball.cshtml";
 }
 
-<form method="post" action="/FootballPlayer/CreatePlayer">
+@section Styles {
+    <link href="~/css/FootballPlayer/footballPlayerSpeical.css" rel="stylesheet" />
+    <link href="~/css/FootballPlayer/footballPlayerCreate.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/js/Player/create.js"> </script>
+}
+
+<div class="create-container">
+    <form method="post" action="/FootballPlayer/CreatePlayer">
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Src, new { placeholder = "Src" })
+            @Html.ValidationMessageFor(x => x.Src)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Position, new { placeholder = "Position" })
+            @Html.ValidationMessageFor(x => x.Position)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Weight, new { placeholder = "Weight" })
+            @Html.ValidationMessageFor(x => x.Weight)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Height, new { placeholder = "Height" })
+            @Html.ValidationMessageFor(x => x.Height)
+        </div>
+        <div>
+            <button type="submit">Создать</button>
+        </div>
+    </form>
     <div>
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
-        @Html.ValidationMessageFor(x => x.Name)
+        <div class="player">
+            <div class="name">Имя: </div>
+            <div class="image-container">
+                Фото: <img src="" />
+            </div>
+            <div class="position">Амплуа: </div>
+            <div class="weight">Вес: </div>
+            <div class="height">Рост: </div>
+            <div class="buttons">
+                <a href="#" class="button">Описание </a>
+                <a href="#" class="button">Удалить</a>
+            </div>
+        </div>
     </div>
-    <div>
-        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
-        @Html.ValidationMessageFor(x => x.Src)
-    </div>
-    <div>
-        @Html.TextBoxFor(x => x.Position, new { placeholder = "Position" })
-        @Html.ValidationMessageFor(x => x.Position)
-    </div>
-    <div>
-        @Html.TextBoxFor(x => x.Weight, new { placeholder = "Weight" })
-        @Html.ValidationMessageFor(x => x.Weight)
-    </div>
-    <div>
-        @Html.TextBoxFor(x => x.Height, new { placeholder = "Height" })
-        @Html.ValidationMessageFor(x => x.Height)
-    </div>
-    <div>
-        <button type="submit">Создать</button>
-    </div>
-</form>
+</div>
