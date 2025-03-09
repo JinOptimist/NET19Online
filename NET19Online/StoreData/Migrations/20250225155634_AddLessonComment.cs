@@ -44,9 +44,6 @@ namespace StoreData.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "Lessons");
         }
     }
 }

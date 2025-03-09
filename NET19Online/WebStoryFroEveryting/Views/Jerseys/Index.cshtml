@@ -3,25 +3,33 @@
 @{
     Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
-
-<div class="tags">
-    <a href="/jerseys/Index" class="tag">Сбросить фильтр</a>
-    @foreach (var tag in Model.Tags)
-    {
-        <a href="/jerseys/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
-    }
+<div id="content-left">
+    <div class="tags">
+        <a href="/jerseys/Index" class="tag">Сбросить фильтр</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/jerseys/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+        }
+    </div>
 </div>
+<div id="content-right">
 @foreach (var jersey in Model.Jerseys)
 {
     <div class="jersey">
         <div class="jersey-img">
-            <img src="@jersey.Img" />   
+            <img src="@jersey.Img" />
         </div>
         <div class="name">
             @jersey.AthleteName
         </div>
         <a class="button" href="/jerseys/detail?jerseyid=@jersey.Id">Подробнее</a>
+        @if(Model.IsAdmin)
+        {
         <a class="button red" href=" /jerseys/remove?jerseyid=@jersey.Id">Удалить</a>
+        }
     </div>
 }
+
+</div>
+
 

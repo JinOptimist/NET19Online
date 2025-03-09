@@ -12,8 +12,8 @@ using StoreData;
 namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20250221212504_FilmsMigration")]
-    partial class FilmsMigration
+    [Migration("20250223134233_NootebookMigration")]
+    partial class NootebookMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,34 +53,6 @@ namespace StoreData.Migrations.StoreDb
                     b.HasIndex("TagsId");
 
                     b.ToTable("JerseyDataJerseyTagData");
-                });
-
-            modelBuilder.Entity("StoreData.Models.FilmData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FilmDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Src")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Films");
                 });
 
             modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
@@ -291,6 +263,27 @@ namespace StoreData.Migrations.StoreDb
                     b.HasKey("Id");
 
                     b.ToTable("MagicItems");
+                });
+
+            modelBuilder.Entity("StoreData.Models.NotebookData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notebooks");
                 });
 
             modelBuilder.Entity("StoreData.Models.PlayerData", b =>

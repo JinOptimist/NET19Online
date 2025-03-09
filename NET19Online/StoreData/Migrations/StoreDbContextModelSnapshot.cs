@@ -82,6 +82,63 @@ namespace StoreData.Migrations
                     b.ToTable("MagicItemDataMagicItemTagData");
                 });
 
+            modelBuilder.Entity("PlayerDataPlayerTagData", b =>
+                {
+                    b.Property<int>("PlayersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlayersId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("PlayerDataPlayerTagData");
+                });
+
+            modelBuilder.Entity("StoreData.Models.DescriptionFilmData", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DescriptionFilm")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DescriptionFilms");
+                });
+
+            modelBuilder.Entity("StoreData.Models.FilmCommentData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FilmId");
+
+                    b.ToTable("FilmCommentDatas");
+                });
+
             modelBuilder.Entity("StoreData.Models.FilmData", b =>
                 {
                     b.Property<int>("Id")
@@ -397,7 +454,49 @@ namespace StoreData.Migrations
                     b.ToTable("MagicItems");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SweetsData", b =>
+            modelBuilder.Entity("StoreData.Models.MagicItemTagData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MagicItemTags");
+                });
+
+            modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NotebookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotebookId");
+
+                    b.ToTable("NotebookComments");
+                });
+
+            modelBuilder.Entity("StoreData.Models.NotebookData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -415,24 +514,7 @@ namespace StoreData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sweets");
-                });
-
-            modelBuilder.Entity("StoreData.Models.MagicItemTagData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MagicItemTags");
+                    b.ToTable("Notebooks");
                 });
 
             modelBuilder.Entity("StoreData.Models.PlayerData", b =>
@@ -464,6 +546,91 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FootballPlayers");
+                });
+
+            modelBuilder.Entity("StoreData.Models.PlayerDescriptionData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerDescriptions");
+                });
+
+            modelBuilder.Entity("StoreData.Models.PlayerTagData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlayerTags");
+                });
+
+            modelBuilder.Entity("StoreData.Models.RoleData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Permisson")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("StoreData.Models.SweetsData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sweets");
                 });
 
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
@@ -555,11 +722,16 @@ namespace StoreData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -644,6 +816,32 @@ namespace StoreData.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PlayerDataPlayerTagData", b =>
+                {
+                    b.HasOne("StoreData.Models.PlayerData", null)
+                        .WithMany()
+                        .HasForeignKey("PlayersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.PlayerTagData", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreData.Models.DescriptionFilmData", b =>
+                {
+                    b.HasOne("StoreData.Models.FilmData", "Films")
+                        .WithOne("DescriptionFilms")
+                        .HasForeignKey("StoreData.Models.DescriptionFilmData", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Films");
+                });
+
             modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
                 {
                     b.HasOne("StoreData.Models.GamingDeviceData", "GamingDevice")
@@ -653,6 +851,17 @@ namespace StoreData.Migrations
                         .IsRequired();
 
                     b.Navigation("GamingDevice");
+                });
+
+            modelBuilder.Entity("StoreData.Models.FilmCommentData", b =>
+                {
+                    b.HasOne("StoreData.Models.FilmData", "Film")
+                        .WithMany("Comments")
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Film");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
@@ -706,6 +915,34 @@ namespace StoreData.Migrations
                     b.Navigation("MagicItem");
                 });
 
+            modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
+                {
+                    b.HasOne("StoreData.Models.NotebookData", "Notebook")
+                        .WithMany("Comments")
+                        .HasForeignKey("NotebookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notebook");
+                });
+
+            modelBuilder.Entity("StoreData.Models.PlayerDescriptionData", b =>
+                {
+                    b.HasOne("StoreData.Models.UserData", "Author")
+                        .WithMany("PlayerDescriptions")
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("StoreData.Models.PlayerData", "Player")
+                        .WithMany("Descriptions")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Player");
+                });
+
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
                     b.HasOne("StoreData.Models.UserData", "Author")
@@ -721,6 +958,16 @@ namespace StoreData.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Hunter");
+                });
+
+            modelBuilder.Entity("StoreData.Models.UserData", b =>
+                {
+                    b.HasOne("StoreData.Models.RoleData", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
@@ -743,6 +990,14 @@ namespace StoreData.Migrations
                     b.Navigation("Reviews");
                 });
 
+            modelBuilder.Entity("StoreData.Models.FilmData", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("DescriptionFilms")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("StoreData.Models.IdolData", b =>
                 {
                     b.Navigation("Comments");
@@ -758,6 +1013,21 @@ namespace StoreData.Migrations
                     b.Navigation("Comments");
                 });
 
+            modelBuilder.Entity("StoreData.Models.NotebookData", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("StoreData.Models.PlayerData", b =>
+                {
+                    b.Navigation("Descriptions");
+                });
+
+            modelBuilder.Entity("StoreData.Models.RoleData", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
                 {
                     b.Navigation("Comments");
@@ -770,6 +1040,8 @@ namespace StoreData.Migrations
                     b.Navigation("IdolComments");
 
                     b.Navigation("JerseyComments");
+
+                    b.Navigation("PlayerDescriptions");
                 });
 #pragma warning restore 612, 618
         }

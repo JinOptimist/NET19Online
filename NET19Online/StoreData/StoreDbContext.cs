@@ -10,12 +10,16 @@ namespace StoreData
         public DbSet<IdolData> Idols { get; set; }
         public DbSet<IdolCommentData> IdolComments { get; set; }
         public DbSet<IdolTagData> IdolTags { get; set; }
+        public DbSet<NotebookData> Notebooks { get; set; }
+        public DbSet<NotebookCommentData> NotebookComments { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<MagicItemCommentData> MagicItemComments { get; set; }
         public DbSet<MagicItemTagData> MagicItemTags { get; set; }
         public DbSet<FilmData> Films { get; set; }
+        public DbSet<FilmCommentData> FilmCommentDatas { get; set; }
+        public DbSet<DescriptionFilmData> DescriptionFilms { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
-      
+
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
         public DbSet<SweetsData> Sweets { get; set; } 
@@ -29,8 +33,10 @@ namespace StoreData
         public DbSet<JerseyTagData> JerseysTags { get; set; }
         public DbSet<JerseyCommentData> JerseysComments { get; set; }
         public DbSet<PlayerData> FootballPlayers { get; set; }
+        public DbSet<RoleData> Roles { get; set; }
         public DbSet<UserData> Users { get; set; }
-
+        public DbSet<PlayerDescriptionData> PlayerDescriptions { get; set; }
+        public DbSet<PlayerTagData> PlayerTags { get; set; }
 
 
         public StoreDbContext() { }
@@ -40,13 +46,22 @@ namespace StoreData
         {
             optionsBuilder.UseSqlServer(CONNECTION_STRING);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<IdolData>()
                 .HasMany(idol => idol.Comments)
                 .WithOne(comment => comment.Idol)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<FilmData>()
+                .HasMany(filmData => filmData.Comments)
+                .WithOne(coment => coment.Film)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<FilmData>()
+                .HasOne(films => films.DescriptionFilms)
+                .WithOne(description => description.Films)
+                .HasForeignKey<DescriptionFilmData>(f => f.Id);
 
             modelBuilder.Entity<IdolData>()
                 .HasMany(x => x.Tags)
@@ -86,10 +101,27 @@ namespace StoreData
                 .HasMany(u => u.HunterComments)
                 .WithOne(c => c.Author);
 
+            modelBuilder.Entity<UserData>()
+                .HasOne(u => u.Role)
+                .WithMany(c => c.Users)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UserData>()
                .HasMany(u => u.JerseyComments)
                .WithOne(c => c.Author);
+
+            modelBuilder.Entity<PlayerData>()
+                .HasMany(player => player.Descriptions)
+                .WithOne(description => description.Player)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PlayerData>()
+                .HasMany(player => player.Tags)
+                .WithMany(tag => tag.Players);
+
+            modelBuilder.Entity<UserData>()
+                .HasMany(u => u.PlayerDescriptions)
+                .WithOne(c => c.Author);
 
             base.OnModelCreating(modelBuilder);
         }

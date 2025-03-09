@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Enums.User;
+using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
@@ -45,17 +47,24 @@ namespace WebStoryFroEveryting.Controllers
             return View(viewModel);
         }
         [HttpGet]
+        [HasPermission(Permisson.CanCreatHunter)]
         public IActionResult CreateNewHunter()
         {
             var viewModel = new CreateUnderwaterHunterModel();
-            viewModel.isAuthenticated= _authService.IsAuthenticated();
-            
+            viewModel.isAuthenticated = _authService.IsAuthenticated();
+
             return View(viewModel);
         }
 
         [HttpPost]
+        [HasPermission(Permisson.CanCreatHunter)]
         public IActionResult CreateNewHunter(CreateUnderwaterHunterModel hunterModel)
         {
+            if (!ModelState.IsValid)
+            {
+                hunterModel.isAuthenticated = _authService.IsAuthenticated();
+                return View(hunterModel);
+            }
             _hunterRepository.Add(new UnderwaterHunterData
             {
                 NameHunter = hunterModel.NameHunter,
@@ -94,6 +103,16 @@ namespace WebStoryFroEveryting.Controllers
                 .Select(x => x.Tag)
                 .ToList();
             viewModel.Author = _authService.GetUserName();
+            viewModel.AuthorId = _authService.GetUserId();
+
+            viewModel.CommentsWithoutDuplicates = _hunterCommentRepository
+                .ShowCommentsWithoutDuplicates()
+                .Select(x => new HunterCommentsWithoutDuplicatesViewModel
+                {
+                    Comment = x.Comment,
+                    UserName = x.UserName
+                })
+                .ToList();
 
             return View(viewModel);
         }
@@ -104,9 +123,10 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CommentHunter), new { id });
         }
         [HttpPost]
-        public IActionResult AddCommentForHunter(int id, string comment)
+        public IActionResult AddCommentForHunter(int id, string comment, int authorId)
         {
-            _hunterCommentRepository.AddComment(id, comment);
+
+            _hunterCommentRepository.AddComment(id, comment, authorId);
             return RedirectToAction(nameof(CommentHunter), new { id });
         }
         private List<UnderwaterHunterData> GetHuntersFromHunterGenerator()

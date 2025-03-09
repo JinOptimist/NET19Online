@@ -1,4 +1,6 @@
 ﻿
+using Enums.User;
+
 namespace WebStoryFroEveryting.Services
 {
     public class AuthService
@@ -6,6 +8,7 @@ namespace WebStoryFroEveryting.Services
         public const string AUTH_TYPE = "AuthTypeSmile";
         public const string CLAIM_KEY_ID = "Id";
         public const string CLAIM_KEY_NAME = "Name";
+        public const string CLAIM_KEY_PERMISSION = "Permission";
 
         private IHttpContextAccessor _contextAccessor;
 
@@ -16,26 +19,14 @@ namespace WebStoryFroEveryting.Services
 
         public string GetUserName()
         {
-            var userName = _contextAccessor
-                .HttpContext!
-                .User
-                .Claims
-                .FirstOrDefault(x => x.Type == CLAIM_KEY_NAME)
-                ?.Value
+            var userName = GetClaim(CLAIM_KEY_NAME)
                 ?? "Guest";
-
             return userName;
         }
 
         public int GetUserId()
         {
-            var idStr = _contextAccessor
-                .HttpContext!
-                .User
-                .Claims
-                .First(x => x.Type == CLAIM_KEY_ID)
-                .Value;
-
+            var idStr = GetClaim(CLAIM_KEY_ID);
             return int.Parse(idStr);
         }
     
@@ -47,6 +38,33 @@ namespace WebStoryFroEveryting.Services
                 ?.Identity
                 ?.IsAuthenticated
                 ?? false;
+        }
+    
+        public bool HasPermission(Permisson permisson)
+        {
+            var permissionInt = int.Parse(GetClaim(CLAIM_KEY_PERMISSION));
+            if (permissionInt < 0)
+            {
+                return false;
+            }
+
+            var userPermisson = (Permisson)permissionInt;
+            return userPermisson.HasFlag(permisson);
+        }
+
+        private string? GetClaim(string key)
+        {
+            return _contextAccessor
+                .HttpContext!
+                .User
+                .Claims
+                .FirstOrDefault(x => x.Type == key)
+                ?.Value;
+        }
+
+        public bool IsAdmin()
+        {
+            return GetUserName() == "admin";
         }
     }
 }

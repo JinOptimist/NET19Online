@@ -1,7 +1,9 @@
+@inject AuthService authService
 @{
     Layout = "_LayoutLessons";
 }
 
+@using WebStoryFroEveryting.Services
 @model WebStoryFroEveryting.Models.Lessons.LessonWithCommentViewModel
 
 @section Styles{
@@ -26,7 +28,7 @@
 
     
 <div class="comments-section">
-    <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id" class="comment-form">
+    <form method="post" asp-controller="Lessons" asp-action="CreateComment" asp-route-lessonId="@Model.Id" asp-route-userId="@authService.GetUserId()" class="comment-form">
         <textarea name="description" placeholder="Ваш комментарий"></textarea>
         <button type="submit">Создать</button>
     </form>
@@ -34,6 +36,7 @@
         @foreach (var comment in @Model.Comments)
         {
             <div class="comment-item">
+                <div class="comment-description">@comment.User.Username</div>
                 <div class="comment-description">@comment.Description</div>
                 <div class="comment-created">@comment.Created.ToString("g")</div>
             </div>

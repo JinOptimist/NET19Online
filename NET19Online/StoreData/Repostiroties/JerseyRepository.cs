@@ -29,7 +29,7 @@ namespace StoreData.Repostiroties
         {
             return _dbSet
                 .Include(x => x.Comments)
-                    .ThenInclude(comment => comment.Author)
+                .ThenInclude(comment => comment.Author)
                 .Include(x => x.Tags)
                 .First(x => x.Id == jerseyId);
         }

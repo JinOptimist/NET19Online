@@ -4,6 +4,7 @@
     {
         public string CurrentTag { get; set; }
         public List<string> Tags { get; set; }
+        public bool IsAdmin { get; set; }
         public List<JerseyViewModel> Jerseys { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+﻿@using WebStoryFroEveryting.Models.User
+@model RolesViewModel
+
+<div class="roles">
+    @foreach (var role in Model.Roles)
+    {
+        <div class="role">
+            <h2>@role.Name</h2>
+            <form method="post" action="/User/UpdateRole">
+                <input type="hidden" value="@role.Id" name="id" />
+                @foreach (var permisson in Model.Permissions)
+                {
+                    <label>
+                        @permisson.PermissonName
+                        <input type="checkbox"
+                               name="permissons"
+                               value="@permisson.Permisson"
+                               checked="@(role.Permissons.Contains(permisson.Permisson))" />
+                    </label>
+                }
+                <button type="submit">Save</button>
+            </form>
+            <a href="/User/DeleteRole?id=@role.Id">Delete</a>
+        </div>
+    }
+</div>
+<div class="create-role-container">
+    <form method="post" action="/User/CreateRole">
+        <input name="roleName" placeholder="Enter new role name" />
+        <button type="submit">Create role</button>
+    </form>
+</div>
+

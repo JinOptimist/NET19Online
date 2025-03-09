@@ -1,12 +1,20 @@
 ﻿@using WebStoryFroEveryting.Models.Films
 @model FilmsViewModel
 
+
+
 <form method="post" action="/PurchaseFilms/CreateFilms">
+    @{
+        Layout = "~/Views/Shared/_LayoutFilms.cshtml";
+    }
+    @section Styles {
+        <link href="/css/Films/StyleFilms.css" rel="stylesheet" />
+    }
     <div>
-        @Html.TextBoxFor(x => x.Name, new {placeholder="Name"})
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
     </div>
     <div>
-        @Html.TextBoxFor(x => x.Src, new { placeholder="Src"})
+        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src" })
     </div>
     <div>
         <button type="submit">Создать</button>

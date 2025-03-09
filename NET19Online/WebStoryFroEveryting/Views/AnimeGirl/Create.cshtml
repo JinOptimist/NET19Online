@@ -4,15 +4,40 @@
 @{
     Layout = "~/Views/Shared/_LayoutAnime.cshtml";
 }
+@section Styles {
+    <link href="~/css/AnimeGirl/animeGirlSpeical.css" rel="stylesheet" />
+    <link href="~/css/AnimeGirl/animeGirlCreate.css" rel="stylesheet" />
+}
 
-<form method="post" action="/AnimeGirl/Create">
-    <div>
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+@section Scripts {
+    <script src="/js/Idol/create.js"></script>
+}
+
+<div class="create-container">
+    <form method="post" action="/AnimeGirl/Create">
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+            @Html.ValidationMessageFor(x => x.Name)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
+            @Html.ValidationMessageFor(x => x.Src)
+        </div>
+        <div>
+            <button type="submit">Создать</button>
+        </div>
+    </form>
+    <div class="preview">
+        <div class="idol">
+            <div class="name"></div>
+            <div class="image-container">
+                <img src="" />
+            </div>
+            <div class="buttons">
+                <a href="#" class="button">+</a>
+                <a href="#" class="button soft-remove">Soft-</a>
+                <a href="#" class="button">-</a>
+            </div>
+        </div>
     </div>
-    <div>
-        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src for image" })
-    </div>
-    <div>
-        <button type="submit">Создать</button>
-    </div>
-</form>
+</div>

@@ -9,33 +9,37 @@ using StoreData.Models;
 
 namespace WebStoryFroEveryting.Controllers
 {
-    public class NotebooksController : Controller   // Контролер отвечает за то, чтобы принять запрос от клиента. Передать запрос экшену. Экшен формирует viewModels, передаёт на Views
+    public class NotebooksController : Controller   
     {
         private NotebookGenerator _notebookGenerator;
         private NotebookRepository _notebookRepository;
+        private NotebookCommentRepository _notebookCommentRepository;
 
-        public NotebooksController(NotebookGenerator notebookGenerator, NotebookRepository notebookRepository)
+        public NotebooksController(NotebookGenerator notebookGenerator, 
+            NotebookRepository notebookRepository, 
+            NotebookCommentRepository notebookCommentRepository)
         {
             _notebookGenerator = notebookGenerator;
             _notebookRepository = notebookRepository;
+            _notebookCommentRepository = notebookCommentRepository;
         }
 
         public IActionResult CreateOrderForNotebooks()
         {
-            var notebookDatas = _notebookRepository.GetNotebooks();
+            var notebookDatas = _notebookRepository.GetAll();
             if (!notebookDatas.Any())
             {
                 _notebookGenerator
-                    .GenerateNotebook(5)
-                    .Select(x =>
+                    .GenerateNotebook(7)
+                    .Select(viewModel =>
                     new NotebookData
                     {
-                        Name = x.Name,
-                        Src = x.Src
+                        Name = viewModel.Name,
+                        Src = viewModel.Src
                     })
                     .ToList()
-                    .ForEach(_notebookRepository.AddNotebook);
-                notebookDatas = _notebookRepository.GetNotebooks();
+                    .ForEach(_notebookRepository.Add);
+                notebookDatas = _notebookRepository.GetAll();
             }
 
             var viewModels = notebookDatas.Select(Map).ToList();
@@ -57,7 +61,7 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Create(CreateNotebookViewModel viewModel)        
         {
-            _notebookRepository.AddNotebook(
+            _notebookRepository.Add(
                 new NotebookData
                 {
                     Name = viewModel.Name,
@@ -66,6 +70,34 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CreateOrderForNotebooks));
         }
 
+        public IActionResult CommentForNotebook(int notebookId)
+        {
+            var viewModel = new NotebookWithCoomentViewModel();
+            
+            var notebook = _notebookRepository.GetWithComments(notebookId);
+
+            viewModel.Id = notebook.Id;
+            viewModel.Src = notebook.Src;
+            viewModel.Comments = notebook
+                .Comments
+                .Select(x => new NotebookCoomentViewModel
+            {
+                Id = x.Id,
+                Comment = x.Comment,
+                Created = x.Created
+            })
+                .ToList(); 
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(int notebookId, string comment)
+        {
+            _notebookCommentRepository.AddComment(notebookId, comment);
+
+            return RedirectToAction(nameof(CommentForNotebook), new { notebookId });
+        }
         private NotebookViewModel Map(NotebookData notebook)
         {
             return new NotebookViewModel
