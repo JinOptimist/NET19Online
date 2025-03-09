@@ -1,0 +1,13 @@
+@model List<WebStoryFroEveryting.Models.Lessons.PotentialBanUserViewModel>
+
+@{
+    Layout = "_LayoutLessons";
+}
+
+@foreach (var user in @Model)
+{
+    <div>@user.Id</div>
+    <div>@user.Email</div>
+    <div>@user.CommentDescription</div>
+}
+

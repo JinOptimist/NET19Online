@@ -59,6 +59,23 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
             .Include(x => x.Role)
             .First(u => u.Username == username && u.Password == hashPassword);
     }
+
+    public List<PotentialBanUsersData> GetPotentialBanUsers()
+    {
+        var sql = @"select ""Users"".""Id"", ""Email"", ""Description""
+from ""Users""
+left join public.""Comments"" C on ""Users"".""Id"" = C.""UserId""
+where exists (
+    select ""BanWords"".""Word""
+    from ""BanWords""
+         where ""Description"" like '%' || ""BanWords"".""Word"" || '%'
+    )
+group by ""Users"".""Id"", ""Description""";
+        return _dbContext
+            .Database
+            .SqlQueryRaw<PotentialBanUsersData>(sql)
+            .ToList();
+    }
     
     public string HashPassword(string password)
     {
