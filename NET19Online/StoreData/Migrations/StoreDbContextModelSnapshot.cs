@@ -710,340 +710,341 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.UserData", b =>
                 {
-            modelBuilder.Entity("StoreData.Models.UserData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    modelBuilder.Entity("StoreData.Models.UserData", b =>
+                        {
+                            b.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                            b.Property<string>("Password")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
+                            b.Property<int?>("RoleId")
+                                .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                            b.Property<string>("UserName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                            b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                            b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
-                });
+                            b.ToTable("Users");
+                        });
 
-            modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
-                {
-                    b.Property<int>("HuntersId")
-                        .HasColumnType("int");
+                    modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
+                        {
+                            b.Property<int>("HuntersId")
+                                .HasColumnType("int");
 
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
+                            b.Property<int>("TagsId")
+                                .HasColumnType("int");
 
+                            b.HasKey("HuntersId", "TagsId");
+                            b.Property<int>("TagsId")
+                                .HasColumnType("int");
+
+                            b.HasIndex("TagsId");
+
+                            b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
+                        });
                     b.HasKey("HuntersId", "TagsId");
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
 
                     b.HasIndex("TagsId");
+                    modelBuilder.Entity("GamingDeviceDataGamingDeviceStockData", b =>
+                        {
+                            b.HasOne("StoreData.Models.GamingDeviceData", null)
+                                .WithMany()
+                                .HasForeignKey("GamingDevicesId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
-                });
-                    b.HasKey("HuntersId", "TagsId");
+                            b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
+                            b.HasOne("StoreData.Models.GamingDeviceStockData", null)
+                                .WithMany()
+                                .HasForeignKey("StocksId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-                    b.HasIndex("TagsId");
-            modelBuilder.Entity("GamingDeviceDataGamingDeviceStockData", b =>
-                {
-                    b.HasOne("StoreData.Models.GamingDeviceData", null)
-                        .WithMany()
-                        .HasForeignKey("GamingDevicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("IdolDataIdolTagData", b =>
+                        {
+                            b.HasOne("StoreData.Models.IdolData", null)
+                                .WithMany()
+                                .HasForeignKey("IdolsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
-                    b.HasOne("StoreData.Models.GamingDeviceStockData", null)
-                        .WithMany()
-                        .HasForeignKey("StocksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                            b.HasOne("StoreData.Models.IdolTagData", null)
+                                .WithMany()
+                                .HasForeignKey("TagsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("IdolDataIdolTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.IdolData", null)
-                        .WithMany()
-                        .HasForeignKey("IdolsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("JerseyDataJerseyTagData", b =>
+                        {
+                            b.HasOne("StoreData.Models.JerseyData", null)
+                                .WithMany()
+                                .HasForeignKey("JerseysId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.HasOne("StoreData.Models.IdolTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                            b.HasOne("StoreData.Models.JerseyTagData", null)
+                                .WithMany()
+                                .HasForeignKey("TagsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("JerseyDataJerseyTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.JerseyData", null)
-                        .WithMany()
-                        .HasForeignKey("JerseysId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("MagicItemDataMagicItemTagData", b =>
+                        {
+                            b.HasOne("StoreData.Models.MagicItemData", null)
+                                .WithMany()
+                                .HasForeignKey("MagicItemsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.HasOne("StoreData.Models.JerseyTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                            b.HasOne("StoreData.Models.MagicItemTagData", null)
+                                .WithMany()
+                                .HasForeignKey("TagsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("MagicItemDataMagicItemTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.MagicItemData", null)
-                        .WithMany()
-                        .HasForeignKey("MagicItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("PlayerDataPlayerTagData", b =>
+                        {
+                            b.HasOne("StoreData.Models.PlayerData", null)
+                                .WithMany()
+                                .HasForeignKey("PlayersId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.HasOne("StoreData.Models.MagicItemTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                            b.HasOne("StoreData.Models.PlayerTagData", null)
+                                .WithMany()
+                                .HasForeignKey("TagsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("PlayerDataPlayerTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.PlayerData", null)
-                        .WithMany()
-                        .HasForeignKey("PlayersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("StoreData.Models.DescriptionFilmData", b =>
+                        {
+                            b.HasOne("StoreData.Models.FilmData", "Films")
+                                .WithOne("DescriptionFilms")
+                                .HasForeignKey("StoreData.Models.DescriptionFilmData", "Id")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.HasOne("StoreData.Models.PlayerTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                            b.Navigation("Films");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.DescriptionFilmData", b =>
-                {
-                    b.HasOne("StoreData.Models.FilmData", "Films")
-                        .WithOne("DescriptionFilms")
-                        .HasForeignKey("StoreData.Models.DescriptionFilmData", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
+                        {
+                            b.HasOne("StoreData.Models.GamingDeviceData", "GamingDevice")
+                                .WithMany("Reviews")
+                                .HasForeignKey("GamingDeviceId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.Navigation("Films");
-                });
+                            b.Navigation("GamingDevice");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
-                {
-                    b.HasOne("StoreData.Models.GamingDeviceData", "GamingDevice")
-                        .WithMany("Reviews")
-                        .HasForeignKey("GamingDeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("StoreData.Models.FilmCommentData", b =>
+                        {
+                            b.HasOne("StoreData.Models.FilmData", "Film")
+                                .WithMany("Comments")
+                                .HasForeignKey("FilmId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
 
-                    b.Navigation("GamingDevice");
-                });
+                            b.Navigation("Film");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.FilmCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.FilmData", "Film")
-                        .WithMany("Comments")
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
+                        {
+                            b.HasOne("StoreData.Models.UserData", "Author")
+                                .WithMany("IdolComments")
+                                .HasForeignKey("AuthorId");
 
-                    b.Navigation("Film");
-                });
+                            b.HasOne("StoreData.Models.IdolData", "Idol")
+                                .WithMany("Comments")
+                                .HasForeignKey("IdolId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
 
-            modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("IdolComments")
-                        .HasForeignKey("AuthorId");
+                            b.Navigation("Author");
 
-                    b.HasOne("StoreData.Models.IdolData", "Idol")
-                        .WithMany("Comments")
-                        .HasForeignKey("IdolId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                            b.Navigation("Idol");
+                        });
 
-                    b.Navigation("Author");
+                    modelBuilder.Entity("StoreData.Models.JerseyCommentData", b =>
+                        {
+                            b.HasOne("StoreData.Models.UserData", "Author")
+                                .WithMany("JerseyComments")
+                                .HasForeignKey("AuthorId");
 
-                    b.Navigation("Idol");
-                });
+                            b.HasOne("StoreData.Models.JerseyData", "Jersey")
+                                .WithMany("Comments")
+                                .HasForeignKey("JerseyId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
 
-            modelBuilder.Entity("StoreData.Models.JerseyCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("JerseyComments")
-                        .HasForeignKey("AuthorId");
+                            b.Navigation("Author");
 
-                    b.HasOne("StoreData.Models.JerseyData", "Jersey")
-                        .WithMany("Comments")
-                        .HasForeignKey("JerseyId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                            b.Navigation("Jersey");
+                        });
 
-                    b.Navigation("Author");
+                    modelBuilder.Entity("StoreData.Models.MagicItemCommentData", b =>
+                        {
+                            b.HasOne("StoreData.Models.UserData", "Author")
+                                .WithMany()
+                                .HasForeignKey("AuthorId");
 
-                    b.Navigation("Jersey");
-                });
+                            b.HasOne("StoreData.Models.MagicItemData", "MagicItem")
+                                .WithMany("Comments")
+                                .HasForeignKey("MagicItemId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
 
-            modelBuilder.Entity("StoreData.Models.MagicItemCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
+                            b.Navigation("Author");
 
-                    b.HasOne("StoreData.Models.MagicItemData", "MagicItem")
-                        .WithMany("Comments")
-                        .HasForeignKey("MagicItemId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                            b.Navigation("MagicItem");
+                        });
 
-                    b.Navigation("Author");
+                    modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
+                        {
+                            b.HasOne("StoreData.Models.NotebookData", "Notebook")
+                                .WithMany("Comments")
+                                .HasForeignKey("NotebookId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.Navigation("MagicItem");
-                });
+                            b.Navigation("Notebook");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.NotebookData", "Notebook")
-                        .WithMany("Comments")
-                        .HasForeignKey("NotebookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("StoreData.Models.PlayerDescriptionData", b =>
+                        {
+                            b.HasOne("StoreData.Models.UserData", "Author")
+                                .WithMany("PlayerDescriptions")
+                                .HasForeignKey("AuthorId");
 
-                    b.Navigation("Notebook");
-                });
+                            b.HasOne("StoreData.Models.PlayerData", "Player")
+                                .WithMany("Descriptions")
+                                .HasForeignKey("PlayerId")
+                                .OnDelete(DeleteBehavior.NoAction)
+                                .IsRequired();
 
-            modelBuilder.Entity("StoreData.Models.PlayerDescriptionData", b =>
-                {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("PlayerDescriptions")
-                        .HasForeignKey("AuthorId");
+                            b.Navigation("Author");
 
-                    b.HasOne("StoreData.Models.PlayerData", "Player")
-                        .WithMany("Descriptions")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                            b.Navigation("Player");
+                        });
 
-                    b.Navigation("Author");
+                    modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
+                        {
+                            b.HasOne("StoreData.Models.UserData", "Author")
+                                .WithMany("HunterComments")
+                                .HasForeignKey("AuthorId");
 
-                    b.Navigation("Player");
-                });
+                            b.HasOne("StoreData.Models.UnderwaterHunterData", "Hunter")
+                                .WithMany("Comments")
+                                .HasForeignKey("HunterId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-            modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.UserData", "Author")
-                        .WithMany("HunterComments")
-                        .HasForeignKey("AuthorId");
+                            b.Navigation("Author");
 
-                    b.HasOne("StoreData.Models.UnderwaterHunterData", "Hunter")
-                        .WithMany("Comments")
-                        .HasForeignKey("HunterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                            b.Navigation("Hunter");
+                        });
 
-                    b.Navigation("Author");
+                    modelBuilder.Entity("StoreData.Models.UserData", b =>
+                        {
+                            b.HasOne("StoreData.Models.RoleData", "Role")
+                                .WithMany("Users")
+                                .HasForeignKey("RoleId")
+                                .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Hunter");
-                });
+                            b.Navigation("Role");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.UserData", b =>
-                {
-                    b.HasOne("StoreData.Models.RoleData", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                    modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
+                        {
+                            b.HasOne("StoreData.Models.UnderwaterHunterData", null)
+                                .WithMany()
+                                .HasForeignKey("HuntersId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.Navigation("Role");
-                });
+                            b.HasOne("StoreData.Models.UnderwaterHunterTagData", null)
+                                .WithMany()
+                                .HasForeignKey("TagsId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("UnderwaterHunterDataUnderwaterHunterTagData", b =>
-                {
-                    b.HasOne("StoreData.Models.UnderwaterHunterData", null)
-                        .WithMany()
-                        .HasForeignKey("HuntersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
+                        {
+                            b.Navigation("Reviews");
+                        });
 
-                    b.HasOne("StoreData.Models.UnderwaterHunterTagData", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("StoreData.Models.FilmData", b =>
+                        {
+                            b.Navigation("Comments");
 
-            modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
-                {
-                    b.Navigation("Reviews");
-                });
+                            b.Navigation("DescriptionFilms")
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("StoreData.Models.FilmData", b =>
-                {
-                    b.Navigation("Comments");
+                    modelBuilder.Entity("StoreData.Models.IdolData", b =>
+                        {
+                            b.Navigation("Comments");
+                        });
 
-                    b.Navigation("DescriptionFilms")
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("StoreData.Models.JerseyData", b =>
+                        {
+                            b.Navigation("Comments");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.IdolData", b =>
-                {
-                    b.Navigation("Comments");
-                });
+                    modelBuilder.Entity("StoreData.Models.MagicItemData", b =>
+                        {
+                            b.Navigation("Comments");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.JerseyData", b =>
-                {
-                    b.Navigation("Comments");
-                });
+                    modelBuilder.Entity("StoreData.Models.NotebookData", b =>
+                        {
+                            b.Navigation("Comments");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.MagicItemData", b =>
-                {
-                    b.Navigation("Comments");
-                });
+                    modelBuilder.Entity("StoreData.Models.PlayerData", b =>
+                        {
+                            b.Navigation("Descriptions");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.NotebookData", b =>
-                {
-                    b.Navigation("Comments");
-                });
+                    modelBuilder.Entity("StoreData.Models.RoleData", b =>
+                        {
+                            b.Navigation("Users");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.PlayerData", b =>
-                {
-                    b.Navigation("Descriptions");
-                });
+                    modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
+                        {
+                            b.Navigation("Comments");
+                        });
 
-            modelBuilder.Entity("StoreData.Models.RoleData", b =>
-                {
-                    b.Navigation("Users");
-                });
+                    modelBuilder.Entity("StoreData.Models.UserData", b =>
+                        {
+                            b.Navigation("HunterComments");
 
-            modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
-                {
-                    b.Navigation("Comments");
-                });
+                            b.Navigation("IdolComments");
 
-            modelBuilder.Entity("StoreData.Models.UserData", b =>
-                {
-                    b.Navigation("HunterComments");
+                            b.Navigation("JerseyComments");
 
-                    b.Navigation("IdolComments");
-
-                    b.Navigation("JerseyComments");
-
-                    b.Navigation("PlayerDescriptions");
-                });
+                            b.Navigation("PlayerDescriptions");
+                        });
 #pragma warning restore 612, 618
+                });
         }
     }
 }
