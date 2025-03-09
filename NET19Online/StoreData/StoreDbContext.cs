@@ -26,6 +26,8 @@ namespace StoreData
 
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
+        public DbSet<GamingDeviceReviewData> GamingDeviceReviews { get; set; }
+        public DbSet<GamingDeviceStockData> GamingDeviceStocks { get; set; }
 
         public DbSet<JerseyData> Jerseys { get; set; }
         public DbSet<JerseyTagData> JerseysTags { get; set; }

@@ -17,5 +17,6 @@ namespace WebStoryFroEveryting.Models.GamingDevice
 
         [IsLink]
         public string Src { get; set; }
+
     }
 }
