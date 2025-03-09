@@ -1,7 +1,9 @@
+using Enums.SchoolUser;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.Lessons;
+using WebStoryFroEveryting.SchoolAttributes.AuthorizeAttributes;
 
 namespace WebStoryFroEveryting.Controllers;
 
@@ -15,6 +17,7 @@ public class SchoolUserController : Controller
     }
 
     [HttpGet]
+    [HasPermission(SchoolPermission.CanBanUsers)]
     public IActionResult PotentialBannedUsers()
     {
         var potentialBanUsers = _schoolUserRepository
@@ -23,6 +26,14 @@ public class SchoolUserController : Controller
             .Select(MapToPotentialBan)
             .ToList();
         return View(result);
+    }
+
+    [HttpPost]
+    [HasPermission(SchoolPermission.CanBanUsers)]
+    public IActionResult BanUser(int userId)
+    {
+        _schoolUserRepository.BanUser(userId);
+        return RedirectToAction(nameof(PotentialBannedUsers));
     }
 
     private PotentialBanUserViewModel MapToPotentialBan(PotentialBanUsersData from)

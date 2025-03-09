@@ -1,7 +1,7 @@
 @using Enums.SchoolUser
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using StoreData.Services
-@model List<WebStoryFroEveryting.Models.SchoolUser.SchoolRoleViewModel>
+@model WebStoryFroEveryting.Models.SchoolUser.SchoolRolesViewModel
 
 @{
     Layout = "_LayoutLessons";
@@ -9,7 +9,7 @@
 }
 
 <div class="roles">
-    @foreach (var role in @Model)
+    @foreach (var role in Model.Roles)
     {
         <div class="role">
             <h2>@role.Name</h2>

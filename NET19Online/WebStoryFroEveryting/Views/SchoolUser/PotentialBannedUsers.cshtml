@@ -9,5 +9,11 @@
     <div>@user.Id</div>
     <div>@user.Email</div>
     <div>@user.CommentDescription</div>
+    <div>
+        <form asp-action="BanUser" method="post">
+                    <input type="hidden" name="userId" value="@user.Id" />
+                    <button type="submit">Забанить</button>
+                </form>
+    </div>
 }
 

@@ -3,15 +3,18 @@ using System.Text;
 using Enums.SchoolUser;
 using Microsoft.EntityFrameworkCore;
 using StoreData.Models;
+using StoreData.Repostiroties.School;
 
 namespace StoreData.Repostiroties;
 
 public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
 {
     private readonly SchoolRoleRepository _schoolRoleRepository;
-    public SchoolUserRepository(SchoolDbContext dbContext, SchoolRoleRepository schoolRoleRepository) : base(dbContext)
+    private readonly BannedUserRepository _bannedUserRepository;
+    public SchoolUserRepository(SchoolDbContext dbContext, SchoolRoleRepository schoolRoleRepository, BannedUserRepository bannedUserRepository) : base(dbContext)
     {
         _schoolRoleRepository = schoolRoleRepository;
+        _bannedUserRepository = bannedUserRepository;
     }
 
     public override void Add(SchoolUserData item)
@@ -75,6 +78,19 @@ group by ""Users"".""Id"", ""Description""";
             .Database
             .SqlQueryRaw<PotentialBanUsersData>(sql)
             .ToList();
+    }
+
+    public void BanUser(int userId)
+    {
+        var bannedUser = _dbSet.First(u => u.Id == userId);
+        _dbSet.Remove(bannedUser);
+        _bannedUserRepository.Add(new BannedUserData()
+        {
+            BanDescription = "Bad word",
+            BanTime = DateTime.UtcNow,
+            Email = bannedUser.Email,
+            Id = bannedUser.Id
+        });
     }
     
     public string HashPassword(string password)
