@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StoreData;
+using StoreData.Models;
 using StoreData.Repostiroties;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
@@ -60,8 +61,9 @@ builder.Services.AddScoped<MagicItemCategoryGenerator>();
 builder.Services.AddScoped<MagicItemNameGenerator>();
 
 builder.Services.AddScoped<MagicItemRepository>();
+builder.Services.AddScoped<MagicItemCommentRepository>();
 
-builder.Services.AddScoped<TheBestUnderwaterHunters>();
+builder.Services.AddScoped<UnderwaterHunterViewModel>();
 builder.Services.AddScoped<HuntersGenerator>();
 builder.Services.AddScoped<UnderwarterHunterRepository>();
 builder.Services.AddScoped<UnderwarterHunterCommentRepository>();

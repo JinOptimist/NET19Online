@@ -5,6 +5,8 @@ namespace WebStoryFroEveryting.Models.Jerseys
     public class JerseyWithCommentsViewModel
     {
         public int Id { get; set; }
+        public bool IsTagCreatingEnable { get; set; }
+        public bool IsAuthenticated { get; set; }
         public string Club { get; set; }
         public int Number { get; set; }
         public string AthleteName { get; set; }
