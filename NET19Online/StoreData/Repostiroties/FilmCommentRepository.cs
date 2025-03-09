@@ -13,13 +13,13 @@ namespace StoreData.Repostiroties
     public class FilmCommentRepository : BaseRepository<FilmCommentData>
     {
         public FilmCommentRepository(StoreDbContext dbContext) : base(dbContext) { }
-
+        private const int USER = 1;
         public void AddComment(int filmid, string comment)
         {
             var filmComment = new FilmCommentData();
             filmComment.FilmId = filmid;
             filmComment.Comment = comment;
-            filmComment.UserName = Environment.UserName;
+            filmComment.UserId = USER;
             filmComment.Created = DateTime.Now;
             _dbContext.Add(filmComment);
             _dbContext.SaveChanges();
@@ -27,19 +27,14 @@ namespace StoreData.Repostiroties
 
         public void DeleteComment(int filmid)
         {
-            var strSelectSql = @"SELECT FilmId,COUNT(*) cou, UserName FROM FilmCommentDatas
-                                                                        WHERE FilmId = @FilmId
-							                                            Group By  UserName,FilmId
-                                                                        HAVING COUNT(*) > 1"
-                                ;
-            var result = _dbContext.Database.SqlQueryRaw<FilmCommentDataDto>(strSelectSql, new SqlParameter("@FilmId", filmid)).ToList();
-            var strDeleteSql = @"DELETE TOP (@Limit) 
-                    FROM FilmCommentDatas 
-                    WHERE FilmId = @FilmId";
-            if (result[0]?.Cou>1)
-            {
-                _dbContext.Database.ExecuteSqlRaw(strDeleteSql, new SqlParameter("@FilmId", filmid), new SqlParameter("@Limit", (result[0].Cou - 1)));
-            }
+            var strSelectSql = @" DELETE FROM FilmCommentDatas
+                                              WHERE Id NOT IN (
+                                                  SELECT MIN(Id)
+                                                  FROM FilmCommentDatas
+                                                  WHERE FilmId = @FilmId
+                                                  GROUP BY UserId, FilmId, Comment
+                                              );";
+            var result = _dbContext.Database.ExecuteSqlRaw(strSelectSql, new SqlParameter("@FilmId", filmid));
         }
 
     }

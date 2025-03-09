@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace StoreData.CustomQueryModels
 {
-    public class FilmCommentDataDto
+    public class FilmCommentDataMap
     {
         public int FilmId { get; set; }
-        public int Cou { get; set; }
-        public string UserName { get; set; }
+        public int Quantity { get; set; }
+        public int UserId { get; set; }
 
     }
 }
