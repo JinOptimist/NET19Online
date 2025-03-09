@@ -34,6 +34,18 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
         return _dbSet
             .FirstOrDefault(u => u.Username == username);
     }
+    
+    public void UpdateRole(int id, int? roleId)
+    {
+        var user = _dbSet
+            .Include(x => x.Role)
+            .First(x => x.Id == id);
+        var role = roleId == null
+            ? null
+            : _dbContext.Roles.First(x => x.Id == roleId);
+        user.Role = role;
+        _dbContext.SaveChanges();
+    }
 
     public override SchoolUserData Get(int id)
     {
@@ -65,18 +77,9 @@ public class SchoolUserRepository : BaseSchoolRepository<SchoolUserData>
 
     public List<PotentialBanUsersData> GetPotentialBanUsers()
     {
-        var sql = @"select ""Users"".""Id"", ""Email"", ""Description""
-from ""Users""
-left join public.""Comments"" C on ""Users"".""Id"" = C.""UserId""
-where exists (
-    select ""BanWords"".""Word""
-    from ""BanWords""
-         where ""Description"" like '%' || ""BanWords"".""Word"" || '%'
-    )
-group by ""Users"".""Id"", ""Description""";
         return _dbContext
             .Database
-            .SqlQueryRaw<PotentialBanUsersData>(sql)
+            .SqlQueryRaw<PotentialBanUsersData>("SELECT * FROM GetPotentialBanUsers()")
             .ToList();
     }
 
