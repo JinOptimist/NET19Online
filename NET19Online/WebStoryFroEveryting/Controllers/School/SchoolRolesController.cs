@@ -42,41 +42,26 @@ public class SchoolRolesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Update(int roleId, List<int> permissions)
+    public IActionResult Update(int roleId, List<SchoolPermission> permissions)
     {
-        var role = _schoolRoleRepository.Get(roleId);
-    
-        if (role == null)
-        {
-            return NotFound("Роль не найдена");
-        }
-
-        SchoolPermission updatedPermissions = 0;
-        foreach (var perm in permissions)
-        {
-            updatedPermissions |= (SchoolPermission)perm;
-        }
-
-        _schoolRoleRepository.Update(new SchoolRoleData()
-        {
-            Id = role.Id,
-            Name = role.Name,
-            Permission = updatedPermissions
-        });
-
+        _schoolRoleRepository.UpdatePermission(roleId,permissions); 
         return RedirectToAction(nameof(Index));
     }
 
 
-    private List<SchoolRoleViewModel> MapSchoolRoleDataToViewModel(List<SchoolRoleData> schoolRoleDataList)
+
+    private SchoolRolesViewModel MapSchoolRoleDataToViewModel(List<SchoolRoleData> schoolRoleDataList)
     {
-        return schoolRoleDataList
-            .Select(x => new SchoolRoleViewModel()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Permissions = x.Permission
-            })
-            .ToList();
+        return new SchoolRolesViewModel()
+        {
+            Roles = schoolRoleDataList
+                .Select(x => new SchoolRoleViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Permissions = x.Permission
+                })
+                .ToList()
+        };
     }
 }
