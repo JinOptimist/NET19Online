@@ -3,6 +3,10 @@
 @{
 	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
 }
+@section Scripts{
+	<script src="~/js/UnderwaterHunter/index.js"></script>
+}
+ 
 <div class="userName">@Model.Author</div>
 <div class="filter-By-Tags">
 	<div>Filters:</div>
@@ -27,6 +31,7 @@
 			<a href="/UnderwaterHunter/Remove?id=@item.Id" class="closeIcon">
 				Remove the hunter from the base!
 			</a>
+			<a href="#" class="hide-image">Hide image</a>
 		</div>
 	}
 </div>
