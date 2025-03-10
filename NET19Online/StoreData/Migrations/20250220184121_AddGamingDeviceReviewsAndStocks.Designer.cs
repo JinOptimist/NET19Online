@@ -12,8 +12,8 @@ using StoreData;
 namespace StoreData.Migrations.StoreDb
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20250221212504_FilmsMigration")]
-    partial class FilmsMigration
+    [Migration("20250220184121_AddGamingDeviceReviewsAndStocks")]
+    partial class AddGamingDeviceReviewsAndStocks
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace StoreData.Migrations.StoreDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GamingDeviceDataGamingDeviceStockData", b =>
+                {
+                    b.Property<int>("GamingDevicesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StocksId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamingDevicesId", "StocksId");
+
+                    b.HasIndex("StocksId");
+
+                    b.ToTable("GamingDeviceDataGamingDeviceStockData");
+                });
 
             modelBuilder.Entity("IdolDataIdolTagData", b =>
                 {
@@ -55,34 +70,6 @@ namespace StoreData.Migrations.StoreDb
                     b.ToTable("JerseyDataJerseyTagData");
                 });
 
-            modelBuilder.Entity("StoreData.Models.FilmData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FilmDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Src")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Films");
-                });
-
             modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
                 {
                     b.Property<int>("Id")
@@ -109,6 +96,48 @@ namespace StoreData.Migrations.StoreDb
                     b.HasKey("Id");
 
                     b.ToTable("GamingDevices");
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GamingDeviceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Review")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GamingDeviceId");
+
+                    b.ToTable("GamingDeviceReviews");
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceStockData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GamingDeviceStocks");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
@@ -430,6 +459,21 @@ namespace StoreData.Migrations.StoreDb
                     b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
                 });
 
+            modelBuilder.Entity("GamingDeviceDataGamingDeviceStockData", b =>
+                {
+                    b.HasOne("StoreData.Models.GamingDeviceData", null)
+                        .WithMany()
+                        .HasForeignKey("GamingDevicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.GamingDeviceStockData", null)
+                        .WithMany()
+                        .HasForeignKey("StocksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IdolDataIdolTagData", b =>
                 {
                     b.HasOne("StoreData.Models.IdolData", null)
@@ -458,6 +502,17 @@ namespace StoreData.Migrations.StoreDb
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
+                {
+                    b.HasOne("StoreData.Models.GamingDeviceData", "GamingDevice")
+                        .WithMany("Reviews")
+                        .HasForeignKey("GamingDeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GamingDevice");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
@@ -512,6 +567,11 @@ namespace StoreData.Migrations.StoreDb
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolData", b =>

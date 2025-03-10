@@ -32,6 +32,7 @@
 			<div>
 				<input name="comment" placeholder="write comment here" />
 			</div>
+			<input name="authorId" type="hidden" value="@Model.AuthorId" />
 			<div>
 				<button type="submit">Add comment</button>
 			</div>
@@ -47,5 +48,14 @@
 			}
 		</div>
 	</div>
+</div>
+<div class="commentWithoutDuplicate">
+	@foreach (var comment in Model.CommentsWithoutDuplicates)
+	{
+		<div class="comments">
+			@comment.Comment
+			@Model.Author
+		</div>
+	}
 </div>
 

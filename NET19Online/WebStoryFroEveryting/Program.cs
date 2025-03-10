@@ -17,6 +17,13 @@ builder.Services
         config.AccessDeniedPath = "/Auth/YouCanSeeIt";
     });
 
+builder.Services
+    .AddAuthentication(SchoolAuthService.AUTH_TYPE)
+    .AddCookie(SchoolAuthService.AUTH_TYPE, config =>
+    {
+        config.LoginPath = "/SchoolAuth/Login";
+    });
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -37,6 +44,7 @@ builder.Services.AddScoped<FilmsGeneratorServices>();
 builder.Services.AddScoped<RoleRepository>();
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<FilmsRepository>();
+builder.Services.AddScoped<FilmCommentRepository>();
 //builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<LessonRepository>();
@@ -49,6 +57,7 @@ builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
+builder.Services.AddScoped<GamingDeviceReviewRepository>();
 
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<IdolCommentRepository>();
@@ -71,6 +80,9 @@ builder.Services.AddScoped<UnderwarterHunterRepository>();
 builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
 builder.Services.AddScoped<SingerRepository>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<SchoolUserRepository>();
+builder.Services.AddScoped<SchoolRoleRepository>();
+builder.Services.AddScoped<SchoolAuthService>();
 
 builder.Services.AddScoped<AuthService>();
 

@@ -13,18 +13,21 @@ namespace WebStoryFroEveryting.Controllers
     {
         private IdolGenerator _idolGenerator;
         private IdolRepository _idolRepository;
+        private UserRepository _userRepository;
         private IdolCommentRepository _idolCommentRepository;
         private AuthService _authService;
 
         public AnimeGirlController(IdolGenerator idolGenerator,
             IdolRepository idolRepository,
             IdolCommentRepository idolCommentRepository,
-            AuthService authService)
+            AuthService authService,
+            UserRepository userRepository)
         {
             _idolGenerator = idolGenerator;
             _idolRepository = idolRepository;
             _idolCommentRepository = idolCommentRepository;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
         public IActionResult Index(string? tag)
@@ -54,6 +57,16 @@ namespace WebStoryFroEveryting.Controllers
                 .ToList();
             viewModel.CurrentTag = tag;
             viewModel.CanUserFillters = _authService.IsAuthenticated();
+
+            viewModel.UserAndIdolsAges = _userRepository
+                .GetUserNamesWithAveIdolAge()
+                .Select(x => new UserAndIdolsAgesViewModel
+                {
+                    AvgAge = x.AvgAge,
+                    UserName = x.UserName
+                })
+                .ToList();
+
             return View(viewModel);
         }
 
@@ -116,7 +129,8 @@ namespace WebStoryFroEveryting.Controllers
         [HasPermission(Permisson.CanAddIdolComment)]
         public IActionResult AddComment(int idolId, string comment)
         {
-            _idolCommentRepository.AddComment(idolId, comment);
+            var authorId = _authService.GetUserId();
+            _idolCommentRepository.AddComment(idolId, comment, authorId);
 
             return RedirectToAction(nameof(CommentForGirl), new { idolId });
         }
@@ -127,6 +141,17 @@ namespace WebStoryFroEveryting.Controllers
             _idolRepository.AddTag(idolId, tag);
 
             return RedirectToAction(nameof(CommentForGirl), new { idolId });
+        }
+
+        [HttpPost]
+        public IActionResult BigRemove(string idsToRemove)
+        {
+            var ids = idsToRemove
+                .Split(",")
+                .Select(idStr => int.Parse(idStr));
+            _idolRepository.Remove(ids);
+
+            return RedirectToAction(nameof(Index));
         }
 
         private IdolViewModel Map(IdolData idol)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreData.CustomQueryModels;
 using StoreData.Models;
 using System.Xml.Serialization;
 
@@ -55,6 +56,22 @@ namespace StoreData.Repostiroties
                 : _dbContext.Roles.First(x => x.Id == roleId);
             user.Role = role;
             _dbContext.SaveChanges();
+        }
+
+        public List<UserWithIdolPreference> GetUserNamesWithAveIdolAge()
+        {
+            var sql = @"SELECT
+	U.[UserName]
+	, AVG(I.Age) AvgAge
+FROM [Users] U
+	LEFT JOIN IdolComments C ON U.Id = C.AuthorId
+	LEFT JOIN Idols I ON I.Id = C.IdolId
+GROUP BY U.UserName";
+
+            return _dbContext
+                .Database
+                .SqlQueryRaw<UserWithIdolPreference>(sql)
+                .ToList();
         }
 
         private string BuildSecurePassword(string password)

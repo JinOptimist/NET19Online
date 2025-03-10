@@ -93,14 +93,7 @@ namespace StoreData.Migrations.StoreDb
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "MagicItemComments");
-
-            migrationBuilder.DropTable(
-                name: "MagicItemDataMagicItemTagData");
-
-            migrationBuilder.DropTable(
-                name: "MagicItemTags");
+ 
         }
     }
 }

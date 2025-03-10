@@ -47,10 +47,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction:row;
 }
-.jersey img{
+#content-left {
+    display: flex;
+    width: 10%;
+    min-width: 300px;
+}
+#content-right {
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 80%;
+}
+.tags {
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: flex;
+    height: 100px;
+    
+}
+span.tag {
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #486304;
+    color: #486304;
+}
+a.tag {
+    text-decoration: none;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #486304;
+    color: #486304;
+}
+a.tag.active {
+    border: 1px solid #486304;
+    background-color: #486304;
+    color: #fff;
+    font-size: 20px;
+}
+.jersey img {
     width: 250px;
-    min-height: 253px;
+    height: 253px;
 }
 .jersey div {
     margin: 5px;

@@ -4,8 +4,8 @@
 @{
     Layout = "~/Views/Shared/_LayoutFilms.cshtml";
 }
-@section Styles{
-    <link href="/css/Films/StyleFilms.css" rel="stylesheet" />
+@section Styles {
+    <link href="/css/Films/StyleFilmsSpeical.css" rel="stylesheet" />
 }
 <div class="main-layout">
     @foreach (var item in Model)
@@ -13,13 +13,13 @@
         <div class="block-elements">
             <div class="name">@item.Name</div>
             <div class="image-container">
-                <img src="@item.Src" />
+                <a href="/PurchaseFilms/DescriptionFilm?id=@item.id" class="button">
+                    <img src="@item.Src" />
+                </a>
             </div>
             <div class="buttons">
-                <div class="button"> + </div>
-                <a href="/PurchaseFilms/RemoveFilms?id=@item.id" class="button"> - </a>
+                <a href="/PurchaseFilms/RemoveFilms?id=@item.id" class="button"> Удалить </a>
             </div>
         </div>
     }
-
 </div>

@@ -17,6 +17,8 @@ namespace StoreData
         public DbSet<MagicItemCommentData> MagicItemComments { get; set; }
         public DbSet<MagicItemTagData> MagicItemTags { get; set; }
         public DbSet<FilmData> Films { get; set; }
+        public DbSet<FilmCommentData> FilmCommentDatas { get; set; }
+        public DbSet<DescriptionFilmData> DescriptionFilms { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
 
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
@@ -25,6 +27,8 @@ namespace StoreData
 
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
+        public DbSet<GamingDeviceReviewData> GamingDeviceReviews { get; set; }
+        public DbSet<GamingDeviceStockData> GamingDeviceStocks { get; set; }
 
         public DbSet<JerseyData> Jerseys { get; set; }
         public DbSet<JerseyTagData> JerseysTags { get; set; }
@@ -43,13 +47,22 @@ namespace StoreData
         {
             optionsBuilder.UseSqlServer(CONNECTION_STRING);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<IdolData>()
                 .HasMany(idol => idol.Comments)
                 .WithOne(comment => comment.Idol)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<FilmData>()
+                .HasMany(filmData => filmData.Comments)
+                .WithOne(coment => coment.Film)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<FilmData>()
+                .HasOne(films => films.DescriptionFilms)
+                .WithOne(description => description.Films)
+                .HasForeignKey<DescriptionFilmData>(f => f.Id);
 
             modelBuilder.Entity<IdolData>()
                 .HasMany(x => x.Tags)

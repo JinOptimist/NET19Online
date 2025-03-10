@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,17 @@ namespace StoreData.Repostiroties
                 Author = user
             };
             Add(commentData);
+        }
+        public void DeleteCommentDuplicates()
+        {
+            var sql = @"Delete From JerseysComments
+Where Id Not In
+(
+Select Min(Id)
+From JerseysComments
+Group By Comment, AuthorId
+)";
+            _dbContext.Database.ExecuteSqlRaw(sql);
         }
     }
 }
