@@ -33,21 +33,6 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult Index(string? tag)
         {
             var idolDatas = _idolRepository.GetAllWithTags(tag);
-            if (!idolDatas.Any())
-            {
-                _idolGenerator
-                    .GenerateIdols(5)
-                    .Select(viewModel =>
-                        new IdolData
-                        {
-                            Name = viewModel.Name,
-                            Src = viewModel.Src
-                        })
-                    .ToList()
-                    .ForEach(_idolRepository.Add);
-                idolDatas = _idolRepository.GetAll();
-            }
-
             var viewModel = new IdolIndexViewModel();
             viewModel.Idols = idolDatas.Select(Map).ToList();
             viewModel.Tags = idolDatas
@@ -153,6 +138,8 @@ namespace WebStoryFroEveryting.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        
 
         private IdolViewModel Map(IdolData idol)
         {
