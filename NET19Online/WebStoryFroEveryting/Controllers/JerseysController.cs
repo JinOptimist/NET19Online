@@ -140,6 +140,12 @@ namespace WebStoryFroEveryting.Controllers
                     });
             return RedirectToAction(nameof(Index));
         }
+        [IsAdmin]
+        public IActionResult DeleteCommentDuplicates()
+        {
+            _jerseyCommentRepository.DeleteCommentDuplicates();
+            return RedirectToAction(nameof(Index));
+        }
         private JerseyViewModel Map(JerseyData jerseyData)
         {
             return new JerseyViewModel

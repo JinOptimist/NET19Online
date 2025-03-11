@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreData;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using StoreData.Repostiroties.School;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.FilmsServer;
@@ -49,6 +50,8 @@ builder.Services.AddScoped<FilmCommentRepository>();
 
 builder.Services.AddScoped<LessonRepository>();
 builder.Services.AddScoped<LessonCommentRepository>();
+builder.Services.AddScoped<BanWordRepository>();
+builder.Services.AddScoped<BannedUserRepository>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 
 builder.Services.AddScoped<FilmsRepository>();
@@ -57,6 +60,7 @@ builder.Services.AddScoped<LessonRepository>();
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
 builder.Services.AddScoped<GamingDeviceRepository>();
+builder.Services.AddScoped<GamingDeviceReviewRepository>();
 
 builder.Services.AddScoped<IdolRepository>();
 builder.Services.AddScoped<IdolCommentRepository>();

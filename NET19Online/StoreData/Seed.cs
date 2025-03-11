@@ -32,6 +32,27 @@ namespace StoreData
                     Name = "Blue",
                     Src = "https://m.media-amazon.com/images/I/71WbcekHTbL._AC_UF894,1000_QL80_.jpg"
                 });
+
+                idolRepository.Add(new Models.IdolData
+                {
+                    Age = 30,
+                    Name = "Azur",
+                    Src = "https://rare-gallery.com/uploads/posts/325855-Azur-Lane-Takao-Katana-Anime-Girl-4K-iphone-wallpaper.jpg"
+                });
+
+                idolRepository.Add(new Models.IdolData
+                {
+                    Age = 18,
+                    Name = "Full",
+                    Src = "https://img10.reactor.cc/pics/post/full/Anime-Original-Anime-Anime-Ero-Anime-Adult-Wet-7105220.jpeg"
+                });
+
+                idolRepository.Add(new Models.IdolData
+                {
+                    Age = 20,
+                    Name = "long+hair",
+                    Src = "https://oimages.anime-pictures.net/565/5655ec8a7540507d740457a24714ff51.jpg?if=ANIME-PICTURES.NET_-_775334-5334x3000-azur+lane-aegir+%28azur+lane%29-sune+%28mugendai%29-single-long+hair-looking+at+viewer.jpg"
+                });
             }
         }
 

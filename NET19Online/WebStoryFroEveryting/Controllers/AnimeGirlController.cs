@@ -33,21 +33,6 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult Index(string? tag)
         {
             var idolDatas = _idolRepository.GetAllWithTags(tag);
-            if (!idolDatas.Any())
-            {
-                _idolGenerator
-                    .GenerateIdols(5)
-                    .Select(viewModel =>
-                        new IdolData
-                        {
-                            Name = viewModel.Name,
-                            Src = viewModel.Src
-                        })
-                    .ToList()
-                    .ForEach(_idolRepository.Add);
-                idolDatas = _idolRepository.GetAll();
-            }
-
             var viewModel = new IdolIndexViewModel();
             viewModel.Idols = idolDatas.Select(Map).ToList();
             viewModel.Tags = idolDatas
@@ -142,6 +127,19 @@ namespace WebStoryFroEveryting.Controllers
 
             return RedirectToAction(nameof(CommentForGirl), new { idolId });
         }
+
+        [HttpPost]
+        public IActionResult BigRemove(string idsToRemove)
+        {
+            var ids = idsToRemove
+                .Split(",")
+                .Select(idStr => int.Parse(idStr));
+            _idolRepository.Remove(ids);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        
 
         private IdolViewModel Map(IdolData idol)
         {

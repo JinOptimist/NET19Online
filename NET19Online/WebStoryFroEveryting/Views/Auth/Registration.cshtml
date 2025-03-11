@@ -1,11 +1,20 @@
 ﻿@using WebStoryFroEveryting.Models.Auth
 @model AuthViewModel
 
+@section Scripts{
+    <script src="~/js/auth/registration.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Auth/registration.css" asp-append-version="true" />
+}
 
 <form method="post" action="/Auth/Registration">
     <div>
         @Html.TextBoxFor(x => x.UserName, new { placeholder = "UserName" })
+        <img class="waiter" src="~/images/Spinner.gif" />
         @Html.ValidationMessageFor(x => x.UserName)
+        <span class="error-placeholder">Имя уже занято!</span>
     </div>
     <div>
         @Html.TextBoxFor(x => x.Password, new { placeholder = "Password", @type = "password" })

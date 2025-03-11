@@ -22,6 +22,21 @@ namespace StoreData.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GamingDeviceDataGamingDeviceStockData", b =>
+                {
+                    b.Property<int>("GamingDevicesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StocksId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamingDevicesId", "StocksId");
+
+                    b.HasIndex("StocksId");
+
+                    b.ToTable("GamingDeviceDataGamingDeviceStockData");
+                });
+
             modelBuilder.Entity("IdolDataIdolTagData", b =>
                 {
                     b.Property<int>("IdolsId")
@@ -65,6 +80,21 @@ namespace StoreData.Migrations
                     b.HasIndex("TagsId");
 
                     b.ToTable("MagicItemDataMagicItemTagData");
+                });
+
+            modelBuilder.Entity("NotebookDataNotebookTagData", b =>
+                {
+                    b.Property<int>("NotebooksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("NotebooksId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("NotebookDataNotebookTagData");
                 });
 
             modelBuilder.Entity("PlayerDataPlayerTagData", b =>
@@ -181,6 +211,48 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GamingDevices");
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GamingDeviceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Review")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GamingDeviceId");
+
+                    b.ToTable("GamingDeviceReviews");
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceStockData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GamingDeviceStocks");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
@@ -425,6 +497,9 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -436,6 +511,8 @@ namespace StoreData.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("NotebookId");
 
@@ -461,6 +538,23 @@ namespace StoreData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Notebooks");
+                });
+
+            modelBuilder.Entity("StoreData.Models.NotebookTagData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotebookTags");
                 });
 
             modelBuilder.Entity("StoreData.Models.PlayerData", b =>
@@ -695,6 +789,21 @@ namespace StoreData.Migrations
                     b.ToTable("UnderwaterHunterDataUnderwaterHunterTagData");
                 });
 
+            modelBuilder.Entity("GamingDeviceDataGamingDeviceStockData", b =>
+                {
+                    b.HasOne("StoreData.Models.GamingDeviceData", null)
+                        .WithMany()
+                        .HasForeignKey("GamingDevicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.GamingDeviceStockData", null)
+                        .WithMany()
+                        .HasForeignKey("StocksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IdolDataIdolTagData", b =>
                 {
                     b.HasOne("StoreData.Models.IdolData", null)
@@ -740,6 +849,21 @@ namespace StoreData.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NotebookDataNotebookTagData", b =>
+                {
+                    b.HasOne("StoreData.Models.NotebookData", null)
+                        .WithMany()
+                        .HasForeignKey("NotebooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StoreData.Models.NotebookTagData", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PlayerDataPlayerTagData", b =>
                 {
                     b.HasOne("StoreData.Models.PlayerData", null)
@@ -775,6 +899,17 @@ namespace StoreData.Migrations
                         .IsRequired();
 
                     b.Navigation("Film");
+                });
+
+            modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
+                {
+                    b.HasOne("StoreData.Models.GamingDeviceData", "GamingDevice")
+                        .WithMany("Reviews")
+                        .HasForeignKey("GamingDeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GamingDevice");
                 });
 
             modelBuilder.Entity("StoreData.Models.IdolCommentData", b =>
@@ -830,11 +965,17 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.NotebookCommentData", b =>
                 {
+                    b.HasOne("StoreData.Models.UserData", "Author")
+                        .WithMany("NotebookComments")
+                        .HasForeignKey("AuthorId");
+
                     b.HasOne("StoreData.Models.NotebookData", "Notebook")
                         .WithMany("Comments")
                         .HasForeignKey("NotebookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Author");
 
                     b.Navigation("Notebook");
                 });
@@ -906,6 +1047,11 @@ namespace StoreData.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("StoreData.Models.GamingDeviceData", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
             modelBuilder.Entity("StoreData.Models.IdolData", b =>
                 {
                     b.Navigation("Comments");
@@ -948,6 +1094,8 @@ namespace StoreData.Migrations
                     b.Navigation("IdolComments");
 
                     b.Navigation("JerseyComments");
+
+                    b.Navigation("NotebookComments");
 
                     b.Navigation("PlayerDescriptions");
                 });

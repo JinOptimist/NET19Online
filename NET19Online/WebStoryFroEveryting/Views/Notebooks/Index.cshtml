@@ -1,0 +1,37 @@
+﻿@using WebStoryFroEveryting.Models.Notebook
+@model NotebookIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutNotebooks.cshtml";
+}
+
+@section Styles{
+    <link href="~/css/Notebooks/NotebooksSpeical.css" rel="stylesheet" />
+}
+
+@if (Model.CanUserFillters)
+{
+    <div class="tags">
+        <a href="/Notebook/Index" class="tag">Сбросить фильтр</a>
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/Notebook/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+        }
+    </div>
+}
+
+<div class="Notebooks">
+    @foreach (var notebook in Model.Notebooks)
+    {
+        <div class="notebook">
+            <div class="name">@notebook.Name</div>
+            <div class="image-container">
+                <img src="@notebook.Src"/>
+            </div>
+            <div class="buttons">
+                <a href="/Notebooks/CommentForNotebook?notebookId=@notebook.Id" class="button">+</a>
+                <a href="/Notebooks/Remove?id=@notebook.Id" class="button">-</a>
+            </div>
+        </div>
+    }   
+</div>

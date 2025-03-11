@@ -12,6 +12,7 @@ namespace StoreData
         public DbSet<IdolTagData> IdolTags { get; set; }
         public DbSet<NotebookData> Notebooks { get; set; }
         public DbSet<NotebookCommentData> NotebookComments { get; set; }
+        public DbSet<NotebookTagData> NotebookTags { get; set; }
         public DbSet<MagicItemData> MagicItems { get; set; }
         public DbSet<MagicItemCommentData> MagicItemComments { get; set; }
         public DbSet<MagicItemTagData> MagicItemTags { get; set; }
@@ -26,6 +27,8 @@ namespace StoreData
 
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
+        public DbSet<GamingDeviceReviewData> GamingDeviceReviews { get; set; }
+        public DbSet<GamingDeviceStockData> GamingDeviceStocks { get; set; }
 
         public DbSet<JerseyData> Jerseys { get; set; }
         public DbSet<JerseyTagData> JerseysTags { get; set; }
@@ -120,6 +123,15 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.PlayerDescriptions)
                 .WithOne(c => c.Author);
+
+            modelBuilder.Entity<NotebookData>()
+                .HasMany(notebooks => notebooks.Comments)
+                .WithOne(comment => comment.Notebook)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<NotebookData>()
+                .HasMany(x => x.Tags)
+                .WithMany(x => x.Notebooks);
 
             base.OnModelCreating(modelBuilder);
         }

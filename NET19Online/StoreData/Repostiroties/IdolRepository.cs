@@ -41,5 +41,22 @@ namespace StoreData.Repostiroties
                 .Include(x => x.Tags)
                 .First(x => x.Id == idolId);
         }
+
+        public override void Remove(IEnumerable<int> ids)
+        {
+            var commentsToRemove = _dbContext
+                .IdolComments
+                .Where(x => ids.Contains(x.Idol.Id));
+            _dbContext.IdolComments.RemoveRange(commentsToRemove);
+
+            base.Remove(ids);
+        }
+
+        public void UpdateName(int id, string newName)
+        {
+            var idol = _dbSet.First(x => x.Id == id);
+            idol.Name = newName;
+            _dbContext.SaveChanges();
+        }
     }
 }

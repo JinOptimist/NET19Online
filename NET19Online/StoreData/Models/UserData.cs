@@ -11,5 +11,6 @@
         public virtual List<JerseyCommentData> JerseyComments { get; set; }
         public virtual List<UnderwaterHunterCommentData> HunterComments { get; set; }
         public virtual List<PlayerDescriptionData> PlayerDescriptions { get; set; }
+        public virtual List<NotebookCommentData> NotebookComments { get; set; }
     }
 }

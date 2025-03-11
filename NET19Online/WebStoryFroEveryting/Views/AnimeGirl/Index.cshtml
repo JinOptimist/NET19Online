@@ -5,9 +5,13 @@
     Layout = "~/Views/Shared/_LayoutAnime.cshtml";
 }
 
-@section Styles{
+@section Styles {
     <link href="~/css/AnimeGirl/animeGirlSpeical.css" rel="stylesheet" />
-}   
+}
+
+@section Scripts {
+    <script src="/js/Idol/index.js"></script>
+}
 
 @if (Model.CanUserFillters)
 {
@@ -21,19 +25,62 @@
 }
 
 <div class="idols">
+    <div class="idol template" data-id="">
+        <div class="name">
+            <div class="view-mode"></div>
+            <div class="update-mode">
+                <input class="new-name" />
+                <button class="update">Upd</button>
+                <button class="close">Close</button>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="" />
+        </div>
+        <div class="buttons">
+            <a href="#" class="button">+</a>
+            <a href="#" class="button soft-remove">Soft-</a>
+            <a href="#" class="button ajax-remove">-</a>
+        </div>
+    </div>
     @foreach (var idol in Model.Idols)
     {
-        <div class="idol">
-            <div class="name">@idol.Name</div>
+        <div class="idol" data-id="@idol.Id">
+            <div class="name">
+                <div class="view-mode">
+                    @idol.Name
+                </div>
+                <div class="update-mode">
+                    <input class="new-name" />
+                    <button class="update">Upd</button>
+                    <button class="close">Close</button>
+                </div> 
+            </div>
             <div class="image-container">
                 <img src="@idol.Src" />
             </div>
             <div class="buttons">
                 <a href="/AnimeGirl/CommentForGirl?idolId=@idol.Id" class="button">+</a>
-                <a href="/AnimeGirl/Remove?id=@idol.Id" class="button">-</a>
+                <a href="#" class="button soft-remove">Soft-</a>
+                <a href="#" class="button ajax-remove">-</a>
             </div>
         </div>
     }
+
+    <div class="idol create-container" data-id="">
+        <div class="name">
+            <input class="new-name" />
+            <input class="new-image" />
+        </div>
+        <div class="image-container">
+            <img src="" />
+        </div>
+        <div class="buttons">
+            <a href="#" class="button">&nbsp;</a>
+            <a href="#" class="button create">create</a>
+            <a href="#" class="button">&nbsp</a>
+        </div>
+    </div>
 </div>
 <div class="user-with-idol-ages">
     @foreach (var userIdol in Model.UserAndIdolsAges)
@@ -42,4 +89,10 @@
             @userIdol.UserName [@(userIdol.AvgAge is null ? "???" : userIdol.AvgAge)]
         </div>
     }
+</div>
+<div>
+    <form action="/AnimeGirl/BigRemove" method="post">
+        <input name="idsToRemove" type="hidden" value="" />
+        <button class="remove-all-selected-button">Remove All Selected</button>
+    </form>
 </div>
