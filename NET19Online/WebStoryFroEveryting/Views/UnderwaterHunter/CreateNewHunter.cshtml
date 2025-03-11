@@ -5,33 +5,50 @@
 @{
 	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
 }
-<form method="post" action="/UnderwaterHunter/CreateNewHunter">
-	<div class="blockForCreating">
-		@if (Model.isAuthenticated)
-		{
-			<div>
-				@Html.TextBoxFor(x => x.NameHunter, new { placeholder = "set name hunter" })
-				@Html.ValidationMessageFor(x => x.NameHunter)
+
+@section Scripts {
+	<script src="~/js/UnderwaterHunter/create.js"></script>
+}
+
+<div class="create-hunter-with-preview">
+	<form method="post" action="/UnderwaterHunter/CreateNewHunter">
+		<div class="blockForCreating">
+			@if (Model.isAuthenticated)
+			{
+				<div>
+					@Html.TextBoxFor(x => x.NameHunter, new { placeholder = "set name hunter" })
+					@Html.ValidationMessageFor(x => x.NameHunter)
+				</div>
+				<div>
+					@Html.TextBoxFor(x => x.Nationality, new { placeholder = "nationality" })
+					@Html.ValidationMessageFor(x => x.Nationality)
+				</div>
+				<div>
+					@Html.TextBoxFor(x => x.Image, new { placeholder = "URL image" })
+				</div>
+				<div>
+					@Html.TextBoxFor(x => x.MaxHuntingDepth, new { placeholder = "Max depth" })
+					@Html.ValidationMessageFor(x => x.MaxHuntingDepth)
+				</div>
+				<div>
+					<button type="submit">Create</button>
+				</div>
+			}
+			else
+			{
+				<div class="notAuthenticated">You need authenticate!</div>
+				<a href="/Auth/Login">Login</a>
+			}
+		</div>
+	</form>
+	<div class="preview">
+		<div class="huntersPreview">
+			<div class="image">
+				<img src="" />
 			</div>
-			<div>
-				@Html.TextBoxFor(x => x.Nationality, new { placeholder = "nationality" })
-				@Html.ValidationMessageFor(x => x.Nationality)
-			</div>
-			<div>
-				@Html.TextBoxFor(x => x.Image, new { placeholder = "URL image" })				
-			</div>
-			<div>
-				@Html.TextBoxFor(x => x.MaxHuntingDepth, new { placeholder = "Max depth" })	
-				@Html.ValidationMessageFor(x=>x.MaxHuntingDepth)
-			</div>
-			<div>
-				<button type="submit">Create</button>
-			</div>
-		}
-		else
-		{
-			<div class="notAuthenticated">You need authenticate!</div>
-			<a href="/Auth/Login">Login</a>
-		}
+			<div class="name"></div>
+			<div class="nationality"></div>
+			<div class="maxDepth"></div>
+		</div>
 	</div>
-</form>
+</div>

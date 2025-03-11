@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,18 @@ namespace StoreData.Repostiroties
             };
 
             Add(playerDescription);
+        }
+
+        public void DeleteDescriptionDuplicates()
+        {
+            var sql = @"DELETE PlayerDescriptions FROM PlayerDescriptions
+                        LEFT JOIN (
+                        SELECT MAX(id) as lastId FROM PlayerDescriptions GROUP BY Description, AuthorId
+                        ) 
+                        AS filtered ON PlayerDescriptions.id = filtered.lastId
+                        WHERE filtered.lastId IS NULL;";
+
+            _dbContext.Database.ExecuteSqlRaw(sql);
         }
     }
 }

@@ -51,5 +51,12 @@ namespace StoreData.Repostiroties
 
             base.Remove(ids);
         }
+
+        public void UpdateName(int id, string newName)
+        {
+            var idol = _dbSet.First(x => x.Id == id);
+            idol.Name = newName;
+            _dbContext.SaveChanges();
+        }
     }
 }
