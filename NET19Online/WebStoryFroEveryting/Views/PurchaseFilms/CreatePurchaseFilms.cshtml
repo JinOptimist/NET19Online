@@ -9,7 +9,7 @@
 }
 
 @section Scripts {
-     <script src="/js//Films/syntaxisFilm.js"></script>
+     <script src="/js//Films/indexFilm.js"></script>
 }
 
 <div class="main-layout">
@@ -18,11 +18,12 @@
         <div class="block-elements">
             <div class="name">@item.Name</div>
             <div class="image-container">
-                <a href="/PurchaseFilms/DescriptionFilm?id=@item.id" class="button">
+                <a href="/PurchaseFilms/DescriptionFilm?id=@item.id">
                     <img src="@item.Src" />
                 </a>
             </div>
             <div class="buttons">
+                <a href="#" class="button soft-remove"> Спрятать </a>
                 <a href="/PurchaseFilms/RemoveFilms?id=@item.id" class="button"> Удалить </a>
             </div>
         </div>

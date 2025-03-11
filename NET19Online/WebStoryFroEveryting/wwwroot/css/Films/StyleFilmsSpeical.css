@@ -1,31 +1,19 @@
 ﻿.main-layout {
     display: flex;
-}
-
-.image-container img {
-    max-width: 200px;
-    max-height: 200px;
+    flex-wrap: wrap;
 }
 
 .block-elements {
     margin: 5px;
-    border: 1px solid #b6ff00;
+    border: 1px solid #00ff90;
     border-radius: 10px;
     padding: 5px;
 }
-
-.buttons {
-    display: flex;
- }
-
-buttons .button {
-    flex: 1;
-    background: aqua;
-    justify-content: center;
-    margin: 2px;
-    align-items: center;
-    text-decoration: none;
-    color: black;
+block-elements .to-remove {
+    margin: 5px;
+    border: 1px solid #ff0000;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .name {
@@ -35,3 +23,25 @@ buttons .button {
     align-items: center;
     font-size: 10px;
 }
+
+.image-container img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.buttons {
+    display: flex;
+}
+
+buttons .button {
+    flex: 1;
+    background: #808080;
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+    text-decoration: none;
+    color: powderblue;
+ }
+
+
+
