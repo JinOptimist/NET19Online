@@ -12,5 +12,6 @@
         public virtual List<UnderwaterHunterCommentData> HunterComments { get; set; }
         public virtual List<PlayerDescriptionData> PlayerDescriptions { get; set; }
         public virtual List<NotebookCommentData> NotebookComments { get; set; }
+        public virtual List<FilmCommentData> FilmComments { get; set; }
     }
 }

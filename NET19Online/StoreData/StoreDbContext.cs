@@ -17,13 +17,13 @@ namespace StoreData
         public DbSet<MagicItemCommentData> MagicItemComments { get; set; }
         public DbSet<MagicItemTagData> MagicItemTags { get; set; }
         public DbSet<FilmData> Films { get; set; }
-        public DbSet<FilmCommentData> FilmCommentDatas { get; set; }
+        public DbSet<FilmCommentData> FilmComments { get; set; }
         public DbSet<DescriptionFilmData> DescriptionFilms { get; set; }
         public DbSet<UnderwaterHunterData> UnderwaterHunters { get; set; }
 
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
-        public DbSet<SweetsData> Sweets { get; set; } 
+        public DbSet<SweetsData> Sweets { get; set; }
 
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
@@ -97,7 +97,7 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.IdolComments)
                 .WithOne(c => c.Author);
-            
+
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.HunterComments)
                 .WithOne(c => c.Author);
@@ -110,6 +110,10 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                .HasMany(u => u.JerseyComments)
                .WithOne(c => c.Author);
+
+            modelBuilder.Entity<UserData>()
+                .HasMany(f => f.FilmComments)
+                .WithOne(c => c.User);
 
             modelBuilder.Entity<PlayerData>()
                 .HasMany(player => player.Descriptions)
