@@ -1,16 +1,17 @@
 .label-and-header {
     display: flex;
 }
-    .nameUser {
-        transform: translate(60px, 44px);
-    }
 
-    .label img {
-        display: inline-block;
-        transform: translate(7em, 1em);
-        border-radius: 10px;
-        width: 224px;
-    }
+.nameUser {
+    transform: translate(60px, 44px);
+}
+
+.label img {
+    display: inline-block;
+    transform: translate(7em, 1em);
+    border-radius: 10px;
+    width: 224px;
+}
 
 .header {
     display: inline-block;
@@ -110,8 +111,11 @@
     border-radius: 10px;
     width: 1222px;
 }
+
 .userName {
     transform: translate(25px, -74px);
 }
 
-
+.sample {
+    display: none
+}
