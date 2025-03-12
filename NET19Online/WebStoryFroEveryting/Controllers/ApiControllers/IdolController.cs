@@ -43,6 +43,8 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
             };
             _idolRepository.Add(idol);
 
+            _idolHub.Clients.All.IdolWasAdded(idol.Src);
+
             return idol.Id;
         }
 

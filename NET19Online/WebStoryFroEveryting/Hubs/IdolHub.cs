@@ -9,5 +9,7 @@ namespace WebStoryFroEveryting.Hubs
     public interface IIdolHub
     {
         Task LikeUpdated(int idolId, int likeCount);
+
+        Task IdolWasAdded(string idolSrc);
     }
 }

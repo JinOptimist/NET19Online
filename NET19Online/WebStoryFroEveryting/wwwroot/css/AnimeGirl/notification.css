@@ -1,0 +1,15 @@
+.notification-container {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 10px;
+	padding: 10px;
+}
+.notification {
+	font-size: 30px;
+	margin: 10px;
+	padding: 10px;
+	background: red;
+	border-radius: 10px;
+	cursor: pointer;
+}

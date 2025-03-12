@@ -2,11 +2,13 @@
 <head>
     <link href="~/css/reset.css" rel="stylesheet" />
     <link href="~/css/AnimeGirl/animeGirl.css" rel="stylesheet" />
+    <link href="~/css/AnimeGirl/notification.css" rel="stylesheet" />
     @RenderSection("Styles", false)
     
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="~/js/Idol/chat.js"></script>
+    <script src="~/js/Idol/notification.js"></script>
     @RenderSection("Scripts", false)
 </head>
 <body>
@@ -36,6 +38,9 @@
         </div>
         <div class="content">
             @RenderBody()
+        </div>
+        <div class="notification-container">
+            <div class="notification template"></div>
         </div>
     </div>
 </body>
