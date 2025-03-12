@@ -11,7 +11,7 @@ namespace StoreData.Models
         public DateTime Created { get; set; }
         public string Comment { get; set; }
         public int FilmId { get; set; }
-        public int UserId { get; set; }   
+        public virtual UserData User { get; set; }
         public virtual FilmData Film { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace StoreData.Repostiroties
             var filmComment = new FilmCommentData();
             filmComment.FilmId = filmid;
             filmComment.Comment = comment;
-            filmComment.UserId = USER;
             filmComment.Created = DateTime.Now;
             _dbContext.Add(filmComment);
             _dbContext.SaveChanges();
