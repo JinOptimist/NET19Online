@@ -10,10 +10,14 @@
 }
 
 .menu {
-	width: 150px;
+	width: 250px;
 	padding: 10px;
 	background: orange;
 	min-height: 300px;
+}
+
+.content {
+	flex: 1;
 }
 
 .menu .link {
@@ -28,5 +32,26 @@
 }
 
 .update-mode {
+	display: none;
+}
+
+.chat {
+	background: aqua;
+	padding: 10px 3px;
+	border-radius: 5px;
+}
+
+.messages {
+	margin-bottom: 10px;
+}
+.message {
+	margin: 5px 0;
+}
+
+.message .author {
+	padding-right: 10px;
+}
+
+.template {
 	display: none;
 }

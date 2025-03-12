@@ -48,7 +48,7 @@ namespace WebStoryFroEveryting.Controllers
                 .Select(x => new UserAndIdolsAgesViewModel
                 {
                     AvgAge = x.AvgAge,
-                    UserName = x.UserName
+                    UserName = x.UserName,
                 })
                 .ToList();
 
@@ -148,6 +148,7 @@ namespace WebStoryFroEveryting.Controllers
                 Id = idol.Id,
                 Src = idol.Src,
                 Name = idol.Name,
+                LikesCount = idol.LikesCount
             };
         }
     }

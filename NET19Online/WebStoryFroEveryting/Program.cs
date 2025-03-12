@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using StoreData;
-using StoreData.Models;
 using StoreData.Repostiroties;
 using StoreData.Repostiroties.School;
+using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.FilmsServer;
@@ -24,6 +24,8 @@ builder.Services
     {
         config.LoginPath = "/SchoolAuth/Login";
     });
+
+builder.Services.AddSignalR();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -116,6 +118,9 @@ app.UseRouting();
 
 app.UseAuthentication(); // Who you are?
 app.UseAuthorization();  // May I in?
+
+app.MapHub<ChatHub>("/hub/chat");
+app.MapHub<IdolHub>("/hub/idol");
 
 app.MapControllerRoute(
     name: "default",

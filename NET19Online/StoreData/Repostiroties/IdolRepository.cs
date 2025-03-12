@@ -13,6 +13,15 @@ namespace StoreData.Repostiroties
             _dbContext.SaveChanges();
         }
 
+        public int AddLike(int id)
+        {
+            var idol = _dbSet.First(x => x.Id == id);
+            idol.LikesCount++;
+            _dbContext.SaveChanges();
+            
+            return idol.LikesCount;
+        }
+
         public void AddTag(int idolId, string tagText)
         {
             var tag = _dbContext.IdolTags.FirstOrDefault(x => x.Tag == tagText);
