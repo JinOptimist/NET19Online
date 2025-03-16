@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using StoreData.Models;
 
 namespace StoreData
@@ -23,7 +24,7 @@ namespace StoreData
 
         public DbSet<UnderwaterHunterCommentData> UnderwaterHunterComments { get; set; }
         public DbSet<UnderwaterHunterTagData> UnderwaterHunterTags { get; set; }
-        public DbSet<SweetsData> Sweets { get; set; } 
+        public DbSet<SweetsData> Sweets { get; set; }
 
 
         public DbSet<GamingDeviceData> GamingDevices { get; set; }
@@ -38,6 +39,8 @@ namespace StoreData
         public DbSet<UserData> Users { get; set; }
         public DbSet<PlayerDescriptionData> PlayerDescriptions { get; set; }
         public DbSet<PlayerTagData> PlayerTags { get; set; }
+        public DbSet<SingerData> Singers { get; set; }
+        public DbSet<SingerCommentData> SingerComments { get; set; }
 
 
         public StoreDbContext() { }
@@ -97,7 +100,7 @@ namespace StoreData
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.IdolComments)
                 .WithOne(c => c.Author);
-            
+
             modelBuilder.Entity<UserData>()
                 .HasMany(u => u.HunterComments)
                 .WithOne(c => c.Author);
@@ -124,14 +127,18 @@ namespace StoreData
                 .HasMany(u => u.PlayerDescriptions)
                 .WithOne(c => c.Author);
 
-            modelBuilder.Entity<NotebookData>()
-                .HasMany(notebooks => notebooks.Comments)
-                .WithOne(comment => comment.Notebook)
-                .OnDelete(DeleteBehavior.NoAction);
+           
 
             modelBuilder.Entity<NotebookData>()
                 .HasMany(x => x.Tags)
                 .WithMany(x => x.Notebooks);
+
+            modelBuilder.Entity<SingerData>()
+                  .HasMany(singer => singer.Comments) 
+                  .WithOne(comment => comment.Singer)
+                  .HasForeignKey(comment => comment.SingerDataId) 
+                  .OnDelete(DeleteBehavior.NoAction); 
+
 
             base.OnModelCreating(modelBuilder);
         }

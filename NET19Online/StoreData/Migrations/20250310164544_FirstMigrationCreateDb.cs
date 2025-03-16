@@ -663,6 +663,63 @@ namespace StoreData.Migrations
                         principalTable: "Users",
                         principalColumn: "Id");
                 });
+            migrationBuilder.CreateTable(
+             name: "Singers",
+             columns: table => new
+             {
+                 Id = table.Column<int>(type: "int", nullable: false)
+                       .Annotation("SqlServer:Identity", "1, 1"),
+                 Pseudonym = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                 Src = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                 Style = table.Column<string>(type: "nvarchar(max)", nullable: false)
+             },
+             constraints: table =>
+             {
+                 table.PrimaryKey("PK_Singers", x => x.Id);
+             });
+
+            migrationBuilder.CreateTable(
+                name: "Singers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Pseudonym = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Src = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Style = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Singers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SingerComments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SingerDataId = table.Column<int>(type: "int", nullable: false),
+                    AuthotId = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SingerComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SingerComments_Singers_SingerDataId",
+                        column: x => x.SingerDataId,
+                        principalTable: "Singers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SingerComments_Users_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_FilmCommentDatas_FilmId",
@@ -773,7 +830,27 @@ namespace StoreData.Migrations
                 name: "IX_Users_RoleId",
                 table: "Users",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SingerComments_AuthorId",
+                table: "SingerComments",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SingerComments_SingerDataId",
+                table: "SingerComments",
+                column: "SingerDataId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_NotebookComments_Notebooks_NotebookId",
+                table: "NotebookComments",
+                column: "NotebookId",
+                principalTable: "Notebooks",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
         }
+
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -879,6 +956,13 @@ namespace StoreData.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "SingerComments");
+
+            migrationBuilder.DropTable(
+                name: "Singers");
+
         }
     }
 }
