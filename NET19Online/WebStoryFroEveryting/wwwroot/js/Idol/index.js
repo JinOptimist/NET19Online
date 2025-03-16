@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+  const url = "/hub/idol";
+  const hub = new signalR.HubConnectionBuilder().withUrl(url).build();
+
   let counter = 1;
   const idolIdToRemoveIds = [];
 
@@ -86,9 +89,20 @@
       clone.find(".image-container img").attr("src", image);
       clone.insertBefore($(".create-container"));
 
-	  newNameTag.val('');
-	  newImageTag.val('');
-	  newImageTag.closest('.idol').find('.image-container img').attr('src', '');
+      newNameTag.val("");
+      newImageTag.val("");
+      newImageTag.closest(".idol").find(".image-container img").attr("src", "");
     });
   });
+
+  $(".like").click(function () {
+    const id = $(this).closest(".idol").attr("data-id");
+    $.get("/api/idol/like?id=" + id);
+  });
+
+  hub.on("LikeUpdated", function (idolId, likeCount) {
+    $(`.idol[data-id=${idolId}]`).find(".button.like").text(likeCount);
+  });
+
+  hub.start();
 });
