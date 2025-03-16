@@ -652,6 +652,64 @@ namespace StoreData.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("StoreData.Models.SingerCommentData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AuthotId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SingerDataId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("SingerDataId");
+
+                    b.ToTable("SingerComments");
+                });
+
+            modelBuilder.Entity("StoreData.Models.SingerData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Pseudonym")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Src")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Style")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Singers");
+                });
+
             modelBuilder.Entity("StoreData.Models.SweetsData", b =>
                 {
                     b.Property<int>("Id")
@@ -972,7 +1030,7 @@ namespace StoreData.Migrations
                     b.HasOne("StoreData.Models.NotebookData", "Notebook")
                         .WithMany("Comments")
                         .HasForeignKey("NotebookId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -995,6 +1053,23 @@ namespace StoreData.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("StoreData.Models.SingerCommentData", b =>
+                {
+                    b.HasOne("StoreData.Models.UserData", "Author")
+                        .WithMany("SingerComments")
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("StoreData.Models.SingerData", "Singer")
+                        .WithMany("Comments")
+                        .HasForeignKey("SingerDataId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Singer");
                 });
 
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
@@ -1082,6 +1157,11 @@ namespace StoreData.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("StoreData.Models.SingerData", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
                 {
                     b.Navigation("Comments");
@@ -1098,6 +1178,8 @@ namespace StoreData.Migrations
                     b.Navigation("NotebookComments");
 
                     b.Navigation("PlayerDescriptions");
+
+                    b.Navigation("SingerComments");
                 });
 #pragma warning restore 612, 618
         }
