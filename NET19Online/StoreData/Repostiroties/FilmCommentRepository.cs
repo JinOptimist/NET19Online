@@ -17,19 +17,22 @@ namespace StoreData.Repostiroties
         public void AddComment(int filmid, string comment)
         {
             var filmComment = new FilmCommentData();
+            var user = _dbContext.Users.First(x => x.Id == USER);
+
             filmComment.FilmId = filmid;
             filmComment.Comment = comment;
             filmComment.Created = DateTime.Now;
+            filmComment.User = user;
             _dbContext.Add(filmComment);
             _dbContext.SaveChanges();
         }
 
         public void DeleteComment(int filmid)
         {
-            var strSelectSql = @" DELETE FROM FilmCommentDatas
+            var strSelectSql = @" DELETE FROM FilmComments
                                               WHERE Id NOT IN (
                                                   SELECT MIN(Id)
-                                                  FROM FilmCommentDatas
+                                                  FROM FilmComments
                                                   WHERE FilmId = @FilmId
                                                   GROUP BY UserId, FilmId, Comment
                                               );";

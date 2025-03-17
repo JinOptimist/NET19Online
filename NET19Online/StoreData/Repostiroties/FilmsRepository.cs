@@ -16,7 +16,7 @@ namespace StoreData.Repostiroties
         {
             var film = _dbSet
                  .Include(x => x.DescriptionFilms)
-                 //.Include(x=>x.Comments)
+                 .Include(x=>x.Comments)
                  .First(x => x.Id == id);
             return film;
         }
