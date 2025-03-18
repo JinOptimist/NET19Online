@@ -1,37 +1,66 @@
 ﻿@using WebStoryFroEveryting.Models.Jerseys
 @model JerseyIndexViewModel
 @{
-    Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
 @section Scripts {
-    <script src="/js/jersey/index.js"></script>
+	<script src="/js/jersey/index.js"></script>
 }
 <div id="content-left">
-    <div class="tags">
-        <a href="/jerseys/Index" class="tag">Сбросить фильтр</a>
-        @foreach (var tag in Model.Tags)
-        {
-            <a href="/jerseys/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
-        }
-    </div>
+	<div class="tags">
+		<a href="/jerseys/Index" class="tag">Сбросить фильтр</a>
+		@foreach (var tag in Model.Tags)
+		{
+			<a href="/jerseys/Index?tag=@tag" class="tag @(tag == Model.CurrentTag ? "active": "")">@tag</a>
+		}
+	</div>
 </div>
 <div id="content-right">
-@foreach (var jersey in Model.Jerseys)
-{
-    <div class="jersey">
-        <div class="jersey-img">
-            <img src="@jersey.Img" data-mainimg="@jersey.Img" data-secondimg="@jersey.SecondImg"/>
-        </div>
-        <div class="name">
-            @jersey.AthleteName
-        </div>
-        <a class="button" href="/jerseys/detail?jerseyid=@jersey.Id">Подробнее</a>
-        @if(Model.IsAdmin)
-        {
-        <a class="button red" href=" /jerseys/remove?jerseyid=@jersey.Id">Удалить</a>
-        }
-    </div>
-}
+	@foreach (var jersey in Model.Jerseys)
+	{
+		<div class="jersey">
+			<div class="jersey-img">
+				<img src="@jersey.Img" data-mainimg="@jersey.Img" data-secondimg="@jersey.SecondImg" />
+			</div>
+			<div class="name">
+				@jersey.AthleteName
+			</div>
+			<a class="button" href="/jerseys/detail?jerseyid=@jersey.Id">Подробнее</a>
+			@if (Model.IsAdmin)
+			{
+				<a class="button red" href=" /jerseys/remove?jerseyid=@jersey.Id">Удалить</a>
+			}
+		</div>
+		
+	}
+	@if (Model.IsAdmin)
+	{
+		<div class="jersey create">
+			<input type="text" placeholder="Имя" name="AthleteName" />
+			<input type="text" placeholder="Фото" name="Img" />
+			<input type="text" placeholder="Фото2" name="SecondImg" />
+			<input type="text" placeholder="Цена" name="Price" />
+			<input type="text" placeholder="Номер" name="Number" />
+			<input type="text" placeholder="Клуб" name="Club" />
+			<input type="text" placeholder="На складе" name="InStock" />
+			<input type="button" />
+		</div>
+
+	}
+	<div class="jersey template">
+		<div class="jersey-img">
+			<img src="" data-mainimg="" data-secondimg="" />
+		</div>
+		<div class="name">
+			
+		</div>
+		<a class="button more" href="">Подробнее</a>
+		@if (Model.IsAdmin)
+		{
+			<a class="button red" href="">Удалить</a>
+		}
+		
+	</div>
 
 </div>
 

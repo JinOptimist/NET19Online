@@ -18,8 +18,7 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
         }
 
         [IsAdmin]
-        [HttpPost]
-        public bool CreateJersey([FromForm] CreateJerseyViewModel jersey)
+        public int CreateJersey([FromForm] CreateJerseyViewModel jersey)
         {
             var jerseyData = new JerseyData();
             jerseyData.Price = jersey.Price;
@@ -30,8 +29,8 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
             jerseyData.InStock = jersey.InStock;
             jerseyData.Club = jersey.Club;
             
-            _jerseyRepository.Add(jerseyData);
-            return true;
+            return _jerseyRepository.AddJerseyAndGetId(jerseyData);
+            
         }
     }
 
