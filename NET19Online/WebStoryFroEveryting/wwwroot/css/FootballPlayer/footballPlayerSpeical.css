@@ -47,12 +47,11 @@
     display: flex;
 }
 
-    .buttons .button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-    }
+.button {
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
 
 .tags {
     display: flex;
@@ -70,4 +69,8 @@
     .tag.active {
         border-color: red;
     }
+
+.update-mode {
+    display: none;
+}
 
