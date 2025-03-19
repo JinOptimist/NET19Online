@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
@@ -11,9 +12,11 @@ using StoreData;
 namespace StoreData.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250319122129_AddDislikesCountToUnderwaterHunterData")]
+    partial class AddDislikesCountToUnderwaterHunterData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,16 +150,11 @@ namespace StoreData.Migrations
                     b.Property<int>("FilmId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FilmId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FilmComments");
+                    b.ToTable("FilmCommentDatas");
                 });
 
             modelBuilder.Entity("StoreData.Models.FilmData", b =>
@@ -909,15 +907,7 @@ namespace StoreData.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("StoreData.Models.UserData", "User")
-                        .WithMany("FilmComments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Film");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
@@ -1108,8 +1098,6 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.UserData", b =>
                 {
-                    b.Navigation("FilmComments");
-
                     b.Navigation("HunterComments");
 
                     b.Navigation("IdolComments");

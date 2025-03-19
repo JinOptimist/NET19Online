@@ -121,9 +121,11 @@ app.UseAuthorization();  // May I in?
 
 app.MapHub<ChatHub>("/hub/chat");
 app.MapHub<IdolHub>("/hub/idol");
+app.MapHub<HunterHub>("/hub/hunter");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
