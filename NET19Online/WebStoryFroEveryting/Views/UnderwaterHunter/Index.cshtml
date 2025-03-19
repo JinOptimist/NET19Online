@@ -21,6 +21,18 @@
 	@foreach (var item in Model.Hunters)
 	{
 		<div class="hunters" data-id="@item.Id">
+			<div class="likes">
+				<a href="#" class="image-like">
+					<img src="~/images/Like.png" />
+				</a>
+				<div class="likesCount">@item.LikesCount</div>
+				<div class="dislikes">
+					<a href="#" class="image-dislike">
+						<img src="~/images/DisLike.png" />
+					</a>
+					<div class="dislikesCount">@item.DislikesCount</div>
+				</div>
+			</div>
 			<div class="image">
 				<img src="@item.Src" />
 			</div>
@@ -32,7 +44,7 @@
 			<a href="#" class="hide-image">Hide image</a>
 		</div>
 	}
-	<div class="newHunters hunters" data-id=""> 
+	<div class="newHunters hunters" data-id="">
 		<div class="image">
 			<img src="" />
 		</div>

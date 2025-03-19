@@ -154,6 +154,8 @@ namespace WebStoryFroEveryting.Controllers
                 MaxHuntingDepth = hunterData.MaxHuntingDepth,
                 Nationality = hunterData.Nationality,
                 Src = hunterData.Src,
+                LikesCount=hunterData.LikesCount,
+                DislikesCount=hunterData.DislikesCount
             };
             return hunter;
         }

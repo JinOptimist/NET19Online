@@ -41,5 +41,23 @@ namespace StoreData.Repostiroties
                 .ToList();
             return hunterWithTags;
         }
+
+        public int Like(int id)
+        {
+            var hunter = _dbSet
+                .First(x => x.Id == id);
+            hunter.LikesCount++;
+            _dbContext.SaveChanges();
+            return hunter.LikesCount;
+        }
+
+        public int Dislike(int id)
+        {
+            var hunter = _dbSet
+            .First(x => x.Id == id);
+            hunter.DislikesCount++;
+            _dbContext.SaveChanges();
+            return hunter.DislikesCount;
+        }
     }
 }
