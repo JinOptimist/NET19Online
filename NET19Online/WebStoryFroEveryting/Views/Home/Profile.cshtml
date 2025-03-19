@@ -1,0 +1,12 @@
+﻿@model WebStoryFroEveryting.Models.Home.ProfileViewModel
+
+<div>
+    Привет, @Model.Name . Мы помним что ты предпочитаешь @Model.UserLocale
+</div>
+<div>
+    <form action="/Home/UpdateLocal">
+        @Html.HiddenFor(x => x.Id)
+        @Html.DropDownList("newLocal", Model.AllLocales)
+        <button type="submit">Изменить</button>
+    </form>
+</div>

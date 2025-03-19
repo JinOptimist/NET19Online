@@ -1,9 +1,12 @@
-﻿namespace StoreData.Models
+﻿using Enums.User;
+
+namespace StoreData.Models
 {
     public class UserData : BaseModel
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public UserLocale Local {  get; set; }
 
         public virtual RoleData? Role { get; set; }
 

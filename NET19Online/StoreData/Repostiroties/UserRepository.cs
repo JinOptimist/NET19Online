@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Enums.User;
+using Microsoft.EntityFrameworkCore;
 using StoreData.CustomQueryModels;
 using StoreData.Models;
 using System.Xml.Serialization;
@@ -79,6 +80,20 @@ GROUP BY U.UserName";
             return password
                 .Replace('a', '!')
                 .Replace('e', '!');
+        }
+
+        public UserLocale GetLocale(int userId)
+        {
+            return _dbSet
+                .First(x => x.Id == userId)
+                .Local;
+        }
+
+        public void UpdateLocal(int id, UserLocale newLocal)
+        {
+            var user = _dbSet.First(x => x.Id == id);
+            user.Local = newLocal;
+            _dbContext.SaveChanges();
         }
     }
 }

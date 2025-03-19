@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using StoreData;
 using StoreData.Repostiroties;
 using StoreData.Repostiroties.School;
+using WebStoryFroEveryting.CustomMiddlewareServices;
 using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
@@ -118,6 +119,8 @@ app.UseRouting();
 
 app.UseAuthentication(); // Who you are?
 app.UseAuthorization();  // May I in?
+
+app.UseMiddleware<LocalizationMiddleware>();
 
 app.MapHub<ChatHub>("/hub/chat");
 app.MapHub<IdolHub>("/hub/idol");
