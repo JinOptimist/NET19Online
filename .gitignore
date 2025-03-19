@@ -398,3 +398,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+Avatars/*
+!Avatars/avatar-default.png
+/NET19Online/WebStoryFroEveryting/wwwroot/avatars/avatar-4.jpg
