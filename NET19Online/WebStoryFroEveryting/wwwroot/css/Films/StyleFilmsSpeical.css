@@ -9,6 +9,18 @@
     border-radius: 10px;
     padding: 5px;
 }
+
+.block-element {
+    border: 2px solid #ff003b;
+}
+
+.block-element-old {
+    margin: 5px;
+    border: 1px solid #00ff90;
+    border-radius: 10px;
+    padding: 5px;
+}
+
 block-elements .to-remove {
     margin: 5px;
     border: 1px solid #ff0000;
@@ -41,7 +53,4 @@ buttons .button {
     margin: 2px;
     text-decoration: none;
     color: powderblue;
- }
-
-
-
+}

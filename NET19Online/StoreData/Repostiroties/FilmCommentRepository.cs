@@ -39,5 +39,5 @@ namespace StoreData.Repostiroties
             var result = _dbContext.Database.ExecuteSqlRaw(strSelectSql, new SqlParameter("@FilmId", filmid));
         }
 
-    }
+     }
 }

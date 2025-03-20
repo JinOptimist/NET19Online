@@ -1,9 +1,11 @@
 ﻿$(document).ready(function () {
-    $('.block-elements .name').click(function () {
+    $('.block-elements ').click(function () {
 
-        $('.block-elements').removeClass('active')
+        $('.main-layout .block-elements').removeClass('active')
         $(this).addClass('active');
-        $(this).addClass('to-remove');
+        $('.main-layout .block-elements').removeClass('block-element')
+        $(this).addClass('block-element')
+
 
         $('.soft-remove').click(function () {
             const ITEM = $(this).closest('.block-elements');
@@ -11,8 +13,5 @@
 
         });
 
-     });
-
-
-
+    });
 });
