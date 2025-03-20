@@ -41,5 +41,12 @@ namespace StoreData.Repostiroties
                 .Where(pd => tag == null || pd.Tags.Any(t => t.Tag == tag))
                 .ToList();
         }
+
+        public void UpdateName(int id, string newName)
+        {
+            var player = _dbSet.First(x => x.Id == id);
+            player.Name = newName;
+            _dbContext.SaveChanges();
+        }
     }
 }

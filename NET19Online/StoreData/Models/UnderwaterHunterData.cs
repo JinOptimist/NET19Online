@@ -17,5 +17,7 @@ namespace StoreData.Models
         public string Src { get; set; }
         public virtual List<UnderwaterHunterCommentData> Comments { get; set; }
         public virtual List<UnderwaterHunterTagData> Tags { get; set; } = new List<UnderwaterHunterTagData>();
+        public int LikesCount { get; set; }
+        public int DislikesCount { get; set; }
     }
 }

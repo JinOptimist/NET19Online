@@ -24,8 +24,17 @@
 <div class="players">
     @foreach (var player in Model.Players)
     {
-        <div class="player">
-            <div class="name">@player.Name</div>
+        <div class="player" data-id="@player.Id">
+            <div class="name">
+                <div class="view-mode">
+                    @player.Name
+                </div>
+                <div class="update-mode">
+                    <input class="new-name" />
+                    <button class="update">Upd</button>
+                    <button class="close">Close</button>
+                </div>
+            </div>
             <div class="image-container">
                 <img src="@player.Src" />
             </div>
@@ -35,7 +44,26 @@
             <div class="buttons">
                 <a href="/FootballPlayer/DescriptionForPlayer?playerId=@player.Id" class="button">Описание </a>
                 <a href="/FootballPlayer/RemovePlayer?id=@player.Id" class="button">Удалить</a>
+                <a href="#" class="ajax-remove">Удалить Ajax</a>
             </div>
         </div>
     }
+
+    <div class="player-create-container" data-id="">
+        <div class="name">
+            <input class="new-name" />
+            <input class="new-image" />
+            <input class="new-position" />
+            <input class="new-weight" />
+            <input class="new-height" />
+        </div>
+        <div class="image-container">
+            <img src="" />
+        </div>
+        <div class="buttons">
+            <a href="#" class="button">&nbsp;</a>
+            <a href="#" class="create">create</a>
+            <a href="#" class="button">&nbsp</a>
+        </div>
+    </div>
 </div>

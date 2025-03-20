@@ -28,15 +28,18 @@ namespace WebStoryFroEveryting.Controllers
             if (!playerDatas.Any())
             {
                 return View(
-                    new List<PlayerViewModel>
+                    new PlayerIndexViewModel()
                     {
-                        new()
+                        Players = new()
                         {
-                            Name = "Добавьте игрока",
-                            Src  = "https://formacenter.ru/wa-data/public/shop/products/26/95/59526/images/134194/134194.970.jpg",
-                            Position = "-",
-                            Weight = 0,
-                            Height = 0
+                            new()
+                            {
+                                Name = "Добавьте игрока",
+                                Src  = "https://formacenter.ru/wa-data/public/shop/products/26/95/59526/images/134194/134194.970.jpg",
+                                Position = "-",
+                                Weight = 0,
+                                Height = 0
+                            }
                         }
                     });
             }

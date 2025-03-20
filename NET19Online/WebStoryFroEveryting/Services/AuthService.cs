@@ -66,5 +66,12 @@ namespace WebStoryFroEveryting.Services
         {
             return GetUserName() == "admin";
         }
+
+        public string GetAvatarSrc()
+        {
+            return IsAuthenticated()
+                ? $"/avatars/avatar-{GetUserId()}.jpg"
+                : "/avatars/avatar-default.png";
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
@@ -11,9 +12,11 @@ using StoreData;
 namespace StoreData.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250311181010_FilmMigrationCreateDb")]
+    partial class FilmMigrationCreateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +159,7 @@ namespace StoreData.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FilmComments");
+                    b.ToTable("FilmCommentDatas");
                 });
 
             modelBuilder.Entity("StoreData.Models.FilmData", b =>
@@ -298,9 +301,6 @@ namespace StoreData.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("LikesCount")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -389,9 +389,6 @@ namespace StoreData.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SecondImg")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -719,12 +716,6 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DislikesCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LikesCount")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaxHuntingDepth")
                         .HasColumnType("int");
 
@@ -769,9 +760,6 @@ namespace StoreData.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Local")
-                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -916,7 +904,7 @@ namespace StoreData.Migrations
                         .IsRequired();
 
                     b.HasOne("StoreData.Models.UserData", "User")
-                        .WithMany("FilmComments")
+                        .WithMany("FilmCommentDatas")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1114,7 +1102,7 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.UserData", b =>
                 {
-                    b.Navigation("FilmComments");
+                    b.Navigation("FilmCommentDatas");
 
                     b.Navigation("HunterComments");
 

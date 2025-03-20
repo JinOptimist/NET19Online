@@ -1,0 +1,23 @@
+.likes {
+    display: ruby;
+}
+
+    .likes .image-like img {
+        width: 30px;
+    }
+
+    .likes .likesCount {
+        font-size: 20px;
+    }
+
+    .likes .dislikes {
+        display: ruby;
+    }
+
+    .likes .image-dislike img {
+        width: 30px;
+    }
+
+    .likes .dislikesCount {
+        font-size: 20px;
+    }
