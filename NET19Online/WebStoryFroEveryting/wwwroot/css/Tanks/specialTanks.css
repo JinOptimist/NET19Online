@@ -1,0 +1,52 @@
+
+
+.tanks {
+    display: flex;
+    padding: 50px;
+}
+
+.tank {
+    text-align: center;
+    margin: 5px;
+    border: 1px solid red;
+    border-radius: 5px;
+    margin: 8px;
+    width: 240px;
+    height: 250px;
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+}
+
+.img-container img {
+    margin-left: 20px;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.buttons {
+    display: flex;
+    padding-top: 90px;
+    justify-content: end;
+    height: 30px;
+}
+
+
+    .buttons .button {
+        flex: 1;
+        background-color: red;
+        display: flex;
+        justify-content: center;
+        margin: 2px;
+        align-items: center;
+    }
+
+.button.button:last-child {
+    border-bottom-right-radius: 5px;
+}
+
+.button.button:first-child {
+    border-bottom-left-radius: 5px;
+}

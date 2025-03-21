@@ -1,0 +1,30 @@
+﻿@using WebApplication1.Models.Tanks;
+@model List<TankViewModel>
+@{
+    Layout = "~/Views/Shared/_LayoutTanks.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/Tanks/specialTanks.css" rel="stylesheet">
+    <link href="~/css/reset.css" rel="stylesheet">
+}
+
+
+
+<div class="tanks">
+
+    @foreach (var tank in Model)
+    {
+        <div class="tank">
+            <div class="name">@tank.Name</div>
+            <div class="img-container">
+                <img src="@tank.Src" />
+            </div>
+            <div class="buttons">
+                <div class="button">+</div>
+                <div class="button">-</div>
+            </div>
+        </div>
+    }
+
+</div>
