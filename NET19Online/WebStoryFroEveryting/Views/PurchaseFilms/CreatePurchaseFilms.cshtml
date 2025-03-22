@@ -9,13 +9,15 @@
 }
 
 @section Scripts {
-     <script src="/js//Films/indexFilm.js"></script>
+    <script src="/js//Films/indexFilm.js"></script>
 }
- <div class="main-layout">
+<div class="main-layout">
     @foreach (var item in Model)
     {
         <div class="block-elements">
-            <div class="name">@item.Name</div>
+            <div class="name">
+                @item.Name
+            </div>
             <div class="image-container">
                 <a href="/PurchaseFilms/DescriptionFilm?id=@item.id">
                     <img src="@item.Src" />
@@ -25,6 +27,33 @@
                 <a href="#" class="button soft-remove"> Спрятать </a>
                 <a href="/PurchaseFilms/RemoveFilms?id=@item.id" class="button"> Удалить </a>
             </div>
+
+            <div class="update-mode" id=@item.id>
+                <input class="new-name" />
+                <div>
+                    <button class="update">Изменить</button>
+                    <button class="close">Отменить</button>
+                </div>
+                <div>
+                    <button class="delete-movie">Удалить фильм</button>
+                </div>
+            </div>
         </div>
+
     }
+    <div class="block-elements">
+        <div class="input-user">
+            <input class="new-name" />
+            <input class="new-image" />
+        </div>
+        <div class="create-name">
+             
+        </div>
+        <div class="image-container">
+            <img src="" />
+        </div>
+        <div class="buttons">
+            <a href="#" class="button create">Создать </a>
+        </div>
+    </div>
 </div>

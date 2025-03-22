@@ -11,7 +11,7 @@ namespace StoreData.Models
     {
         public DateTime FilmDate { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } = "NewFilm";
         public string Src { get; set; }
         public virtual DescriptionFilmData? DescriptionFilms { get; set; }
         public virtual List<FilmCommentData> Comments { get; set; }
