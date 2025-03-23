@@ -15,10 +15,13 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
     public class PlayerController : ControllerBase
     {
         private PlayerRepository _playerRepository;
+        private IHubContext<PlayerHub, IPlayerHub> _playerHub;
 
-        public PlayerController(PlayerRepository playerRepository)
+
+        public PlayerController(PlayerRepository playerRepository, IHubContext<PlayerHub, IPlayerHub> playerHub)
         {
             _playerRepository = playerRepository;
+            _playerHub = playerHub;
         }
 
         public bool UpdateName(int id, string newName)
@@ -46,6 +49,13 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
             _playerRepository.Add(player);
 
             return player.Id;
+        }
+
+        public void Like(int id)
+        {
+            var likeCount = _playerRepository.AddLike(id);
+            // notify 
+            _playerHub.Clients.All.LikeUpdated(id, likeCount);
         }
     }
 }

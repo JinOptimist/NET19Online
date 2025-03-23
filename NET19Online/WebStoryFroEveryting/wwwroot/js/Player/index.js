@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    const url = "/hub/player";
+    const hub = new signalR.HubConnectionBuilder().withUrl(url).build();
+
     $(".view-mode").click(function () {
         const viewModeContainer = $(this);
         viewModeContainer.hide();
@@ -63,4 +66,14 @@
         $.post("/api/player/create", player);
     });
 
+    $(".like").click(function () {
+        const id = $(this).closest(".player").attr("data-id");
+        $.get("/api/player/like?id=" + id);
+    });
+
+    hub.on("LikeUpdated", function (playerId, likeCount) {
+        $(`.player[data-id=${playerId}]`).find(".like").text(likeCount);
+    });
+
+    hub.start();
 });

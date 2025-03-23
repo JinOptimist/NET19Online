@@ -38,7 +38,8 @@ namespace WebStoryFroEveryting.Controllers
                                 Src  = "https://formacenter.ru/wa-data/public/shop/products/26/95/59526/images/134194/134194.970.jpg",
                                 Position = "-",
                                 Weight = 0,
-                                Height = 0
+                                Height = 0,
+                                LikesCount = 0
                             }
                         }
                     });
@@ -54,7 +55,8 @@ namespace WebStoryFroEveryting.Controllers
                     Src = pd.Src,
                     Position = pd.Position,
                     Weight = pd.Weight,
-                    Height = pd.Height
+                    Height = pd.Height,
+                    LikesCount = pd.LikesCount
                 }).ToList();
 
             viewModel.Tags = playerDatas
@@ -147,5 +149,7 @@ namespace WebStoryFroEveryting.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }

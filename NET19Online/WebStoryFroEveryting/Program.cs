@@ -125,6 +125,7 @@ app.UseMiddleware<LocalizationMiddleware>();
 app.MapHub<ChatHub>("/hub/chat");
 app.MapHub<IdolHub>("/hub/idol");
 app.MapHub<HunterHub>("/hub/hunter");
+app.MapHub<PlayerHub>("/hub/player");
 
 app.MapControllerRoute(
     name: "default",
