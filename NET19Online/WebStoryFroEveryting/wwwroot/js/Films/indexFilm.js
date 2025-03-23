@@ -67,16 +67,29 @@
 
     $(".create").click(function () {
 
-        const newName = $(this).closest(".block-elements").find(".new-name").val();
-        const newImage = $(this).closest(".block-elements").find(".new-image").val();
+        const newName = $(this).closest(".block-elements").find(".new-name");
+        const newImage = $(this).closest(".block-elements").find(".new-image");
+        const name = newName.val();
+        const image = newImage.val();
+
         const idol = {
-            Name: newName,
-            Src: newImage
+            Name: name,
+            Src: image
         };
- 
-   
+
+
         $.post("/api/Film/create", idol).then(function (id) {
-            location.reload();
+            const clone = $(".block-elements.template").clone();
+            clone.removeClass("template");
+            clone.attr("data-id", id);
+            clone.find(".name").text(name);
+            clone.find(".image-container img").attr("src", image);
+            clone.insertBefore($(".create-container"));
+ 
+            newName.val('');
+            newImage.val('');
+            newImage.closest('.block-elements').find('.image-container img').attr('src', '');
+
         });
     });
 

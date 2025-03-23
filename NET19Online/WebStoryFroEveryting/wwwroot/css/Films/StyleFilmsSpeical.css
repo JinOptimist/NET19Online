@@ -10,6 +10,10 @@
     padding: 5px;
 }
 
+    .block-elements.template {
+        display: none;
+    }
+
 .block-element-old {
     margin: 5px;
     border: 1px solid #00ff90;
@@ -50,6 +54,7 @@ buttons .button {
     text-decoration: none;
     color: powderblue;
 }
+
 .update-mode {
     display: none;
     margin: 5px,0px,2px,0px;
@@ -57,11 +62,13 @@ buttons .button {
 
 .input-user {
     display: contents;
-    max-width:200px;
+    max-width: 200px;
 }
-    .input-user .new-name{
-        max-width:100px;
+
+    .input-user .new-name {
+        max-width: 100px;
     }
+
     .input-user .new-image {
         max-width: 100px;
     }

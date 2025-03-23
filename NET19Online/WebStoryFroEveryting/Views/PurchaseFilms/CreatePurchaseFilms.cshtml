@@ -12,6 +12,17 @@
     <script src="/js//Films/indexFilm.js"></script>
 }
 <div class="main-layout">
+    <div class="block-elements template" data-id="">
+        <div class="name">
+        </div>
+        <div class="image-container">
+            <img src="" />
+        </div>
+        <div class="buttons">
+            <a href="#" class="button soft-remove"> Спрятать </a>
+            <a href="#" class="button"> Удалить </a>
+        </div>
+    </div>
     @foreach (var item in Model)
     {
         <div class="block-elements">
@@ -41,13 +52,12 @@
         </div>
 
     }
-    <div class="block-elements">
+    <div class="block-elements create-container">
         <div class="input-user">
             <input class="new-name" />
             <input class="new-image" />
         </div>
         <div class="create-name">
-             
         </div>
         <div class="image-container">
             <img src="" />
