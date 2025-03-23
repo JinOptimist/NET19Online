@@ -1,4 +1,5 @@
 ﻿@using WebStoryFroEveryting.Services
+@using WebStoryFroEveryting.Localizations
 @inject AuthService authservice
 <!DOCTYPE html>
 
@@ -20,21 +21,21 @@
         <div id="menu">
             <ul>
                 <li>
-                    <a href="/jerseys/">Спортивные майки</a>
+                    <a href="/jerseys/">@Jerseys.Index_Home</a>
                 </li>
                 @if (authservice.IsAuthenticated() && authservice.HasPermission(Enums.User.Permisson.CanCreateJersey))
                 {
                     <li>
-                        <a href="/jerseys/create/">Создать майку</a>
+                        <a href="/jerseys/create/">@Jerseys.Index_Create</a>
                     </li>
                 }
                 @if (authservice.IsAdmin())
                 {
                     <li>
-                        <a href="/jerseys/adminchat/">Чат администратора</a>
+                        <a href="/jerseys/adminchat/">@Jerseys.Index_AdminChat</a>
                     </li>
                 }
-
+                <img src="@authservice.GetAvatarSrc()" class="avatar" />
             </ul>
         </div>
     </div>
