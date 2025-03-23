@@ -22,10 +22,16 @@
                 <li>
                     <a href="/jerseys/">Спортивные майки</a>
                 </li>
-                @if (authservice.IsAuthenticated() && authservice.GetUserId() == 1)
+                @if (authservice.IsAuthenticated() && authservice.HasPermission(Enums.User.Permisson.CanCreateJersey))
                 {
                     <li>
                         <a href="/jerseys/create/">Создать майку</a>
+                    </li>
+                }
+                @if (authservice.IsAdmin())
+                {
+                    <li>
+                        <a href="/jerseys/adminchat/">Чат администратора</a>
                     </li>
                 }
 

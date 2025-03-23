@@ -1,0 +1,27 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@model JerseyIndexViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/jersey/chat-admin.js"></script>
+}
+@section Styles {
+    <link href="~/css/jerseys/chat-admin.css" rel="stylesheet" />
+}
+<div id="content-left">
+    <div id="active-connections">
+    </div>
+</div>
+<div id="content-right">
+    <div id="chat-main-area">
+
+        <div id="chat-message-input">
+            <input id="chat-text-input" type="text" />
+            <input id="chat-button-input" type="button" value="Отправить" />
+        </div>
+
+
+    </div>
+</div>

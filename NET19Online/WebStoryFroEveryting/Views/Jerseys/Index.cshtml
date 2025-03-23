@@ -4,7 +4,12 @@
 	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
 @section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 	<script src="/js/jersey/index.js"></script>
+	<script src="/js/jersey/chat-client.js"></script>
+}
+@section Styles {
+	<link href="~/css/jerseys/chat-client.css" rel="stylesheet" />
 }
 <div id="content-left">
 	<div class="tags">
@@ -61,7 +66,22 @@
 		}
 		
 	</div>
-
+	@if (!Model.IsAdmin)
+	{
+		<div id="chat-client">
+			<div id="chat-header">Чат с админом</div>
+			<div id="chat-main-area">
+				<div id="chat-message-list">
+					
+				</div>
+				<div id="chat-message-input">
+					<input id="chat-text-input" type="text" />
+					<input id="chat-button-input" type="button" value="Отправить" />
+				</div>
+			</div>
+			
+		</div>
+	}
 </div>
 
 

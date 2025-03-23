@@ -91,6 +91,14 @@ namespace WebStoryFroEveryting.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        [IsAdmin]
+        public IActionResult AdminChat()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult AddComment(int jerseyId, string commentText)
