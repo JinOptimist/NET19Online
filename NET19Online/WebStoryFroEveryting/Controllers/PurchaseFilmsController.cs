@@ -93,7 +93,7 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult AddComment(int id, string comment)
         {
             _filmCommentRepository.AddComment(id, comment);
-            _filmCommentRepository.DeleteComment(id);
+            _filmCommentRepository.RemoveDuplicateComments(id);
             return RedirectToAction(nameof(DescriptionFilm), new { id });
         }
 

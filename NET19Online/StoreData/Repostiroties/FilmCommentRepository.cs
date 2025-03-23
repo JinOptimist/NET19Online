@@ -27,7 +27,7 @@ namespace StoreData.Repostiroties
             _dbContext.SaveChanges();
         }
 
-        public void DeleteComment(int filmid)
+        public void RemoveDuplicateComments(int filmid)
         {
             var strSelectSql = @" DELETE FROM FilmComments
                                               WHERE Id NOT IN (
