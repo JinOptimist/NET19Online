@@ -6,6 +6,7 @@ using StoreData.Repostiroties;
 using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.Films;
 using WebStoryFroEveryting.Services.FilmsServer;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace WebStoryFroEveryting.Controllers
 {
@@ -14,14 +15,16 @@ namespace WebStoryFroEveryting.Controllers
         private FilmsRepository _filmsRepository;
         private FilmsGeneratorServices _filmsGeneratorServices;
         private FilmCommentRepository _filmCommentRepository;
+        private IHostingEnvironment _hostingEnvironment;
 
         public PurchaseFilmsController(FilmsRepository filmsRepository,
             FilmsGeneratorServices filmsGeneratorServices,
-            FilmCommentRepository filmCommentRepository)
+            FilmCommentRepository filmCommentRepository, IHostingEnvironment hostingEnvironment)
         {
             _filmsRepository = filmsRepository;
             _filmsGeneratorServices = filmsGeneratorServices;
             _filmCommentRepository = filmCommentRepository;
+            _hostingEnvironment = hostingEnvironment;
         }
         public IActionResult CreatePurchaseFilms()
         {
@@ -58,7 +61,7 @@ namespace WebStoryFroEveryting.Controllers
         }
 
         [HttpPost]
-         public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
+        public IActionResult CreateFilms(CreateFilmsViewModel createFilmsViewModel)
         {
             _filmsRepository.Add(new FilmData
             {
@@ -87,7 +90,7 @@ namespace WebStoryFroEveryting.Controllers
 
             return View(descriptionFilmViewModel);
         }
- 
+
 
         [HttpPost]
         public IActionResult AddComment(int id, string comment)
@@ -95,6 +98,19 @@ namespace WebStoryFroEveryting.Controllers
             _filmCommentRepository.AddComment(id, comment);
             _filmCommentRepository.DeleteComment(id);
             return RedirectToAction(nameof(DescriptionFilm), new { id });
+        }
+        //ToDO I don't know yet how to change the picture of my movie block
+        public IActionResult UpdateImg(IFormFile newimg)
+        {
+            var fileName = $"img-newImg.jpg";
+
+            var path = Path.Combine(_hostingEnvironment.WebRootPath, "img", fileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                newimg.CopyTo(stream);
+            }
+                return RedirectToAction(nameof(CreatePurchaseFilms));
         }
 
         private FilmsViewModel Map(FilmData date)
