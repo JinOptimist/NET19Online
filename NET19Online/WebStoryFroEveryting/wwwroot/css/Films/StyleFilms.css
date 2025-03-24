@@ -2,7 +2,7 @@
     font-size: 36px;
     justify-content: center;
     display: flex;
-    background: #ccc;
+    background: #15239a;
 }
 
 .menu-and-content {
@@ -12,7 +12,7 @@
 .menu {
     max-width: 150px;
     padding: 10px;
-    background: orange;
+    background: #ff6a00;
     min-height: 300px;
 }
     .menu .link {
@@ -20,4 +20,9 @@
         border-radius: 5px;
         margin: 3px;
     }
+
+.active {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
  

@@ -1,14 +1,17 @@
 ﻿<html>
 <head>
     <link href="~/css/reset.css" rel="stylesheet"/>
-    <link href="/css/Films/StyleFilms.css" rel="stylesheet" />
+    <link href="~/css/Films/StyleFilms.css" rel="stylesheet" />
 
     @RenderSection("Styles", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @RenderSection("Scripts", false)
 </head>
 <body>
     <div class="header">
-         Site name here
-    </div> 
+        Site name here
+    </div>
     <div class="menu-and-content">
         <div class="menu">
             <div class="link">
@@ -20,7 +23,7 @@
             </div>
         </div>
         <div class="content">
-             @RenderBody()
+            @RenderBody()
         </div>
     </div>
 </body>
