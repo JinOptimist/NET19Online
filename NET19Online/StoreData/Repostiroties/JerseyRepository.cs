@@ -41,6 +41,11 @@ namespace StoreData.Repostiroties
                 .Where(x => tag == null || x.Tags.Any(t => t.Tag == tag))
                 .ToList();
         }
+        public int AddJerseyAndGetId(JerseyData jerseyData)
+        {
+            Add(jerseyData);
+            return _dbSet.OrderByDescending(x => x.Id).First().Id;
+        }
         
     }
 }
