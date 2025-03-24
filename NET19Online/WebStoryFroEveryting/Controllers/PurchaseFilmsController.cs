@@ -99,7 +99,7 @@ namespace WebStoryFroEveryting.Controllers
             _filmCommentRepository.DeleteComment(id);
             return RedirectToAction(nameof(DescriptionFilm), new { id });
         }
-        //ToDO I don't know yet how to change the picture of my movie block
+        //ToDo I don't know yet how to change the picture of my movie block
         public IActionResult UpdateImg(IFormFile newimg)
         {
             var fileName = $"img-newImg.jpg";
