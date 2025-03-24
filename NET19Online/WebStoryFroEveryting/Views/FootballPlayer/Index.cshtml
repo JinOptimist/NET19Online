@@ -42,9 +42,10 @@
             <div class="weight">Вес: @player.Weight</div>
             <div class="height">Рост: @player.Height</div>
             <div class="buttons">
-                <a href="/FootballPlayer/DescriptionForPlayer?playerId=@player.Id" class="button">Описание </a>
-                <a href="/FootballPlayer/RemovePlayer?id=@player.Id" class="button">Удалить</a>
-                <a href="#" class="ajax-remove">Удалить Ajax</a>
+                <a href="/FootballPlayer/DescriptionForPlayer?playerId=@player.Id" class="button">&nbspОписание&nbsp</a>
+                <a href="/FootballPlayer/RemovePlayer?id=@player.Id" class="button">&nbspУдалить&nbsp</a>
+                <a href="#" class="ajax-remove">&nbspУдалить Ajax&nbsp</a>
+                <a href="#" class="like">@player.LikesCount</a>
             </div>
         </div>
     }

@@ -8,5 +8,6 @@
         public string Position { get; set; }
         public int Weight { get; set; }
         public int Height { get; set; }
+        public int LikesCount { get; set; }
     }
 }

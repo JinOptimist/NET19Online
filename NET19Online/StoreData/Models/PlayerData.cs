@@ -13,6 +13,8 @@ namespace StoreData.Models
         public string Position { get; set; }
         public int Weight { get; set; }
         public int Height { get; set; }
+        public int LikesCount { get; set; }
+
 
         public virtual List<PlayerDescriptionData> Descriptions { get; set; }
         public virtual List<PlayerTagData> Tags { get; set; } = new();
