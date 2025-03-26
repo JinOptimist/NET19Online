@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreData", "StoreData\Stor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enums", "Enums\Enums.csproj", "{0A228D0F-E203-460B-AB33-057B7B457D73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStatueMinimalApi", "StoreStatueMinimalApi\StoreStatueMinimalApi.csproj", "{A7363AED-2F46-4179-83EC-7C9D44F22EC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStatueMinimalApi", "StoreStatueMinimalApi\StoreStatueMinimalApi.csproj", "{A7363AED-2F46-4179-83EC-7C9D44F22EC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A7363AED-2F46-4179-83EC-7C9D44F22EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7363AED-2F46-4179-83EC-7C9D44F22EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7363AED-2F46-4179-83EC-7C9D44F22EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

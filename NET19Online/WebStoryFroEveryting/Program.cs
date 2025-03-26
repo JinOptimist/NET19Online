@@ -7,6 +7,7 @@ using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.FilmsServer;
+using WebStoryFroEveryting.Services.ReflectionServices;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,58 +37,63 @@ builder.Services
 builder.Services
     .AddDbContext<SchoolDbContext>(
         options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
+
+var autoRegistrator = new AutoRegistrator();
+autoRegistrator.RegisterRepositories(builder.Services, typeof(BaseRepository<>));
+autoRegistrator.RegisterRepositories(builder.Services, typeof(BaseSchoolRepository<>));
+
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
-builder.Services.AddScoped<NotebookRepository>();
-builder.Services.AddScoped<NotebookCommentRepository>();
+//builder.Services.AddScoped<NotebookRepository>();
+//builder.Services.AddScoped<NotebookCommentRepository>();
 
 builder.Services.AddScoped<NameGenerator>();
 builder.Services.AddScoped<IdolGenerator>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 
-builder.Services.AddScoped<RoleRepository>();
-builder.Services.AddScoped<IdolRepository>();
-builder.Services.AddScoped<FilmsRepository>();
-builder.Services.AddScoped<FilmCommentRepository>();
+//builder.Services.AddScoped<RoleRepository>();
+//builder.Services.AddScoped<IdolRepository>();
+//builder.Services.AddScoped<FilmsRepository>();
+//builder.Services.AddScoped<FilmCommentRepository>();
 //builder.Services.AddScoped<LessonRepository>();
 
-builder.Services.AddScoped<LessonRepository>();
-builder.Services.AddScoped<LessonCommentRepository>();
-builder.Services.AddScoped<BanWordRepository>();
-builder.Services.AddScoped<BannedUserRepository>();
+//builder.Services.AddScoped<LessonRepository>();
+//builder.Services.AddScoped<LessonCommentRepository>();
+//builder.Services.AddScoped<BanWordRepository>();
+//builder.Services.AddScoped<BannedUserRepository>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 
-builder.Services.AddScoped<FilmsRepository>();
-builder.Services.AddScoped<LessonRepository>();
+//builder.Services.AddScoped<FilmsRepository>();
+//builder.Services.AddScoped<LessonRepository>();
 
 
 builder.Services.AddScoped<GamingDeviceGenerator>();
-builder.Services.AddScoped<GamingDeviceRepository>();
-builder.Services.AddScoped<GamingDeviceReviewRepository>();
+//builder.Services.AddScoped<GamingDeviceRepository>();
+//builder.Services.AddScoped<GamingDeviceReviewRepository>();
 
-builder.Services.AddScoped<IdolRepository>();
-builder.Services.AddScoped<IdolCommentRepository>();
-builder.Services.AddScoped<PlayerRepository>();
-builder.Services.AddScoped<PlayerDescriptionRepository>();
+//builder.Services.AddScoped<IdolRepository>();
+//builder.Services.AddScoped<IdolCommentRepository>();
+//builder.Services.AddScoped<PlayerRepository>();
+//builder.Services.AddScoped<PlayerDescriptionRepository>();
 builder.Services.AddScoped<JerseyGenerator>();
-builder.Services.AddScoped<JerseyRepository>();
-builder.Services.AddScoped<JerseyCommentRepository>();
+//builder.Services.AddScoped<JerseyRepository>();
+//builder.Services.AddScoped<JerseyCommentRepository>();
 
 builder.Services.AddScoped<MagicItemGenerator>();
 builder.Services.AddScoped<MagicItemCategoryGenerator>();
 builder.Services.AddScoped<MagicItemNameGenerator>();
 
-builder.Services.AddScoped<MagicItemRepository>();
-builder.Services.AddScoped<MagicItemCommentRepository>();
+//builder.Services.AddScoped<MagicItemRepository>();
+//builder.Services.AddScoped<MagicItemCommentRepository>();
 
 builder.Services.AddScoped<UnderwaterHunterViewModel>();
 builder.Services.AddScoped<HuntersGenerator>();
-builder.Services.AddScoped<UnderwarterHunterRepository>();
-builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
-builder.Services.AddScoped<SingerRepository>();
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<SchoolUserRepository>();
-builder.Services.AddScoped<SchoolRoleRepository>();
+//builder.Services.AddScoped<UnderwarterHunterRepository>();
+//builder.Services.AddScoped<UnderwarterHunterCommentRepository>();
+//builder.Services.AddScoped<SingerRepository>();
+//builder.Services.AddScoped<UserRepository>();
+//builder.Services.AddScoped<SchoolUserRepository>();
+//builder.Services.AddScoped<SchoolRoleRepository>();
 builder.Services.AddScoped<SchoolAuthService>();
 
 builder.Services.AddScoped<AuthService>();
@@ -95,7 +101,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SweetsNameGenerator>();
 builder.Services.AddScoped<SweetsModelGenerator>();
-builder.Services.AddScoped<SweetsRepository>();
+//builder.Services.AddScoped<SweetsRepository>();
 
 
 
