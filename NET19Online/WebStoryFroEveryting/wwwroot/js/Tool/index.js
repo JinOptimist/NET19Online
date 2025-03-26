@@ -3,7 +3,7 @@
     const urlGetTools = `${base_url}getTools`;
     const urlAddTool = `${base_url}addTool`;
 
-    // Получение инструментов
+    
     $.get(urlGetTools)
         .done(function (tools) {
             console.log("Получены инструменты:", tools);
@@ -26,7 +26,7 @@
             console.error("Ошибка при получении инструментов:", err);
         });
 
-    // Обработчик клика по кнопке создания нового инструмента
+   
     $('.add-new-tool-container button').click(function () {
         console.log("Клик по кнопке создания!");
 
@@ -40,7 +40,6 @@
             return;
         }
 
-        // Данные для отправки
         const newTool = {
             name: name,
             src: src,
@@ -48,11 +47,11 @@
             price: price
         };
 
-        // Отправка POST-запроса для добавления нового инструмента
+       
         $.post(urlAddTool, newTool)
             .done(function () {
                 alert('Инструмент добавлен!');
-                location.reload(); // Перезагрузить страницу, чтобы обновить список
+                location.reload(); 
             })
             .fail(function (err) {
                 console.error("Ошибка при добавлении инструмента:", err);
