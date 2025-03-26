@@ -1,4 +1,5 @@
-﻿@using WebStoryFroEveryting.Models.UnderwaterHuntersWorld
+﻿@using WebStoryFroEveryting.Localizations
+@using WebStoryFroEveryting.Models.UnderwaterHuntersWorld
 @model HunterIndexViewModel
 @{
 	Layout = "~/Views/Shared/_LayoutHunter.cshtml";
@@ -39,9 +40,9 @@
 			<div class="name">@item.NameHunter</div>
 			<div class="nationality">Nationality: @item.Nationality</div>
 			<div class="maxDepth">Maximum hunting depth: @item.MaxHuntingDepth meters</div>
-			<a class="leave-comment " href="/UnderwaterHunter/CommentHunter?id=@item.Id">Add comment and tag</a>
-			<a href="#" class="removeIcon">Remove the hunter from the base!</a>
-			<a href="#" class="hide-image">Hide image</a>
+			<a class="leave-comment " href="/UnderwaterHunter/CommentHunter?id=@item.Id">@HuntersStartPage.Key_AddCommentAndTag</a>
+			<a href="#" class="removeIcon">@HuntersStartPage.Key_removeHunter</a>
+			<a href="#" class="hide-image">@HuntersStartPage.Key_hideImage</a>
 		</div>
 	}
 	<div class="newHunters hunters" data-id="">
@@ -73,6 +74,6 @@
 		<div class="image">
 			<input class="new-image" placeholder="src" />
 		</div>
-		<a class="creatHunter" href="#">Create new hunter </a>
+		<a class="creatHunter" href="#">@HuntersStartPage.Key_createNewHunter </a>
 	</div>
 </div>
