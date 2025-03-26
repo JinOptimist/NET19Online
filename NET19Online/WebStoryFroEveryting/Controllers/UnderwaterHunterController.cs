@@ -1,4 +1,5 @@
 ﻿using Enums.User;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
@@ -6,6 +7,8 @@ using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace WebStoryFroEveryting.Controllers
 {
@@ -15,15 +18,18 @@ namespace WebStoryFroEveryting.Controllers
         private UnderwarterHunterRepository _hunterRepository;
         private UnderwarterHunterCommentRepository _hunterCommentRepository;
         private AuthService _authService;
+        private IHostingEnvironment _hostingEnvironment;
         public UnderwaterHunterController(HuntersGenerator huntersGenerator,
                                            UnderwarterHunterRepository hunterRepository,
                                             UnderwarterHunterCommentRepository hunterCommentRepository,
-                                             AuthService authService)
+                                             AuthService authService,
+                                              IHostingEnvironment hostingEnvironment)
         {
             _huntersGenerator = huntersGenerator;
             _hunterRepository = hunterRepository;
             _hunterCommentRepository = hunterCommentRepository;
             _authService = authService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index(string? tag)
@@ -129,6 +135,19 @@ namespace WebStoryFroEveryting.Controllers
             _hunterCommentRepository.AddComment(id, comment, authorId);
             return RedirectToAction(nameof(CommentHunter), new { id });
         }
+        public IActionResult UpdateLikeUserPhoto(IFormFile photo)
+        {         
+            var webRootPath = _hostingEnvironment.WebRootPath;
+            var fileName = $"photoHunter.jpg";
+            var path = Path.Combine(webRootPath, "hunterImages", fileName);
+            DeleteLikeUserPhoto(path);
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                photo.CopyTo(fileStream);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
         private List<UnderwaterHunterData> GetHuntersFromHunterGenerator()
         {
             var huntersD = _huntersGenerator
@@ -154,10 +173,17 @@ namespace WebStoryFroEveryting.Controllers
                 MaxHuntingDepth = hunterData.MaxHuntingDepth,
                 Nationality = hunterData.Nationality,
                 Src = hunterData.Src,
-                LikesCount=hunterData.LikesCount,
-                DislikesCount=hunterData.DislikesCount
+                LikesCount = hunterData.LikesCount,
+                DislikesCount = hunterData.DislikesCount
             };
             return hunter;
+        }
+        private void DeleteLikeUserPhoto(string path)
+        {
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
         }
     }
 }
