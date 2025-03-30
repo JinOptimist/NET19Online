@@ -62,6 +62,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\avatars\" />
+    <Folder Include="wwwroot\imgForHunterPage\" />
   </ItemGroup>
 
 </Project>
