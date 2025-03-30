@@ -1,4 +1,5 @@
-﻿@using WebStoryFroEveryting.Models.Films
+@using WebStoryFroEveryting.Models.Films
+@using WebStoryFroEveryting.Localizations
 @model List<FilmsViewModel>
 
 @{
@@ -35,8 +36,7 @@
                 </a>
             </div>
             <div class="buttons">
-                <a href="#" class="button soft-remove"> Спрятать </a>
-                <a href="/PurchaseFilms/RemoveFilms?id=@item.id" class="button"> Удалить </a>
+                <a href="/PurchaseFilms/RemoveFilms?id=@item.id" class="button">@ButtonsMovie.Index_Delete</a>
             </div>
 
             <div class="update-mode" id=@item.id>
@@ -50,7 +50,10 @@
                 </div>
             </div>
         </div>
-
+        <form action="/PurchaseFilms/UpdateImg" method="post" enctype='multipart/form-data'>
+            <input name="newimg" type="file" />
+            <button type="submit">Обновить картинку </button>
+        </form>
     }
     <div class="block-elements create-container">
         <div class="input-user">
