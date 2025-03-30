@@ -1,0 +1,30 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@model JerseyIndexViewModel
+@{
+	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+@section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+	<script src="/js/jersey/logos.js"></script>
+}
+@section Styles {
+	<link href="~/css/jerseys/logos.css" rel="stylesheet" />
+}
+<div id="content-left">
+	<div class="tags">
+		
+	</div>
+</div>
+<div id="content-right">
+	<div id="logos">
+
+	</div>
+	<div id="create-logo">
+		<input type="text" name="create-logo-clubname" placeholder="Название клуба">
+		<input type="text" name="create-logo-img" placeholder="Изображение">
+		<input type="submit" value="Создать" />
+	</div>
+	
+</div>
+
+
