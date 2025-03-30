@@ -1,8 +1,9 @@
-﻿
-using Enums.User;
+﻿using Enums.User;
+using WebStoryFroEveryting.Services.ReflectionServices;
 
 namespace WebStoryFroEveryting.Services
 {
+    [AutoRegistration]
     public class AuthService
     {
         public const string AUTH_TYPE = "AuthTypeSmile";

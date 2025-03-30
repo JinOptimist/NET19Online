@@ -1,10 +1,12 @@
 ﻿using WebStoryFroEveryting.Models.AnimeGirl;
+using WebStoryFroEveryting.Services.ReflectionServices;
 
 namespace WebStoryFroEveryting.Services
 {
     public class IdolGenerator
     {
         private NameGenerator _nameGenerator;
+        private string _defaultName;
         private Random _random = new();
 
         private List<string> Images = new()
@@ -15,9 +17,15 @@ namespace WebStoryFroEveryting.Services
             "https://i.pinimg.com/736x/10/0d/8b/100d8b296e190447218e773bdb3e5e77.jpg"
         };
 
+        [AutoRegistration]
         public IdolGenerator(NameGenerator nameGenerator)
         {
             _nameGenerator = nameGenerator;
+        }
+
+        public IdolGenerator(string defaultName)
+        {
+            _defaultName = defaultName;
         }
 
         public List<IdolViewModel> GenerateIdols(int count)
@@ -29,7 +37,7 @@ namespace WebStoryFroEveryting.Services
                 var randomImagesIndex = _random.Next(Images.Count);
                 var idol = new IdolViewModel
                 {
-                    Name = _nameGenerator.GetRandomName(),
+                    Name = _nameGenerator?.GetRandomName() ?? _defaultName,
                     Src = Images[randomImagesIndex]
                 };
                 list.Add(idol);

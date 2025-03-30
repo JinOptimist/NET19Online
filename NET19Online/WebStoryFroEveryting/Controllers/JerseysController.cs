@@ -36,6 +36,7 @@ namespace WebStoryFroEveryting.Controllers
                             AthleteName = jersey.AthleteName,
                             Club = jersey.Club,
                             Img = jersey.Img,
+                            SecondImg = jersey.SecondImg,
                             Number = jersey.Number,
                             InStock = jersey.InStock,
                             Price = jersey.Price
@@ -90,6 +91,14 @@ namespace WebStoryFroEveryting.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        [IsAdmin]
+        public IActionResult AdminChat()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         public IActionResult AddComment(int jerseyId, string commentText)
@@ -156,7 +165,8 @@ namespace WebStoryFroEveryting.Controllers
                 Img = jerseyData.Img,
                 Club = jerseyData.Club,
                 InStock = jerseyData.InStock,
-                Price = jerseyData.Price
+                Price = jerseyData.Price,
+                SecondImg = jerseyData.SecondImg
             };
         }
     }

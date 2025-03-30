@@ -1,0 +1,24 @@
+﻿@section Scripts {
+    <script src="~/js/Tool/index.js"></script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Tools/index.css" />
+}
+
+<div class="tools">
+    <div class="tool sample">
+        <div class="name"></div>
+        <div class="image"><img src="" /></div>
+        <div class="desc"></div>
+        <div class="price"></div>
+    </div>
+</div>
+
+<div class="add-new-tool-container">
+    <input type="text" class="new-name" placeholder="Название" />
+    <input type="text" class="new-src" placeholder="Ссылка на изображение" />
+    <input type="text" class="new-desc" placeholder="Описание" />
+    <input type="number" class="new-price" placeholder="Цена" min="0" />
+    <button>Создать</button>
+</div>

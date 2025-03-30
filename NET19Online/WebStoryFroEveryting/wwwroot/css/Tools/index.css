@@ -1,0 +1,77 @@
+.tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+.tool {
+    width: 200px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .tool:hover {
+        transform: translateY(-5px);
+    }
+
+    .tool .image img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .tool .name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .tool .desc {
+        font-size: 14px;
+        color: #555;
+        margin-top: 5px;
+    }
+
+    .tool .price {
+        font-size: 16px;
+        font-weight: bold;
+        color: #27ae60;
+        margin-top: 10px;
+    }
+
+.add-new-tool-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+    .add-new-tool-container input {
+        width: 250px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .add-new-tool-container button {
+        background: #27ae60;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .add-new-tool-container button:hover {
+            background: #219150;
+        }

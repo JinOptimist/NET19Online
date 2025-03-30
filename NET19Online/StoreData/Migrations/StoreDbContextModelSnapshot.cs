@@ -390,6 +390,9 @@ namespace StoreData.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("SecondImg")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Jerseys");
@@ -571,6 +574,9 @@ namespace StoreData.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikesCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

@@ -1,4 +1,5 @@
-﻿<html>
+﻿@using WebStoryFroEveryting.Localizations
+<html>
 <head>
 	<link href="~/css/reset.css" rel="stylesheet" />
 	<link href="~/css/UnderwaterHunter/hunterForm.css" rel="stylesheet" />
@@ -9,19 +10,19 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	@RenderSection("Scripts", false)
 </head>
-<body>
+<body>	
 	<div class="label-and-header">
 		<div class="label">
 			<img src="http://podvox.by/uploads/attachment/2014-03/1395307133_f16789d2c157.jpg" />
 		</div>
 		<div class="header">
-			UNDERWATER HUNTER PAGE
+			@HuntersStartPage.Key_UnderwaterHunterPage
 		</div>
 		<div class="buttonsMenu-links">
 			<div class="text-Menu">Menu:</div>	
 			<div class="mainPage">
 				<a class="button-addNewHunter" href="/UnderwaterHunter/Index">
-					Main page
+					@HuntersStartPage.Key_Menu
 				</a>
 			</div>
 			<div class="newHunter">

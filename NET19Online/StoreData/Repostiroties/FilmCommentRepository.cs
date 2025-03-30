@@ -27,7 +27,7 @@ namespace StoreData.Repostiroties
             _dbContext.SaveChanges();
         }
 
-        public void DeleteComment(int filmid)
+        public void RemoveDuplicateComments(int filmid)
         {
             var strSelectSql = @" DELETE FROM FilmComments
                                               WHERE Id NOT IN (
@@ -39,5 +39,5 @@ namespace StoreData.Repostiroties
             var result = _dbContext.Database.ExecuteSqlRaw(strSelectSql, new SqlParameter("@FilmId", filmid));
         }
 
-    }
+     }
 }

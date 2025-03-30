@@ -2,21 +2,38 @@
 @model FilmsViewModel
 
 
+@{
+    Layout = "~/Views/Shared/_LayoutFilms.cshtml";
+}
+@section Styles {
+    <link href="/css/Films/StyleFilmsSpeical.css" rel="stylesheet" />
+    <link href="/css/Films/FilmCreate.css" rel="stylesheet" />
+}
 
-<form method="post" action="/PurchaseFilms/CreateFilms">
-    @{
-        Layout = "~/Views/Shared/_LayoutFilms.cshtml";
-    }
-    @section Styles {
-        <link href="/css/Films/StyleFilms.css" rel="stylesheet" />
-    }
-    <div>
-        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+@section Scripts {
+    <script src="/js//Films/createFilm.js"></script>
+}
+
+<div class="create-container">
+    <form method="post" action="/PurchaseFilms/CreateFilms">
+        <div>
+            @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.Src, new { placeholder = "Src" })
+        </div>
+        <div>
+            <button type="submit">Создать</button>
+        </div>
+    </form>
+    <div class="preview">
+        <div class="block-elements">
+            <div class="name"> </div>
+            <div class="image-container">
+                <a href="#">
+                    <img src="#" />
+                </a>
+            </div>
+        </div>
     </div>
-    <div>
-        @Html.TextBoxFor(x => x.Src, new { placeholder = "Src" })
-    </div>
-    <div>
-        <button type="submit">Создать</button>
-    </div>
-</form>
+</div>

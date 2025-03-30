@@ -13,6 +13,7 @@ namespace WebStoryFroEveryting.Models.Jerseys
         public string AthleteName { get; set; }
         [Required]
         public string Img { get; set; }
+        public string SecondImg { get; set; }
         [IsPositiveNumber<int>]
         public int InStock { get; set; }
         [Required]

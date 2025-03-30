@@ -78,7 +78,7 @@ namespace WebStoryFroEveryting.Controllers
             var descriptionFilm = _filmsRepository.GetFilm(id);
             descriptionFilmViewModel.Films.Src = descriptionFilm.Src;
             descriptionFilmViewModel.Films.Name = descriptionFilm.Name;
-            descriptionFilmViewModel.DescriptionFilm = descriptionFilm.DescriptionFilms.DescriptionFilm;
+            descriptionFilmViewModel.DescriptionFilm = descriptionFilm?.DescriptionFilms?.DescriptionFilm;
             descriptionFilmViewModel.Id = descriptionFilm.Id;
             descriptionFilmViewModel.Films.Comments = descriptionFilm.Comments
                 .Select(x => new FilmCommentViewModel
@@ -96,7 +96,7 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult AddComment(int id, string comment)
         {
             _filmCommentRepository.AddComment(id, comment);
-            _filmCommentRepository.DeleteComment(id);
+            _filmCommentRepository.RemoveDuplicateComments(id);
             return RedirectToAction(nameof(DescriptionFilm), new { id });
         }
         //ToDo I don't know yet how to change the picture of my movie block

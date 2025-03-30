@@ -48,5 +48,14 @@ namespace StoreData.Repostiroties
             player.Name = newName;
             _dbContext.SaveChanges();
         }
+
+        public int AddLike(int id)
+        {
+            var player = _dbSet.First(x => x.Id == id);
+            player.LikesCount++;
+            _dbContext.SaveChanges();
+
+            return player.LikesCount;
+        }
     }
 }
