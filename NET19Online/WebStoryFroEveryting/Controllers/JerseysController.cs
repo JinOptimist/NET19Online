@@ -7,6 +7,9 @@ using WebStoryFroEveryting.Models.Jerseys;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using Enums.User;
+using WebStoryFroEveryting.Controllers.ApiControllers;
+using System.Text;
+using System.Reflection;
 
 namespace WebStoryFroEveryting.Controllers
 {
@@ -85,7 +88,7 @@ namespace WebStoryFroEveryting.Controllers
                     Id = x.Id,
                     Created = x.Created,
                     Comment = x.Comment,
-                    UserName = x.Author is null ? "Аноним": x.Author.UserName
+                    UserName = x.Author is null ? "Аноним" : x.Author.UserName
 
                 }).ToList();
 
@@ -174,5 +177,40 @@ namespace WebStoryFroEveryting.Controllers
         {
             return View();
         }
+        public IActionResult ViewApiController()
+        {
+            var sb = new StringBuilder();
+            var list = new List<Models.Jerseys.MethodInfo>();
+            var type = typeof(JerseyController);
+            var methods = type.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance);
+            foreach (var method in methods)
+            {
+                var currentMethodInfo = new Models.Jerseys.MethodInfo
+                {
+                    Name = method.Name,
+                    Parameters = new List<string>()
+                };
+                
+                var parameters = method.GetParameters();
+                foreach (var p in parameters)
+                {
+                    currentMethodInfo.Parameters.Add($"{p.ParameterType.Name} " +
+                        $"{p.Name} " +
+                        $"{(p.HasDefaultValue ? $" = {p.DefaultValue}" : "")}");
+                    if (p.ParameterType.Name.Contains("ViewModel"))
+                    {
+                        var parType = p.ParameterType.GetProperties();
+                        foreach(var pt in parType)
+                        {
+                            currentMethodInfo.Parameters.Add($"{pt.PropertyType} {pt.Name}");
+                        }
+                    }
+                }
+                list.Add(currentMethodInfo);
+            }
+            return View("ViewApiController", list);
+        }
+
     }
+    
 }

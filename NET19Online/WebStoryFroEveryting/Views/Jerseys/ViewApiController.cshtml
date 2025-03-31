@@ -1,0 +1,29 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@model List<MethodInfo>
+@{
+	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+
+@section Styles {
+<link href="~/css/jerseys/viewapicontroller.css" rel="stylesheet" />
+}
+<div id="content-left">
+
+</div>
+<div id="content-right">
+	@foreach(var method in Model)
+	{
+		<div class="method-info">
+			<div class="method-name">Название метода: @method.Name</div>
+			@foreach(var parameter in method.Parameters)
+			{
+				<div class="method-params">@parameter</div>
+			}
+		</div>
+	}
+	
+
+
+</div>
+
+
