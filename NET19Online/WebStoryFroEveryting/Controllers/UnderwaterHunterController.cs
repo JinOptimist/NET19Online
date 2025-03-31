@@ -1,5 +1,4 @@
 ﻿using Enums.User;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using StoreData.Models;
 using StoreData.Repostiroties;
@@ -7,7 +6,6 @@ using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace WebStoryFroEveryting.Controllers
@@ -138,9 +136,8 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult UpdateLikeUserPhoto(IFormFile photo)
         {         
             var webRootPath = _hostingEnvironment.WebRootPath;
-            var fileName = $"photoHunter.jpg";
-            var path = Path.Combine(webRootPath, "hunterImages", fileName);
-            DeleteLikeUserPhoto(path);
+            var fileName = $"photo.jpg";
+            var path = Path.Combine(webRootPath, "imgForHunterPage", fileName);           
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 photo.CopyTo(fileStream);
@@ -177,13 +174,6 @@ namespace WebStoryFroEveryting.Controllers
                 DislikesCount = hunterData.DislikesCount
             };
             return hunter;
-        }
-        private void DeleteLikeUserPhoto(string path)
-        {
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
-            }
-        }
+        }        
     }
 }
