@@ -8,9 +8,9 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
 
-        public AuthController(UserRepository userRepository)
+        public AuthController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

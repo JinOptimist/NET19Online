@@ -13,7 +13,7 @@ namespace WebStoryFroEveryting.Models.CustomValidationAttribute
                 return new ValidationResult("Can't be empty");
             }
 
-            var userRepository = validationContext.GetRequiredService<UserRepository>();
+            var userRepository = validationContext.GetRequiredService<IUserRepository>();
             if (userRepository.Any(str))
             {
                 return new ValidationResult($"There is user with the same name. '{str}'");

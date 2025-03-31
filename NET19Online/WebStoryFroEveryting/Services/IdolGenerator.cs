@@ -5,7 +5,7 @@ namespace WebStoryFroEveryting.Services
 {
     public class IdolGenerator
     {
-        private NameGenerator _nameGenerator;
+        private INameGenerator _nameGenerator;
         private string _defaultName;
         private Random _random = new();
 
@@ -18,7 +18,7 @@ namespace WebStoryFroEveryting.Services
         };
 
         [AutoRegistration]
-        public IdolGenerator(NameGenerator nameGenerator)
+        public IdolGenerator(INameGenerator nameGenerator)
         {
             _nameGenerator = nameGenerator;
         }
@@ -30,6 +30,11 @@ namespace WebStoryFroEveryting.Services
 
         public List<IdolViewModel> GenerateIdols(int count)
         {
+            if (count < 1)
+            {
+                throw new ArgumentException("There is no sense call the method with count less then 1");
+            }
+
             var list = new List<IdolViewModel>();
 
             for (int i = 0; i < count; i++)
@@ -37,7 +42,7 @@ namespace WebStoryFroEveryting.Services
                 var randomImagesIndex = _random.Next(Images.Count);
                 var idol = new IdolViewModel
                 {
-                    Name = _nameGenerator?.GetRandomName() ?? _defaultName,
+                    Name = _nameGenerator?.GetRandomName(count) ?? _defaultName,
                     Src = Images[randomImagesIndex]
                 };
                 list.Add(idol);

@@ -58,7 +58,7 @@ namespace StoreData
 
         private void FillUsers(IServiceProvider service)
         {
-            var userRepository = service.GetRequiredService<UserRepository>();
+            var userRepository = service.GetRequiredService<IUserRepository>();
             if (!userRepository.Any(ADMIN_NAME))
             {
                 userRepository.Registration(ADMIN_NAME, ADMIN_NAME);

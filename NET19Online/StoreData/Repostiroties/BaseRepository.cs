@@ -3,7 +3,7 @@ using StoreData.Models;
 
 namespace StoreData.Repostiroties
 {
-    public abstract class BaseRepository<DbModel> where DbModel : BaseModel
+    public abstract class BaseRepository<DbModel> : IBaseRepository<DbModel> where DbModel : BaseModel
     {
         protected StoreDbContext _dbContext;
         protected DbSet<DbModel> _dbSet;

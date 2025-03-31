@@ -26,7 +26,7 @@ namespace WebStoryFroEveryting.CustomMiddlewareServices
             }
 
             var userId = authService.GetUserId();
-            var userRepository = context.RequestServices.GetRequiredService<UserRepository>();
+            var userRepository = context.RequestServices.GetRequiredService<IUserRepository>();
 
             var locale = userRepository.GetLocale(userId);
             CultureInfo culture;
