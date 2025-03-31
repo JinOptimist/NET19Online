@@ -1,0 +1,25 @@
+﻿#logos{
+    display:flex;
+    width:100%;
+}
+.logo{
+    flex-shrink: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction:column;
+}
+.logo img{
+    width: 150px;
+    
+}
+.logo-img{
+    height: 300px;
+    overflow: hidden;
+}
+.logo-text{
+    width: 100%;
+    text-align: center;
+    align-content:center;
+    justify-content: center;
+
+}

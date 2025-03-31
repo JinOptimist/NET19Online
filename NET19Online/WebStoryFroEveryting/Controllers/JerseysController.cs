@@ -169,5 +169,10 @@ namespace WebStoryFroEveryting.Controllers
                 SecondImg = jerseyData.SecondImg
             };
         }
+
+        public IActionResult Logos()
+        {
+            return View();
+        }
     }
 }
