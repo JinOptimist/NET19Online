@@ -7,6 +7,7 @@ using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Services.FilmsServer;
+using WebStoryFroEveryting.Services.JerseyServices;
 using WebStoryFroEveryting.Services.ReflectionServices;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 
@@ -60,6 +61,7 @@ builder.Services.AddScoped<SchoolAuthService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<SweetsNameGenerator>();
 builder.Services.AddScoped<SweetsModelGenerator>();
+builder.Services.AddScoped<JerseyApiReflectionWatcher>();
 
 var app = builder.Build();
 
