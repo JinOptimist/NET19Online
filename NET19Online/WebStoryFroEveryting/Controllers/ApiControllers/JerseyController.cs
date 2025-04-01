@@ -17,6 +17,11 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
             _jerseyRepository = jerseyRepository;
         }
 
+        public List<JerseyData> GetJerseys()
+        {
+            return _jerseyRepository.GetAll();
+        }
+
         [IsAdmin]
         public int CreateJersey([FromForm] CreateJerseyViewModel jersey)
         {
@@ -28,11 +33,9 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
             jerseyData.SecondImg = jersey.SecondImg;
             jerseyData.InStock = jersey.InStock;
             jerseyData.Club = jersey.Club;
-            
             return _jerseyRepository.AddJerseyAndGetId(jerseyData);
-            
         }
     }
 
-    
+
 }

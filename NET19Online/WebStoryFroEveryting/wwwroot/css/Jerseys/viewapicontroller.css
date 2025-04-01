@@ -1,4 +1,28 @@
 ﻿.method-info{
     width: 100%;
-
+    display: flex;
+    flex-direction:column;
+}
+.method-params{
+    display: flex;
+    flex-direction: column;
+}
+.method-params input{
+    width: 300px;
+    height: 30px;
+}
+.method-params button {
+    width: 300px;
+    margin: 5px;
+    height: 50px;
+    background-color: green;
+    color: white;
+}
+.method-output {
+    width: 800px;
+    height: 150px;
+    font-size: 15px;
+    background-color: #b4b4b4;
+    margin: 5px;
+    overflow:scroll;
 }

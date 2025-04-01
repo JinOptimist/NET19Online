@@ -1,27 +1,34 @@
 ﻿@using WebStoryFroEveryting.Models.Jerseys
-@model List<MethodInfo>
+@model List<MethodInformation>
 @{
-	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+    Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
-
+@section Scripts {
+    <script src="/js/jersey/view-api.js"></script>
+}
 @section Styles {
-<link href="~/css/jerseys/viewapicontroller.css" rel="stylesheet" />
+    <link href="~/css/jerseys/viewapicontroller.css" rel="stylesheet" />
 }
 <div id="content-left">
-
 </div>
 <div id="content-right">
-	@foreach(var method in Model)
-	{
-		<div class="method-info">
-			<div class="method-name">Название метода: @method.Name</div>
-			@foreach(var parameter in method.Parameters)
-			{
-				<div class="method-params">@parameter</div>
-			}
-		</div>
-	}
-	
+    @foreach (var method in Model)
+    {
+        <div class="method-info">
+            <div class="method-name">@method.Name</div>
+            <div class="method-signature">Сигнатура: @method.Signature</div>
+            <div class="method-return-type">Возвращаемый тип: @method.ReturnType</div>
+            <div class="method-params">
+                @foreach (var parameter in method.Parameters)
+                {
+                    @Html.Label(@parameter.Name, String.Concat(parameter.Name, " - ", parameter.ParameterType)) <input type="text" name="@parameter.Name" value="@(parameter.HasDefaultValue ? parameter.DefaultValue : "")" />
+                }
+                <button >Проверить</button>
+                <div class="method-output">Вывод:</div>
+            </div>
+        </div>
+    }
+
 
 
 </div>
