@@ -12,20 +12,13 @@
         });
 
         $.ajax({
-            url: url + actionUrl, // указываем URL
-            method: "Post",            // HTTP метод, по умолчанию GET
-            data: obj,         // данные, которые отправляем на сервер
-            dataType: "json",         // тип данных загружаемых с сервера
+            url: url + actionUrl,
+            method: "Post",
+            data: obj,
+            dataType: "json",
             success: function (data) {
-                // вешаем свой обработчик события success
                 parent.find('.method-output').text(JSON.stringify(data));
-                console.log(data);
             }
-            
         });
-
-        //$.post(url + actionUrl, obj).then(function (obj) {
-         //   parent.find('.method-output').text(obj);
-        //});
     });
 });
