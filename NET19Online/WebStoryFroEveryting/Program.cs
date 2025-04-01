@@ -39,14 +39,14 @@ builder.Services
         options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 
 var autoRegistrator = new AutoRegistrator(builder.Services);
-autoRegistrator.RegisterRepositories(typeof(BaseRepository<>));
+autoRegistrator.RegisterRepositories(typeof(BaseRepository<>), typeof(IBaseRepository<>));
 autoRegistrator.RegisterRepositories(typeof(BaseSchoolRepository<>));
 autoRegistrator.RegisterServiceByAttribute();
 autoRegistrator.RegisterServiceByAttributeOnConstructor();
 
 builder.Services.AddScoped<NameNotebookGenerator>();
 builder.Services.AddScoped<NotebookGenerator>();
-builder.Services.AddScoped<NameGenerator>();
+builder.Services.AddScoped<INameGenerator, NameGenerator>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 builder.Services.AddScoped<FilmsGeneratorServices>();
 builder.Services.AddScoped<GamingDeviceGenerator>();

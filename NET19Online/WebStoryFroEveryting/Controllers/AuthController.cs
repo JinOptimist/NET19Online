@@ -10,9 +10,9 @@ namespace WebStoryFroEveryting.Controllers
 {
     public class AuthController : Controller
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
 
-        public AuthController(UserRepository userRepository)
+        public AuthController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

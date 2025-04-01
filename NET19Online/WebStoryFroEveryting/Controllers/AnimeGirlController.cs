@@ -13,7 +13,7 @@ namespace WebStoryFroEveryting.Controllers
     {
         private IdolGenerator _idolGenerator;
         private IdolRepository _idolRepository;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IdolCommentRepository _idolCommentRepository;
         private AuthService _authService;
 
@@ -21,7 +21,7 @@ namespace WebStoryFroEveryting.Controllers
             IdolRepository idolRepository,
             IdolCommentRepository idolCommentRepository,
             AuthService authService,
-            UserRepository userRepository)
+            IUserRepository userRepository)
         {
             _idolGenerator = idolGenerator;
             _idolRepository = idolRepository;

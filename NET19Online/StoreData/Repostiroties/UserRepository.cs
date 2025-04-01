@@ -2,11 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using StoreData.CustomQueryModels;
 using StoreData.Models;
-using System.Xml.Serialization;
 
 namespace StoreData.Repostiroties
 {
-    public class UserRepository : BaseRepository<UserData>
+    public class UserRepository : BaseRepository<UserData>, IUserRepository
     {
         public UserRepository(StoreDbContext dbContext) : base(dbContext) { }
 
