@@ -1,6 +1,4 @@
 ﻿using StoreData.Models;
-using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
-using WebStoryFroEveryting.Services.UnderwaterHunterServices.Interfaces;
 
 namespace WebStoryFroEveryting.Services.UnderwaterHunterServices
 {
