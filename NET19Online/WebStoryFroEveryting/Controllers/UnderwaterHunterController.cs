@@ -35,7 +35,7 @@ namespace WebStoryFroEveryting.Controllers
             var hunterDatas = _hunterRepository.GetAllHuntersAndTags(tag);
             if (!hunterDatas.Any())
             {
-                var huntData = GetHuntersFromHunterGenerator();
+                var huntData = _huntersGenerator.GenerateHunter();
                 huntData.ForEach(x => _hunterRepository.Add(x));
                 hunterDatas = _hunterRepository.GetAll();
             }
@@ -145,22 +145,7 @@ namespace WebStoryFroEveryting.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        private List<UnderwaterHunterData> GetHuntersFromHunterGenerator()
-        {
-            var huntersD = _huntersGenerator
-                    .GenerateHunters()
-                    .Select(viewModel =>
-                    new UnderwaterHunterData
-                    {
-                        Id = viewModel.Id,
-                        NameHunter = viewModel.NameHunter,
-                        MaxHuntingDepth = viewModel.MaxHuntingDepth,
-                        Nationality = viewModel.Nationality,
-                        Src = viewModel.Src,
-                    })
-                    .ToList();
-            return huntersD;
-        }
+   
         private UnderwaterHunterViewModel ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
         {
             var hunter = new UnderwaterHunterViewModel()
