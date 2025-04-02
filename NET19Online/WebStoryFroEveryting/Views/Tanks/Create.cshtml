@@ -1,0 +1,19 @@
+﻿@using WebStoryFroEveryting.Models.Tanks;
+@model CreateTankViewModel;
+
+@{
+    Layout = "~/Views/Shared/_LayoutTanks.cshtml";
+}
+
+<form action="/Tanks/CreatePost" method="post">
+    <div>
+        @Html.TextBoxFor(x => x.Name, new { placeholder = "Name" })
+    </div>
+    <div>
+        @Html.TextBoxFor(x => x.Src, new { placeholder = "src for img" })
+    </div>
+    <div>
+        <button type="submit">Создать</button>
+    </div>
+
+</form>

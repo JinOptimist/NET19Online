@@ -2,6 +2,7 @@
 {
     public class TanksNameGenerator
     {
+        private Random _random = new Random();
         private List<string> Names = new()
         {
             "T-34",
@@ -12,8 +13,8 @@
 
         public string GetRandomName()
         {
-            var random = new Random();
-            var randomNameIndex = random.Next(Names.Count);
+            
+            var randomNameIndex = _random.Next(Names.Count);
             return Names[randomNameIndex];
         }
     }

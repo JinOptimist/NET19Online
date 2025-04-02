@@ -97,6 +97,12 @@ builder.Services.AddScoped<SweetsNameGenerator>();
 builder.Services.AddScoped<SweetsModelGenerator>();
 builder.Services.AddScoped<SweetsRepository>();
 
+builder.Services.AddScoped<TanksNameGenerator>();
+builder.Services.AddScoped<TanksGenerator>();
+builder.Services.AddScoped<TanksRepository>();
+
+
+
 
 
 var app = builder.Build();

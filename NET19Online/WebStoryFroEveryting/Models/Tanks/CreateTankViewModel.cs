@@ -1,9 +1,8 @@
 ﻿namespace WebStoryFroEveryting.Models.Tanks
 
 {
-    public class TankViewModel
+    public class CreateTankViewModel
     {
-        public int Id { get; set; }
 
         public string Name { get; set; }
 

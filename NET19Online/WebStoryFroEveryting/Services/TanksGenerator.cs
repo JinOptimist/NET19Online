@@ -1,10 +1,12 @@
 ﻿using WebStoryFroEveryting.Models.Tanks;
 
+
 namespace WebStoryFroEveryting.Services
 {
     public class TanksGenerator
     {
-       private NameGenerator _nameGenerator;
+        private TanksNameGenerator _nameGenerator;
+        private Random _random = new Random();
 
         private List<string> Images = new()
         {
@@ -15,20 +17,19 @@ namespace WebStoryFroEveryting.Services
         };
 
 
-        public TanksGenerator(NameGenerator nameGenerator)
+        public TanksGenerator(TanksNameGenerator nameGenerator)
         {
             _nameGenerator = nameGenerator;
         }
 
-        private List<TankViewModel> GenerateTanks(int count)
+        public List<TankViewModel> GenerateTanks(int count)
         {
             var list = new List<TankViewModel>();
 
-            var random = new Random();
             for (int i = 0; i < count; i++)
             {
-                
-                var randomImagesIndex = random.Next(Images.Count);
+
+                var randomImagesIndex = _random.Next(Images.Count);
                 var tank = new TankViewModel
                 {
                     Name = _nameGenerator.GetRandomName(),
