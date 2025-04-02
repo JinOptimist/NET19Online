@@ -1,37 +1,33 @@
-﻿using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
+﻿using StoreData.Models;
+using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
+using WebStoryFroEveryting.Services.UnderwaterHunterServices.Interfaces;
 
 namespace WebStoryFroEveryting.Services.UnderwaterHunterServices
 {
     public class HuntersGenerator
     {
-        private UnderwaterHunterViewModel _theBestUnderwaterHunters;
-
-        public HuntersGenerator(UnderwaterHunterViewModel theBestUnderwaterHunters)
+        private HunterCreator _hunterCreator;
+        public HuntersGenerator()
         {
-            _theBestUnderwaterHunters = theBestUnderwaterHunters;
+            var huntersNumber = new HuntersNumber();
+            _hunterCreator = new HunterCreator(huntersNumber);
         }
-
-        public List<UnderwaterHunterViewModel> GenerateHunters()
+        public List<UnderwaterHunterData> GenerateHunter()
         {
-            var hunters = new List<UnderwaterHunterViewModel>
-            {
-                new UnderwaterHunterViewModel
-                {
-                    NameHunter="Pedro Carbonell",
-                    Nationality = "Spanish",
-                    MaxHuntingDepth= 40,
-                    Src = "https://avatars.mds.yandex.net/i?id=d37489e48b123dee24adcce63e1304a5_l-5312143-images-thumbs&n=13"
-                },
-                new UnderwaterHunterViewModel
-                {
-                    NameHunter="Gabriele Delbene",
-                    Nationality = "Italian",
-                    MaxHuntingDepth= 62,
-                    Src = "https://www.batiskaf.ru/media/wysiwyg/wordpress/2014/12/DSCN2440.jpg"
-                }
-            };
-            return hunters;
-        }
+            var huntersVM = _hunterCreator.CreateHunter();
 
+            var hunterData = huntersVM.Select(viewModel =>
+                 new UnderwaterHunterData
+                 {
+                     Id = viewModel.Id,
+                     NameHunter = viewModel.NameHunter,
+                     MaxHuntingDepth = viewModel.MaxHuntingDepth,
+                     Nationality = viewModel.Nationality,
+                     Src = viewModel.Src,
+                 })
+                 .ToList();
+
+            return hunterData;
+        }
     }
 }
