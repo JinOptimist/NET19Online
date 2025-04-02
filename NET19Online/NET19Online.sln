@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStatueMinimalApi", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwapMeetProductMinimalApi", "SwapMeetProductMinimalApi\SwapMeetProductMinimalApi.csproj", "{CF5DD547-FCAA-4DAD-8556-FDAB39179134}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwapMeetProductMinimalApi", "SwapMeetProductMinimalApi\SwapMeetProductMinimalApi.csproj", "{CF5DD547-FCAA-4DAD-8556-FDAB39179134}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JerseyLogosMinimalApi", "JerseyLogosMinimalApi\JerseyLogosMinimalApi.csproj", "{FF90E756-EDEB-401B-A729-1F8EA304B0D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JerseyLogosMinimalApi", "JerseyLogosMinimalApi\JerseyLogosMinimalApi.csproj", "{FF90E756-EDEB-401B-A729-1F8EA304B0D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStoryFroEverything.Test", "WebStoryFroEverything.Test\WebStoryFroEverything.Test.csproj", "{B4FA7B4C-ECFC-49CD-A18E-892D81926788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStoryFroEverything.Test", "WebStoryFroEverything.Test\WebStoryFroEverything.Test.csproj", "{B4FA7B4C-ECFC-49CD-A18E-892D81926788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStoryFroEverything.Test.E2E", "WebStoryFroEverything.Test.E2E\WebStoryFroEverything.Test.E2E.csproj", "{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
