@@ -1,7 +1,7 @@
 ﻿using StoreData.Models;
 using WebStoryFroEveryting.Models.Jerseys;
 
-namespace WebStoryFroEveryting.Services
+namespace WebStoryFroEveryting.Services.JerseyServices
 {
     public class JerseyGenerator
     {

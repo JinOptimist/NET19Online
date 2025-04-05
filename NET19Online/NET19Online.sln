@@ -13,7 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enums", "Enums\Enums.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStatueMinimalApi", "StoreStatueMinimalApi\StoreStatueMinimalApi.csproj", "{A7363AED-2F46-4179-83EC-7C9D44F22EC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionExample", "ReflectionExample\ReflectionExample.csproj", "{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwapMeetProductMinimalApi", "SwapMeetProductMinimalApi\SwapMeetProductMinimalApi.csproj", "{CF5DD547-FCAA-4DAD-8556-FDAB39179134}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JerseyLogosMinimalApi", "JerseyLogosMinimalApi\JerseyLogosMinimalApi.csproj", "{FF90E756-EDEB-401B-A729-1F8EA304B0D1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStoryFroEverything.Test", "WebStoryFroEverything.Test\WebStoryFroEverything.Test.csproj", "{B4FA7B4C-ECFC-49CD-A18E-892D81926788}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStoryFroEverything.Test.E2E", "WebStoryFroEverything.Test.E2E\WebStoryFroEverything.Test.E2E.csproj", "{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreCartoonMinimalApi", "StoreCartoonMinimalApi\StoreCartoonMinimalApi.csproj", "{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}"
 EndProject
@@ -47,10 +55,23 @@ Global
 		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3E1C5D3-5896-4B06-9AE8-386A367E5E83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5DD547-FCAA-4DAD-8556-FDAB39179134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5DD547-FCAA-4DAD-8556-FDAB39179134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5DD547-FCAA-4DAD-8556-FDAB39179134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5DD547-FCAA-4DAD-8556-FDAB39179134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF90E756-EDEB-401B-A729-1F8EA304B0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF90E756-EDEB-401B-A729-1F8EA304B0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF90E756-EDEB-401B-A729-1F8EA304B0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF90E756-EDEB-401B-A729-1F8EA304B0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FA7B4C-ECFC-49CD-A18E-892D81926788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

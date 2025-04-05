@@ -4,16 +4,17 @@
     Привет, @Model.Name . Мы помним что ты предпочитаешь @Model.UserLocale
 </div>
 <div>
+    <div>
+        <form action="/Home/UpdateLocal" method="post" class="form-locale">
+            @Html.HiddenFor(x => x.Id)
+            @Html.DropDownList("newLocal", Model.AllLocales)
+            <button type="submit">Изменить локаль</button>
+        </form>
+    </div>
+
     <img src="/avatars/avatar-@(Model.Id).jpg" />
     <form action="/Home/UpdateAvatar" method="post" enctype='multipart/form-data'>
         <input name="avatar" type="file" />
         <button type="submit">Обновить аватарку</button>
-    </form>
-</div>
-<div>
-    <form action="/Home/UpdateLocal" method="post">
-        @Html.HiddenFor(x => x.Id)
-        @Html.DropDownList("newLocal", Model.AllLocales)
-        <button type="submit">Изменить локаль</button>
     </form>
 </div>

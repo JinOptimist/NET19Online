@@ -36,13 +36,13 @@
                         @if (authService.IsAuthenticated())
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">@Home.Index_Logout</a>
+                                <a class="nav-link text-dark logout" asp-area="" asp-controller="Auth" asp-action="Logout">@Home.Index_Logout</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">@Home.Index_Login</a>
+                                <a class="nav-link text-dark login" asp-area="" asp-controller="Auth" asp-action="Login">@Home.Index_Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Registration">Registration</a>
@@ -58,7 +58,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Roles">Roles</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
+                                <a class="nav-link text-dark profile" asp-area="" asp-controller="Home" asp-action="Profile">Profile</a>
                             </li>
                         }
                         <img src="@authService.GetAvatarSrc()" class="avatar" />

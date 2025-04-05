@@ -7,6 +7,10 @@ using WebStoryFroEveryting.Models.Jerseys;
 using WebStoryFroEveryting.Services;
 using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using Enums.User;
+using WebStoryFroEveryting.Controllers.ApiControllers;
+using System.Text;
+using System.Reflection;
+using WebStoryFroEveryting.Services.JerseyServices;
 
 namespace WebStoryFroEveryting.Controllers
 {
@@ -16,13 +20,15 @@ namespace WebStoryFroEveryting.Controllers
         private JerseyRepository _jerseyRepository;
         private JerseyCommentRepository _jerseyCommentRepository;
         private AuthService _authService;
+        private JerseyApiReflectionWatcher _jerseyApiReflectionWatcher;
 
-        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository, JerseyCommentRepository jerseyCommentRepository, AuthService authService)
+        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository, JerseyCommentRepository jerseyCommentRepository, AuthService authService, Services.JerseyServices.JerseyApiReflectionWatcher jerseyApiReflectionWatcher)
         {
             _jerseyGenerator = jerseyGenerator;
             _jerseyRepository = jerseyRepository;
             _jerseyCommentRepository = jerseyCommentRepository;
             _authService = authService;
+            _jerseyApiReflectionWatcher = jerseyApiReflectionWatcher;
         }
         public ActionResult Index(string? tag)
         {
@@ -85,7 +91,7 @@ namespace WebStoryFroEveryting.Controllers
                     Id = x.Id,
                     Created = x.Created,
                     Comment = x.Comment,
-                    UserName = x.Author is null ? "Аноним": x.Author.UserName
+                    UserName = x.Author is null ? "Аноним" : x.Author.UserName
 
                 }).ToList();
 
@@ -169,5 +175,16 @@ namespace WebStoryFroEveryting.Controllers
                 SecondImg = jerseyData.SecondImg
             };
         }
+
+        public IActionResult Logos()
+        {
+            return View();
+        }
+        public IActionResult ViewApiController()
+        {
+            return View("ViewApiController", _jerseyApiReflectionWatcher.GetAllInfo());
+        }
+
     }
+
 }

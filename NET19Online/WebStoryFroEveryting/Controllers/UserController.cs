@@ -12,11 +12,11 @@ namespace WebStoryFroEveryting.Controllers
     [IsAdmin]
     public class UserController : Controller
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private RoleRepository _roleRepository;
 
         public UserController(RoleRepository roleRepository,
-            UserRepository userRepository)
+            IUserRepository userRepository)
         {
             _roleRepository = roleRepository;
             _userRepository = userRepository;

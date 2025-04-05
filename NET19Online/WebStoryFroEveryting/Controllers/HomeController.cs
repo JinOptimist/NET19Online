@@ -14,11 +14,11 @@ namespace WebStoryFroEveryting.Controllers
     public class HomeController : Controller
     {
         private AuthService _authService;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IHostingEnvironment _hostingEnvironment;
 
         public HomeController(AuthService authService,
-            UserRepository userRepository, IHostingEnvironment hostingEnvironment)
+            IUserRepository userRepository, IHostingEnvironment hostingEnvironment)
         {
             _authService = authService;
             _userRepository = userRepository;

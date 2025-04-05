@@ -1,4 +1,6 @@
 ﻿using Enums.User;
+using StoreData.Models;
+using StoreData.Repostiroties;
 using WebStoryFroEveryting.Services.ReflectionServices;
 
 namespace WebStoryFroEveryting.Services
@@ -12,10 +14,12 @@ namespace WebStoryFroEveryting.Services
         public const string CLAIM_KEY_PERMISSION = "Permission";
 
         private IHttpContextAccessor _contextAccessor;
+        private IUserRepository _userRepository;
 
-        public AuthService(IHttpContextAccessor contextAccessor)
+        public AuthService(IHttpContextAccessor contextAccessor, IUserRepository userRepository)
         {
             _contextAccessor = contextAccessor;
+            _userRepository = userRepository;
         }
 
         public string GetUserName()
@@ -73,6 +77,11 @@ namespace WebStoryFroEveryting.Services
             return IsAuthenticated()
                 ? $"/avatars/avatar-{GetUserId()}.jpg"
                 : "/avatars/avatar-default.png";
+        }
+
+        public UserData GetCurrentUser()
+        {
+            return _userRepository.Get(GetUserId());
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Reflection;
 
 namespace WebStoryFroEveryting.Services.ReflectionServices
 {
@@ -11,7 +13,7 @@ namespace WebStoryFroEveryting.Services.ReflectionServices
             _services = services;
         }
 
-        public void RegisterRepositories(Type baseRepositoryType)
+        public void RegisterRepositories(Type baseRepositoryType, Type iBaseRepositoryType = null)
         {
             var assemblyStoreData = Assembly.GetAssembly(baseRepositoryType);
 
@@ -22,10 +24,34 @@ namespace WebStoryFroEveryting.Services.ReflectionServices
                     && type.BaseType.IsGenericType
                     && type.BaseType.GetGenericTypeDefinition() == baseRepositoryType);
 
+            var iRepositoriesTypes = new List<Type>();
+            if (iBaseRepositoryType != null)
+            {
+                iRepositoriesTypes = assemblyStoreData
+                   .GetTypes()
+                   .Where(type => type.IsInterface
+                        && type.GetInterfaces().Any(i => // IUserRepository : IBaseRepository
+                            i.IsGenericType
+                            && i.GetGenericTypeDefinition() == iBaseRepositoryType))
+                   .ToList();
+            }
+
+            // repositoriesType == UserRepository
             foreach (var repositoriesType in repositoriesTypes)
             {
-                _services.AddScoped(repositoriesType);
-                Console.WriteLine($"{repositoriesType.Name} was regstered");
+                var iRepository = repositoriesType
+                    .GetInterfaces()
+                    .FirstOrDefault(i => iRepositoriesTypes.Contains(i));
+                if (iRepository != null)
+                {
+                    _services.AddScoped(iRepository, repositoriesType);
+                    Console.WriteLine($"{repositoriesType.Name} was regstered by interface");
+                }
+                else
+                {
+                    _services.AddScoped(repositoriesType);
+                    Console.WriteLine($"{repositoriesType.Name} was regstered as class");
+                }
             }
         }
 
@@ -78,7 +104,7 @@ namespace WebStoryFroEveryting.Services.ReflectionServices
                             // parameterForConstructor ==> NameGenerator nameGenerator
                             di.GetRequiredService(parameterForConstructor.ParameterType))
                         .ToArray();
-                    
+
                     var service = constructor.Invoke(parameters);
 
                     return service;
