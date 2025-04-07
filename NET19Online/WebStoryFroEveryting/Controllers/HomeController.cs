@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using WebStoryFroEveryting.Models.Home;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.Apis;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace WebStoryFroEveryting.Controllers
@@ -16,22 +17,34 @@ namespace WebStoryFroEveryting.Controllers
         private AuthService _authService;
         private IUserRepository _userRepository;
         private IHostingEnvironment _hostingEnvironment;
+        private HttpNumberApi _httpNumberApi;
+        private HttpJokerApi _httpJokerApi;
 
-        public HomeController(AuthService authService,
-            IUserRepository userRepository, IHostingEnvironment hostingEnvironment)
-        {
-            _authService = authService;
-            _userRepository = userRepository;
-            _hostingEnvironment = hostingEnvironment;
-        }
+		public HomeController(AuthService authService,
+			IUserRepository userRepository, IHostingEnvironment hostingEnvironment, HttpNumberApi httpNumberApi, HttpJokerApi httpJokerApi)
+		{
+			_authService = authService;
+			_userRepository = userRepository;
+			_hostingEnvironment = hostingEnvironment;
+			_httpNumberApi = httpNumberApi;
+			_httpJokerApi = httpJokerApi;
+		}
 
-        public IActionResult Index()
+		public async Task<IActionResult> Index()
         {
             var userName = _authService.GetUserName();
-            var indexViewModel = new IndexViewModel
+
+            var taskNumberFact = _httpNumberApi.GetFactAboutNumberAsync(); // 0 sec
+            var taskJoke = _httpJokerApi.GetJokeAsync(); // 0 sec
+
+            Task.WaitAll(taskJoke, taskNumberFact); // Max(3 sec, 5 sec)
+
+			var indexViewModel = new IndexViewModel
             {
-                UserName = userName
-            };
+                UserName = userName,
+                FactAboutNumber = taskNumberFact.Result,
+                Joke = taskJoke.Result
+			};
             return View(indexViewModel);
         }
 
