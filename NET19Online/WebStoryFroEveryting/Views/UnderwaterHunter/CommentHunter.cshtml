@@ -14,10 +14,10 @@
 			<span class="tag">@tag</span>
 		}
 	</div>
-	<form method="post" action="/UnderwaterHunter/AddTagHunter">
+	<form class="tagForm" method="post" action="/UnderwaterHunter/AddTagHunter">
 		<input name="id" type="hidden" value="@Model.Id" />
 		<div>
-			<input name="tag" placeholder="write tag here" />
+			<input type="search" name="tag" placeholder="write tag here" />
 		</div>
 		<div>
 			<button type="submit">Add new tag</button>
@@ -27,10 +27,10 @@
 <div>
 	<div class="comment-hunter">
 		<img class="imageHunter" src="@Model.Src" />
-		<form method="post" action="/UnderwaterHunter/AddCommentForHunter">
+		<form class="commentForm" method="post" action="/UnderwaterHunter/AddCommentForHunter">
 			<input name="id" type="hidden" value="@Model.Id" />
 			<div>
-				<input name="comment" placeholder="write comment here" />
+				<input name="comment" placeholder="write comment here" type="search" />
 			</div>
 			<input name="authorId" type="hidden" value="@Model.AuthorId" />
 			<div>

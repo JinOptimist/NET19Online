@@ -1,11 +1,13 @@
 body {   
-    background-image: url('../../images/ocean.jpg');
+    background-image: url('../../images/hunterImages/imgForHunterPage/ocean.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .likePhotoUser{
     display:flex
 }
+
 .label-and-header {
     display: flex;
 }

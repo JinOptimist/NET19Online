@@ -402,3 +402,9 @@ FodyWeavers.xsd
 /NET19Online/WebStoryFroEveryting/wwwroot/avatars/*
 !/NET19Online/WebStoryFroEveryting/wwwroot/avatars/avatar-default.png
 
+/NET19Online/WebStoryFroEveryting/wwwroot/images/*
+!/NET19Online/WebStoryFroEveryting/wwwroot/images/hunterImages/photo.jpg
+!/NET19Online/WebStoryFroEveryting/wwwroot/images/hunterImages/photoHunter.jpg
+
+/NET19Online/WebStoryFroEveryting/wwwroot/images/imgForHunterPage*
+!/NET19Online/WebStoryFroEveryting/wwwroot/images/hunterImages/imgForHunterPage/ocean.jpg

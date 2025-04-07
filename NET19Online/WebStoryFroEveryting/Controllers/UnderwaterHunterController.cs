@@ -137,7 +137,7 @@ namespace WebStoryFroEveryting.Controllers
         {         
             var webRootPath = _hostingEnvironment.WebRootPath;
             var fileName = $"photo.jpg";
-            var path = Path.Combine(webRootPath, "imgForHunterPage", fileName);           
+            var path = Path.Combine(webRootPath, "images\\hunterImages", fileName);           
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 photo.CopyTo(fileStream);
