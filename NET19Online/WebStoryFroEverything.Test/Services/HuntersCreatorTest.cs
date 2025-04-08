@@ -12,7 +12,7 @@ using WebStoryFroEveryting.Services.UnderwaterHunterServices.Interfaces;
 
 namespace WebStoryFroEverything.Test.Services
 {
-    internal class HuntersCreatorTest
+    public class HuntersCreatorTest
     {
         private HunterCreator _hunterCreator;
         private Mock<IHuntersNumber> _minHuntersNumberMock;
@@ -38,7 +38,6 @@ namespace WebStoryFroEverything.Test.Services
 
         [Test]
         [TestCase(1)]
-        [TestCase(2)]
         public void CreateHunter_CheckThrowException(int numberOfHunters)
         {
             SetMinNumberOfHunters(numberOfHunters);

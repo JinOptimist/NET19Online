@@ -21,9 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JerseyLogosMinimalApi", "Je
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStoryFroEverything.Test", "WebStoryFroEverything.Test\WebStoryFroEverything.Test.csproj", "{B4FA7B4C-ECFC-49CD-A18E-892D81926788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStoryFroEverything.Test.E2E", "WebStoryFroEverything.Test.E2E\WebStoryFroEverything.Test.E2E.csproj", "{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStoryFroEverything.Test.E2E", "WebStoryFroEverything.Test.E2E\WebStoryFroEverything.Test.E2E.csproj", "{8692FE1A-9EAD-429B-ADC0-BFD97814CE3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreCartoonMinimalApi", "StoreCartoonMinimalApi\StoreCartoonMinimalApi.csproj", "{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultyThread", "MultyThread\MultyThread.csproj", "{B487EA24-934E-4AE8-9C03-FEB19AC62264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E1E8B34-E71D-4059-A9BB-3C0CC62DF07F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
