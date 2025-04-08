@@ -5,7 +5,7 @@ namespace StoreCartoonMinimalApi.DataBase
 {
     public class CartoonsContex : DbContext
     {
-        public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Net19StoreStatueeee;Integrated Security=True;";
+        public const string CONNECTION_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Net19StoreCartoons;Integrated Security=True;";
 
         public DbSet<Cartoon> Cartoons { get; set; }
 
