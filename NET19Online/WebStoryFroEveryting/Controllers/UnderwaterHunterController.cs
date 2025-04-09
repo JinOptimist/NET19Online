@@ -5,6 +5,7 @@ using StoreData.Repostiroties;
 using WebStoryFroEveryting.Controllers.CustomAutorizeAttributes;
 using WebStoryFroEveryting.Models.UnderwaterHuntersWorld;
 using WebStoryFroEveryting.Services;
+using WebStoryFroEveryting.Services.Apis.UnderwaterHunterApi;
 using WebStoryFroEveryting.Services.UnderwaterHunterServices;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
@@ -17,22 +18,26 @@ namespace WebStoryFroEveryting.Controllers
         private UnderwarterHunterCommentRepository _hunterCommentRepository;
         private AuthService _authService;
         private IHostingEnvironment _hostingEnvironment;
+        private HttpQuoteApi _httpQuoteApi;
         public UnderwaterHunterController(HuntersGenerator huntersGenerator,
                                            UnderwarterHunterRepository hunterRepository,
                                             UnderwarterHunterCommentRepository hunterCommentRepository,
                                              AuthService authService,
-                                              IHostingEnvironment hostingEnvironment)
+                                              IHostingEnvironment hostingEnvironment,
+                                               HttpQuoteApi httpQuoteApi)
         {
             _huntersGenerator = huntersGenerator;
             _hunterRepository = hunterRepository;
             _hunterCommentRepository = hunterCommentRepository;
             _authService = authService;
             _hostingEnvironment = hostingEnvironment;
+            _httpQuoteApi = httpQuoteApi;
         }
 
         public IActionResult Index(string? tag)
         {
             var hunterDatas = _hunterRepository.GetAllHuntersAndTags(tag);
+            var quoteTask = _httpQuoteApi.GetQuoteAsync();
             if (!hunterDatas.Any())
             {
                 var huntData = _huntersGenerator.GenerateHunter();
@@ -48,6 +53,8 @@ namespace WebStoryFroEveryting.Controllers
                 .ToList();
             viewModel.isAuthenticated = _authService.IsAuthenticated();
             viewModel.Author = _authService.GetUserName();
+            viewModel.Quote = quoteTask.Result;
+
             return View(viewModel);
         }
         [HttpGet]
@@ -134,10 +141,10 @@ namespace WebStoryFroEveryting.Controllers
             return RedirectToAction(nameof(CommentHunter), new { id });
         }
         public IActionResult UpdateLikeUserPhoto(IFormFile photo)
-        {         
+        {
             var webRootPath = _hostingEnvironment.WebRootPath;
             var fileName = $"photo.jpg";
-            var path = Path.Combine(webRootPath, "images\\hunterImages", fileName);           
+            var path = Path.Combine(webRootPath, "images\\hunterImages", fileName);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 photo.CopyTo(fileStream);
@@ -145,7 +152,7 @@ namespace WebStoryFroEveryting.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-   
+
         private UnderwaterHunterViewModel ChangeBaseDataTypeToViewModelTypes(UnderwaterHunterData hunterData)
         {
             var hunter = new UnderwaterHunterViewModel()
@@ -159,6 +166,6 @@ namespace WebStoryFroEveryting.Controllers
                 DislikesCount = hunterData.DislikesCount
             };
             return hunter;
-        }        
+        }
     }
 }
