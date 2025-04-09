@@ -22,7 +22,7 @@ namespace WebStoryFroEverything.Test.Services
         public void TestGenerateDataForNotNullCount()
         {
             var outputList = _jerseyGenerator.GenerateData();
-            Assert.That(outputList.Count > 0);
+            Assert.That(outputList.Any());
         }
 
         [TestCase(1)]
