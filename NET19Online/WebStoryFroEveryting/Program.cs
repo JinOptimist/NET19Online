@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using StoreData;
 using StoreData.Repostiroties;
 using StoreData.Repostiroties.School;
@@ -74,9 +75,15 @@ builder.Services.AddHttpClient<HttpJokerApi>(http =>
 {
     http.BaseAddress = new Uri("https://official-joke-api.appspot.com/");
 });
+
 builder.Services.AddHttpClient<HttpQuoteApi>(http =>
 {
     http.BaseAddress = new Uri("https://favqs.com/api/qotd");
+});
+
+builder.Services.AddHttpClient<HttpWeatherApi>(http =>
+{
+    http.BaseAddress = new Uri("https://api.open-meteo.com/v1/forecast");
 });
 
 var app = builder.Build();

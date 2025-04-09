@@ -19,15 +19,21 @@ namespace WebStoryFroEveryting.Controllers
         private IHostingEnvironment _hostingEnvironment;
         private HttpNumberApi _httpNumberApi;
         private HttpJokerApi _httpJokerApi;
+        private HttpWeatherApi _httpWeatherApi;
 
 		public HomeController(AuthService authService,
-			IUserRepository userRepository, IHostingEnvironment hostingEnvironment, HttpNumberApi httpNumberApi, HttpJokerApi httpJokerApi)
+			IUserRepository userRepository, 
+            IHostingEnvironment hostingEnvironment, 
+            HttpNumberApi httpNumberApi, 
+            HttpJokerApi httpJokerApi, 
+            HttpWeatherApi httpWeatherApi)
 		{
 			_authService = authService;
 			_userRepository = userRepository;
 			_hostingEnvironment = hostingEnvironment;
 			_httpNumberApi = httpNumberApi;
 			_httpJokerApi = httpJokerApi;
+			_httpWeatherApi = httpWeatherApi;
 		}
 
 		public async Task<IActionResult> Index()
@@ -36,14 +42,17 @@ namespace WebStoryFroEveryting.Controllers
 
             var taskNumberFact = _httpNumberApi.GetFactAboutNumberAsync(); // 0 sec
             var taskJoke = _httpJokerApi.GetJokeAsync(); // 0 sec
+            var taskWeather = _httpWeatherApi.GetWeatherAsync();
 
-            Task.WaitAll(taskJoke, taskNumberFact); // Max(3 sec, 5 sec)
+
+			Task.WaitAll(taskJoke, taskNumberFact, taskWeather); // Max(3 sec, 5 sec)
 
 			var indexViewModel = new IndexViewModel
             {
                 UserName = userName,
                 FactAboutNumber = taskNumberFact.Result,
-                Joke = taskJoke.Result
+                Joke = taskJoke.Result,
+                WeatherTemperature = $"{taskWeather.Result.current.temperature_2m} {taskWeather.Result.current_units.temperature_2m}"
 			};
             return View(indexViewModel);
         }
