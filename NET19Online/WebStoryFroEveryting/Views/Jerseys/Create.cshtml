@@ -14,6 +14,10 @@
         @Html.ValidationMessageFor(x => x.Img)
     </div>
     <div>
+        @Html.TextBoxFor(x => x.SecondImg, new { placeholder = "Src for second image" })
+        @Html.ValidationMessageFor(x => x.SecondImg)
+    </div>
+    <div>
         @Html.TextBoxFor(x => x.Number, new { placeholder = "Number" })
         @Html.ValidationMessageFor(x => x.Number)
     </div>

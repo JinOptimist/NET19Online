@@ -52,5 +52,21 @@ namespace WebStoryFroEveryting.Services.JerseyServices
             };
             return data;
         }
+
+        public List<JerseyViewModel> GenerateSomeNumberOfJerseys(int count)
+        {
+            if(count < 1)
+            {
+                throw new ArgumentException("demand count must more than 0!");
+            }
+            var output = new List<JerseyViewModel>();
+            var dataSet = GenerateData();
+            var random = new Random();
+            for(int i = 1; i <= count; i++)
+            {
+                output.Add(dataSet[random.Next(dataSet.Count)]);
+            }
+            return output;
+        }
     }
 }

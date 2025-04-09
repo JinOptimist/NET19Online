@@ -149,6 +149,7 @@ namespace WebStoryFroEveryting.Controllers
                         AthleteName = createJerseyViewModel.AthleteName,
                         Club = createJerseyViewModel.Club,
                         Img = createJerseyViewModel.Img,
+                        SecondImg = createJerseyViewModel.SecondImg,
                         Number = createJerseyViewModel.Number,
                         InStock = createJerseyViewModel.InStock,
                         Price = createJerseyViewModel.Price
