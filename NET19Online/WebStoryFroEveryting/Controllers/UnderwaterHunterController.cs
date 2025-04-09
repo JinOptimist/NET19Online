@@ -17,6 +17,7 @@ namespace WebStoryFroEveryting.Controllers
         private UnderwarterHunterCommentRepository _hunterCommentRepository;
         private AuthService _authService;
         private IHostingEnvironment _hostingEnvironment;
+
         public UnderwaterHunterController(HuntersGenerator huntersGenerator,
                                            UnderwarterHunterRepository hunterRepository,
                                             UnderwarterHunterCommentRepository hunterCommentRepository,
