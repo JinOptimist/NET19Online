@@ -15,7 +15,7 @@
             var qouter = await response
                 .Content
                 .ReadFromJsonAsync<Quoter>();
-            var qouteWithAuthor = $"{qouter.Quote.Body}| Author: {qouter.Quote.Author}";
+            var qouteWithAuthor = $"{qouter.Quote.Body} | Author: {qouter.Quote.Author}";
             
             return qouteWithAuthor;
         }
