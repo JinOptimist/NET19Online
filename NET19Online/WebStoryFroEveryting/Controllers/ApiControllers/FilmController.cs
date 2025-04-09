@@ -17,16 +17,19 @@ namespace WebStoryFroEveryting.Controllers.ApiControllers
             _filmsRepository = filmsRepository;
         }
 
+        [HttpPost]
         public bool UpdateName(int id, string newName)
         {
             _filmsRepository.UpdateFilm(id, newName);
             return true;
         }
+        [HttpPost]
         public void DeleteMovie(int id)
         {
             _filmsRepository.Remove(id);
         }
 
+        [HttpPost]
         public int Create([FromForm] CreateFilmsViewModel viewModel)
         {
 
