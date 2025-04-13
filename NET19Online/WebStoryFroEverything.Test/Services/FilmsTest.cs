@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using WebStoryFroEveryting.Services.FilmsServer;
 using WebStoryFroEveryting.Services.FilmsServices.Interface;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace WebStoryFroEverything.Test.Services
 {
@@ -19,7 +20,7 @@ namespace WebStoryFroEverything.Test.Services
         }
 
         [Test]
-        public void GenerateFilm_CheckThatWeUseNameGeneratorTrue()
+        public void NameGenerator_WhenProvidedValidFilmNames_ReturnsTrue()
         {
             //Arange 
             _mockservices.Setup(x => x.FilmsName)
@@ -41,7 +42,7 @@ namespace WebStoryFroEverything.Test.Services
         }
 
         [TestCase("rise of the machines")]
-        public void GenerateFilm_CheckThatWeUseNameGeneratorNullFalse(string nameFilm)
+        public void NameGenerator_WhenListHasLessThanTwoElements_ReturnsFalse(string nameFilm)
         {
             //Act 
             var nameFilms = new List<string>();
