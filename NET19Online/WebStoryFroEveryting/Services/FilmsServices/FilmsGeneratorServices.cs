@@ -1,12 +1,18 @@
-﻿using StoreData.Repostiroties;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using StoreData.Repostiroties;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using WebStoryFroEveryting.Models.Films;
+using WebStoryFroEveryting.Services.FilmsServices.Interface;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 
 namespace WebStoryFroEveryting.Services.FilmsServer
 {
-    public class FilmsGeneratorServices
+
+    public class FilmsGeneratorServices  : IFilmsGeneratorServices
     {
+        private IFilmsGeneratorServices _nameObject;
 
         private List<CreateFilmsViewModel> _generatorName = new()
         {
@@ -23,7 +29,30 @@ namespace WebStoryFroEveryting.Services.FilmsServer
 
         private Random _random = new();
 
+        public List<string> FilmsName => throw new NotImplementedException();
+
         public FilmsGeneratorServices() { }
+
+        public FilmsGeneratorServices(IFilmsGeneratorServices nameObject)
+        {
+            _nameObject = nameObject;
+        }
+
+        public bool NameGenerator(List<string> filmName)
+        {
+            if (filmName.Count==1)
+            {
+                throw new ArgumentException("film Name is empty");
+            }
+
+            var isEqual = _nameObject.FilmsName.SequenceEqual(filmName);
+
+            if (isEqual)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public List<FilmsViewModel> GenerateFilms()
         {
