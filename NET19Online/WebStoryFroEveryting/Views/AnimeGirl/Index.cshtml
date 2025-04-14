@@ -24,6 +24,16 @@
     </div>
 }
 
+<div class="pagginator">
+    @foreach (var pageNumber in Model.PagesNumber)
+    {
+        <a href="/AnimeGirl/Index?page=@(pageNumber)"
+           data-page="@pageNumber"
+           class="page @(pageNumber == Model.Page ? "active" : "")">@(pageNumber)</a>
+    }
+
+    @Html.DropDownList("PerPage", Model.PerPageOptions)
+</div>
 <div class="idols">
     <div class="idol template" data-id="">
         <div class="name">
@@ -54,7 +64,7 @@
                     <input class="new-name" />
                     <button class="update">Upd</button>
                     <button class="close">Close</button>
-                </div> 
+                </div>
             </div>
             <div class="image-container">
                 <img src="@idol.Src" />

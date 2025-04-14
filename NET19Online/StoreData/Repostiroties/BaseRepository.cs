@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
+using StoreData.CustomQueryModels;
 using StoreData.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace StoreData.Repostiroties
 {
@@ -47,6 +50,41 @@ namespace StoreData.Repostiroties
         public virtual bool Any()
         {
             return _dbSet.Any();
+        }
+
+        public virtual int Count()
+        {
+            return _dbSet.Count();
+        }
+
+        protected PagginatorModel<DbModel> GetPagginatorModel(
+            int page,
+            int perPage)
+        {
+            return GetPagginatorModel(_dbSet, page, perPage);
+        }
+
+        protected PagginatorModel<T> GetPagginatorModel<T>(
+            IQueryable<T> query,
+            int page,
+            int perPage)
+        {
+            var totalCount = query.Count();// 1 000 000
+
+            var items = query
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .ToList(); // 8 data
+
+            var model = new PagginatorModel<T>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                Page = page,
+                PerPage = perPage
+            };
+
+            return model;
         }
     }
 }

@@ -30,10 +30,16 @@ namespace WebStoryFroEveryting.Controllers
             _userRepository = userRepository;
         }
 
-        public IActionResult Index(string? tag)
+        public IActionResult Index(string? tag, int page = 1, int perPage = 8)
         {
-            var idolDatas = _idolRepository.GetAllWithTags(tag);
+            var pagginatorModel = _idolRepository.GetAllWithTags(tag, page, perPage);
+            var idolDatas = pagginatorModel.Items;
+
             var viewModel = new IdolIndexViewModel();
+            viewModel.Page = page;
+            viewModel.PerPage = perPage;
+            viewModel.TotalCount = pagginatorModel.TotalCount;
+
             viewModel.Idols = idolDatas.Select(Map).ToList();
             viewModel.Tags = idolDatas
                 .SelectMany(x => x.Tags)

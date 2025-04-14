@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StoreData.CustomQueryModels;
 using StoreData.Models;
 
 namespace StoreData.Repostiroties
@@ -18,7 +19,7 @@ namespace StoreData.Repostiroties
             var idol = _dbSet.First(x => x.Id == id);
             idol.LikesCount++;
             _dbContext.SaveChanges();
-            
+
             return idol.LikesCount;
         }
 
@@ -35,12 +36,13 @@ namespace StoreData.Repostiroties
             _dbContext.SaveChanges();
         }
 
-        public List<IdolData> GetAllWithTags(string? tag)
+        public PagginatorModel<IdolData> GetAllWithTags(string? tag, int page, int perPage)
         {
-            return _dbSet
+            var query = _dbSet
                 .Include(x => x.Tags)
-                .Where(idol => tag == null || idol.Tags.Any(t => t.Tag == tag))
-                .ToList();
+                .Where(idol => tag == null || idol.Tags.Any(t => t.Tag == tag));
+
+            return GetPagginatorModel(query, page, perPage);
         }
 
         public IdolData GetWithCommentsAndTags(int idolId)

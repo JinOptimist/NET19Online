@@ -1,80 +1,96 @@
 .idols {
-	display: flex;
-	flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .idol {
-	margin: 5px;
-	border: 1px solid rgb(58, 30, 222);
-	border-radius: 10px;
-	padding: 5px;
+    margin: 5px;
+    border: 1px solid rgb(58, 30, 222);
+    border-radius: 10px;
+    padding: 5px;
 }
 
-.idol.template {
-	display: none;
-}
+    .idol.template {
+        display: none;
+    }
 
 .name {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .image-container {
-	width: 300px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 250px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
 }
 
-.image-container img {
-	max-width: 250px;
-	max-height: 250px;
-}
+    .image-container img {
+        max-width: 250px;
+        max-height: 250px;
+    }
 
 .buttons {
-	display: flex;
+    display: flex;
 }
 
-.buttons .button {
-	flex: 1;
-	background: aqua;
-	display: flex;
-	justify-content: center;
-	margin: 2px;
-	align-items: center;
-	text-decoration: none;
-	color: black;
-}
+    .buttons .button {
+        flex: 1;
+        background: aqua;
+        display: flex;
+        justify-content: center;
+        margin: 2px;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+    }
 
-.buttons .button:first-child {
-	border-bottom-left-radius: 5px;
-}
+        .buttons .button:first-child {
+            border-bottom-left-radius: 5px;
+        }
 
-.buttons .button:last-child {
-	border-bottom-right-radius: 5px;
-}
+        .buttons .button:last-child {
+            border-bottom-right-radius: 5px;
+        }
 
 .tags {
-	display: flex;
-	flex-wrap: wrap;
-}
-.tag {
-	display: flex;
-	border: 1px black solid;
-	border-radius: 5px;
-	margin: 3px;
-	padding: 3px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.tag.active {
-	border-color: red;
+.tag {
+    display: flex;
+    border: 1px black solid;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 3px;
 }
+
+    .tag.active {
+        border-color: red;
+    }
 
 .idol.to-remove {
-	border-color: red;
+    border-color: red;
 }
 
 .buttons .button.like {
-	background-color: #f01ec5;
+    background-color: #f01ec5;
 }
+
+
+.pagginator .page {
+    background-color: aquamarine;
+    padding: 5px;
+    font-size: 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 3px;
+}
+
+    .pagginator .page.active {
+        background-color: burlywood;
+    }

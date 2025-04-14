@@ -54,6 +54,19 @@ namespace StoreData
                     Src = "https://oimages.anime-pictures.net/565/5655ec8a7540507d740457a24714ff51.jpg?if=ANIME-PICTURES.NET_-_775334-5334x3000-azur+lane-aegir+%28azur+lane%29-sune+%28mugendai%29-single-long+hair-looking+at+viewer.jpg"
                 });
             }
+
+            if (idolRepository.Count() < 50)
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    idolRepository.Add(new Models.IdolData
+                    {
+                        Age = 16 + i,
+                        Name = $"Night {i}",
+                        Src = "https://as1.ftcdn.net/v2/jpg/05/94/50/66/1000_F_594506690_df5uWMrkwIQlfAO4g3jJUcM33C8giVZN.jpg"
+                    });
+                }
+            }
         }
 
         private void FillUsers(IServiceProvider service)
