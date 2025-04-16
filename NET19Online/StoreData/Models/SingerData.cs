@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace StoreData.Models
 {
-    public class SingerData
+    public class SingerData : BaseModel
     {
      public int Id { get; set; }
      public string Pseudonym { get; set; }
      public string Src { get; set; }
      public string Style { get; set; }
+     public List<SingerCommentData> Comments { get; set; }
     }
 }

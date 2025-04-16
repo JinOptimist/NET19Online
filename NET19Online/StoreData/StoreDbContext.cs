@@ -38,7 +38,8 @@ namespace StoreData
         public DbSet<UserData> Users { get; set; }
         public DbSet<PlayerDescriptionData> PlayerDescriptions { get; set; }
         public DbSet<PlayerTagData> PlayerTags { get; set; }
-
+        public DbSet<SingerData> Singers { get; set; }
+        public DbSet<SingerCommentData> SingerComments {  get; set; } 
 
         public StoreDbContext() { }
         public StoreDbContext(DbContextOptions<StoreDbContext> option) : base(option) { }
@@ -136,6 +137,8 @@ namespace StoreData
             modelBuilder.Entity<NotebookData>()
                 .HasMany(x => x.Tags)
                 .WithMany(x => x.Notebooks);
+         
+
 
             base.OnModelCreating(modelBuilder);
         }
