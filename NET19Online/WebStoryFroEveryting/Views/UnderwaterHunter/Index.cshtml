@@ -29,7 +29,7 @@
 	</div>
 </div>
 
-<div class="allHunters">
+<div class="allHunters creater">
 	@foreach (var item in Model.Hunters)
 	{
 		<div class="hunters" data-id="@item.Id">
@@ -56,16 +56,28 @@
 			<a href="#" class="hide-image">@HuntersStartPage.Key_hideImage</a>
 		</div>
 	}
-	<div class="newHunters hunters" data-id="">
+	<div class="createrNewhunter template hunters" data-id="">
+		<div class="likes">
+			<a href="#" class="image-like">
+				<img src="~/images/Like.png" />
+			</a>
+			<div class="likesCount"></div>
+			<div class="dislikes">
+				<a href="#" class="image-dislike">
+					<img src="~/images/DisLike.png" />
+				</a>
+				<div class="dislikesCount"></div>
+			</div>
+		</div>
 		<div class="image">
 			<img src="" />
 		</div>
 		<div class="name"></div>
-		<div class="nationality">Nationality: </div>
-		<div class="maxDepth">Maximum hunting depth: meters</div>
-		<a class="leave-comment " href="#">Add comment and tag</a>
-		<a href="#" class="removeIcon">Remove the hunter from the base!</a>
-		<a href="#" class="hide-image">Hide image</a>
+		<div class="nationality"></div>
+		<div class="maxDepth"></div>
+		<a class="leave-comment" href="#">@HuntersStartPage.Key_AddCommentAndTag</a>
+		<a href="#" class="removeIcon">@HuntersStartPage.Key_removeHunter</a>
+		<a href="#" class="hide-image">@HuntersStartPage.Key_hideImage</a>
 	</div>
 </div>
 
