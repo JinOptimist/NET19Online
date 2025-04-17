@@ -21,3 +21,9 @@
     .likes .dislikesCount {
         font-size: 20px;
     }
+
+.template {
+    display: none;
+}
+
+

@@ -4,7 +4,7 @@
         .HubConnectionBuilder()
         .withUrl(url)
         .build();
-    
+
     $('.hide-image').click(function () {
         $(this).closest('.hunters').remove();
     });
@@ -30,12 +30,17 @@
         $.get("/api/underwaterHunter/create?name=" + name
             + "&nationality=" + nationality + "&maxDepth=" + maxDepth + "&image=" + image)
             .then(function (id) {
-                const clone = $(".newHunters.hunters").clone();
-                clone.removeClass("sample");
+                const defaultValueForLikeDislike = 0;
+                const clone = $(".createrNewhunter.template").clone();
+                clone.removeClass("template");
                 clone.attr("data-id", id);
-                clone.find(".newHunters.image img").attr("src", image);
-                clone.find(".newHunters.name").text(name);
-                clone.insertBefore($(".newHunters"));
+                clone.find(".image img").attr("src", image);
+                clone.find(".dislikesCount").text(`${defaultValueForLikeDislike}`);
+                clone.find(".likesCount").text(`${defaultValueForLikeDislike}`);
+                clone.find(".name").text(name);
+                clone.find(".nationality").text(`Nationality: ${nationality}`);
+                clone.find(".maxDepth").text(`MaxHuntingDepth: ${maxDepth} meters`);
+                clone.appendTo(".allHunters.creater");
             });
     });
 
@@ -64,7 +69,7 @@
             .find(".dislikesCount")
             .text(dislikesCount);
     });
-    
+
     hub.start();
 });
 
