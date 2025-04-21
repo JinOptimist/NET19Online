@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,14 @@ namespace StoreData.Repostiroties
             singer.Pseudonym = name;
             singer.Style = style;
             _dbContext.SaveChanges();
+        }
+        public override void Remove(int id)
+        {
+            base.Remove(id);
+        }
+        public SingerData Get(int id)
+        {
+            return _dbContext.Singers.FirstOrDefault(i=>i.Id==id);
         }
     }
 }

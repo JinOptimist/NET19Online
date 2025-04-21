@@ -82,14 +82,13 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var singer = _singerRepository.Get(id);  
-            if (singer == null)
+            var singer = _singerRepository.Get(id);
+            if (singer.Id == null)
             {
-                return NotFound();  
+                return NotFound();
             }
-
-            _singerRepository.Remove(id);  
-            return Ok();   
+            _singerRepository.Remove(id); 
+            return Ok(); 
         }
     }
 
