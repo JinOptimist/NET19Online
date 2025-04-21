@@ -2,7 +2,7 @@
 {
     public class SingerViewModel
     {
-        public int Id { get; set; }
+       public int Id { get; set; }
         public string Pseudonym { get; set; }
 
         public string Src {  get; set; }
