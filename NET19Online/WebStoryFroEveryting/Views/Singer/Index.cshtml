@@ -5,8 +5,12 @@
     Layout = "~/Views/Shared/_LayoutSinger.cshtml";
 }
 
+@section Scripts {
+    <script src="~/js/Singer/remove.js"></script>
+}
 @section Styles {
-    <link href="~/css/Singers/Singer.css" rel="stylesheet" />
+    <link href="~/css/Singer/Singer.css" rel="stylesheet" />
+    <link href="~/css/Singer/SingerSpecial.css"/>
 }
 
 @if (!Model.Any())
@@ -26,6 +30,9 @@ else
                     <img src="@singer.Src" />
                 </div>
                 <div class="style">Стиль Музыки: @singer.Style</div>
+                <a href="@Url.Action("Create", "Singer")" class="add-item">Добавить</a>
+                <a href="@Url.Action("Update", new { id = singer.Id })" class="update-item">Изменить</a>
+                <button class="remove-item btn btn-danger" data-id="@singer.Id">Удалить</button>
             </div>
         }
     </div>

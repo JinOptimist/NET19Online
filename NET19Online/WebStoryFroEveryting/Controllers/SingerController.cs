@@ -7,7 +7,7 @@ using StoreData.Models;
 namespace WebStoryFroEveryting.Controllers
 {
     public class SingerController : Controller
-    { 
+    {
         private SingerRepository _singerRepository;
         public SingerController(SingerRepository singerRepository)
         {
@@ -49,9 +49,50 @@ namespace WebStoryFroEveryting.Controllers
                 Style = singer.Style
             };
 
-            _singerRepository.AddSinger(newSinger);
+            _singerRepository.Add(newSinger);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var singer = _singerRepository.Get(id);
+            if (singer == null)
+            {
+                return NotFound();
+            }
 
+            var singerViewModel = new SingerViewModel()
+            {
+                Id = singer.Id,
+                Pseudonym = singer.Pseudonym,
+                Src = singer.Src,
+                Style = singer.Style
+            };
+
+            return View(singerViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Update(SingerViewModel singer)
+        {
+            _singerRepository.UpdateSinger(singer.Id, singer.Pseudonym, singer.Style);
+            return RedirectToAction(nameof(Index));
+        }
+        
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var singer = _singerRepository.Get(id);  
+            if (singer == null)
+            {
+                return NotFound();  
+            }
+
+            _singerRepository.Remove(id);  
+            return Ok();   
+        }
     }
+
 }
+
+

@@ -6,30 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 namespace StoreData.Repostiroties
 {
-    public class SingerRepository
+    public class SingerRepository : BaseRepository<SingerData>
     {
-        private static List<SingerData> FakeDB = new();
-
+        public SingerRepository(StoreDbContext dbContext) : base(dbContext) { }
         public List<SingerData> GetSingers()
         {
-            return FakeDB;
+            return _dbSet.ToList();
         }
-        public void AddSinger(SingerData singer)
+        public void UpdateSinger(int id, string name, string style)
         {
-            if (FakeDB.Count > 0)
-            {
-                singer.Id = FakeDB.Count + 1;
-            }
-            else
-            {
-                singer.Id = 1;
-            }
-           
-            FakeDB.Add(singer);
-        }
-        public void RemoveSinger(int id)
-        {
-            var singer = FakeDB.FirstOrDefault(s => s.Id == id); 
+            var singer = _dbSet.Find(id);
+            singer.Pseudonym = name;
+            singer.Style = style;
+            _dbContext.SaveChanges();
         }
     }
 }
