@@ -9,44 +9,27 @@ namespace WebStoryFroEveryting.Controllers
 {
     public class GamingDeviceController : Controller
     {
-        private GamingDeviceGenerator _gamingDeviceGenerator;
         private GamingDeviceRepository _gamingDeviceRepository;
+        private IUserRepository _userRepository;
         private GamingDeviceReviewRepository _gamingDeviceReviewRepository;
         private AuthService _authService;
-        private const int DEFAULT_DEVICE_AMOUNT = 4;
 
         public GamingDeviceController(
             GamingDeviceRepository gamingDeviceRepository,
             GamingDeviceGenerator gamingDeviceGenerator,
             GamingDeviceReviewRepository gamingDeviceReviewRepository,
-            AuthService authService)
+            AuthService authService,
+            IUserRepository userRepository)
         {
             _gamingDeviceRepository = gamingDeviceRepository;
-            _gamingDeviceGenerator = gamingDeviceGenerator;
             _gamingDeviceReviewRepository = gamingDeviceReviewRepository;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
-        public IActionResult GetGamingDevices(int? randomDeviceAmount, string? stockAddress)
+        public IActionResult Index(string? stockAddress)
         {
-            var gamingDeviceDatas = _gamingDeviceRepository.GetAll();
-            if (!gamingDeviceDatas.Any())
-            {
-                _gamingDeviceGenerator
-                    .GenerateDevices(randomDeviceAmount ?? DEFAULT_DEVICE_AMOUNT)
-                    .Select(viewModel =>
-                        new GamingDeviceData
-                        {
-                            Id = viewModel.Id,
-                            Name = viewModel.Name,
-                            Brand = viewModel.Brand,
-                            Price = viewModel.Price,
-                            Src = viewModel.Src
-                        })
-                    .ToList()
-                    .ForEach(_gamingDeviceRepository.Add);
-                gamingDeviceDatas = _gamingDeviceRepository.GetAll();
-            }
+            var gamingDeviceDatas = _gamingDeviceRepository.GetAllWithStock();
 
             var viewModel = new GamingDeviceIndexViewModel();
             viewModel.Devices = gamingDeviceDatas.Select(Map).ToList();
@@ -80,7 +63,7 @@ namespace WebStoryFroEveryting.Controllers
                     Src = gamingDeviceViewModel.Src,
                 });
 
-            return RedirectToAction(nameof(GetGamingDevices));
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult ReviewForGamingDevice(int deviceId)
@@ -126,7 +109,7 @@ namespace WebStoryFroEveryting.Controllers
         public IActionResult RemoveGamingDevice(int deviceId)
         {
             _gamingDeviceRepository.Remove(deviceId);
-            return RedirectToAction(nameof(GetGamingDevices));
+            return RedirectToAction(nameof(Index));
         }
 
         private GamingDeviceViewModel Map(GamingDeviceData gamingDevice)

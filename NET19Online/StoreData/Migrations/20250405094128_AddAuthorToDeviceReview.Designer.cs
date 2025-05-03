@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreData;
 
@@ -11,9 +12,11 @@ using StoreData;
 namespace StoreData.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250405094128_AddAuthorToDeviceReview")]
+    partial class AddAuthorToDeviceReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -668,56 +671,6 @@ namespace StoreData.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SingerCommentData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SingerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SingerId");
-
-                    b.ToTable("SingerComments");
-                });
-
-            modelBuilder.Entity("StoreData.Models.SingerData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Pseudonym")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Src")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Style")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Singers");
-                });
-
             modelBuilder.Entity("StoreData.Models.SweetsData", b =>
                 {
                     b.Property<int>("Id")
@@ -1086,17 +1039,6 @@ namespace StoreData.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("StoreData.Models.SingerCommentData", b =>
-                {
-                    b.HasOne("StoreData.Models.SingerData", "Singer")
-                        .WithMany("Comments")
-                        .HasForeignKey("SingerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Singer");
-                });
-
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterCommentData", b =>
                 {
                     b.HasOne("StoreData.Models.UserData", "Author")
@@ -1179,11 +1121,6 @@ namespace StoreData.Migrations
             modelBuilder.Entity("StoreData.Models.RoleData", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("StoreData.Models.SingerData", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("StoreData.Models.UnderwaterHunterData", b =>
