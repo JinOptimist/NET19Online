@@ -6,5 +6,7 @@
         public string Review { get; set; }
 
         public virtual GamingDeviceData GamingDevice { get; set; }
+        public virtual UserData? Author { get; set; }
+
     }
 }

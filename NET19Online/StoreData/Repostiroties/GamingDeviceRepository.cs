@@ -20,11 +20,10 @@ namespace StoreData.Repostiroties
             _dbContext.SaveChanges();
         }
 
-        public List<GamingDeviceData> GetAllWithStock(string? stockAddress)
+        public List<GamingDeviceData> GetAllWithStock()
         {
             return _dbSet
                 .Include(x => x.Stocks)
-                .Where(device => device.Stocks.Any(s => s.Address == stockAddress))
                 .ToList();
         }
 
@@ -34,6 +33,12 @@ namespace StoreData.Repostiroties
                 .Include(x => x.Reviews)
                 .Include(x => x.Stocks)
                 .FirstOrDefault(x => x.Id == deviceId);
+        }
+
+        public void AddGamingDeviceList(List<GamingDeviceData> gamingDevices)
+        {
+            _dbSet.AddRange(gamingDevices);
+            _dbContext.SaveChanges();
         }
 
     }
