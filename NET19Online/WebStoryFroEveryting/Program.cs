@@ -42,6 +42,9 @@ builder.Services
     .AddDbContext<SchoolDbContext>(
         options => options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(SchoolDbContext))));
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 var autoRegistrator = new AutoRegistrator(builder.Services);
 autoRegistrator.RegisterRepositories(typeof(BaseRepository<>), typeof(IBaseRepository<>));
 autoRegistrator.RegisterRepositories(typeof(BaseSchoolRepository<>));
@@ -91,6 +94,7 @@ var app = builder.Build();
 var seed = new Seed();
 seed.CheckAndFillWithDefaultEntytiesDatabase(app.Services);
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -118,6 +122,6 @@ app.MapHub<JerseyChatHub>("/hub/jerseychat");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseSession();
 app.Run();
 

@@ -21,14 +21,28 @@ namespace WebStoryFroEveryting.Controllers
         private JerseyCommentRepository _jerseyCommentRepository;
         private AuthService _authService;
         private JerseyApiReflectionWatcher _jerseyApiReflectionWatcher;
-
-        public JerseysController(JerseyGenerator jerseyGenerator, JerseyRepository jerseyRepository, JerseyCommentRepository jerseyCommentRepository, AuthService authService, Services.JerseyServices.JerseyApiReflectionWatcher jerseyApiReflectionWatcher)
+        private IHttpContextAccessor _httpContextAccessor;
+        private IConfiguration _configuration;
+        private JerseyCartViewModel _cart;
+        public JerseysController
+            (
+                JerseyGenerator jerseyGenerator,
+                JerseyRepository jerseyRepository,
+                JerseyCommentRepository jerseyCommentRepository,
+                AuthService authService,
+                JerseyApiReflectionWatcher jerseyApiReflectionWatcher,
+                IHttpContextAccessor httpContextAccessor,
+                IConfiguration configuration
+            )
         {
             _jerseyGenerator = jerseyGenerator;
             _jerseyRepository = jerseyRepository;
             _jerseyCommentRepository = jerseyCommentRepository;
             _authService = authService;
             _jerseyApiReflectionWatcher = jerseyApiReflectionWatcher;
+            _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
+            _cart = _httpContextAccessor.HttpContext.Session.GetObjectFromJson<JerseyCartViewModel>(_configuration["Constants:SessionCartkey"]);
         }
         public ActionResult Index(string? tag)
         {
@@ -60,6 +74,7 @@ namespace WebStoryFroEveryting.Controllers
                 .ToList();
             viewModel.CurrentTag = tag;
             viewModel.IsAdmin = _authService.IsAdmin();
+            viewModel.Cart = _cart;
             return View(viewModel);
         }
         public ActionResult Detail(int jerseyId)
@@ -94,7 +109,7 @@ namespace WebStoryFroEveryting.Controllers
                     UserName = x.Author is null ? "Аноним" : x.Author.UserName
 
                 }).ToList();
-
+            viewModel.Cart = _cart;
             return View(viewModel);
         }
 

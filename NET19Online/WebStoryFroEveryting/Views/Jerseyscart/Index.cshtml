@@ -1,0 +1,52 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@model JerseyCartViewModel
+@{
+	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+@section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+	<script src="/js/jersey/index.js"></script>
+	<script src="/js/jersey/chat-client.js"></script>
+}
+@section Styles {
+	<link href="~/css/jerseys/chat-client.css" rel="stylesheet" />
+}
+<div id="content-left">
+	
+</div>
+<div id="content-right">
+    <h2>Корзина</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Итого</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Total</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Общая сумма: @Model.GrandTotal</h3>
+</div>
+
+
