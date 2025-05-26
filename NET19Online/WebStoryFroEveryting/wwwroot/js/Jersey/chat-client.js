@@ -22,6 +22,10 @@
         $('#chat-message-list').append('<div class="msg msg-them"> <blockquote>' + message + '</blockquote></div>');
     });
 
+    hub.on("SendToAdminConnectionId", function (message) {
+        hub.invoke("ClientEnterToChat");
+    });
+
     $('#chat-button-input').on('click', function () {
         message = $('#chat-text-input').val();
         $('#chat-text-input').val('');

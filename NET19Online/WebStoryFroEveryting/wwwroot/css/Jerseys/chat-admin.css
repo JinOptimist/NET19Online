@@ -10,7 +10,7 @@
     margin: 5px;
     cursor: pointer;
 }
-.connection.active {
+.connection.buttonactive {
     background-color:#ff9494;
 }
 #chat-main-area{

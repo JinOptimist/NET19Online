@@ -24,6 +24,7 @@ namespace WebStoryFroEveryting.Hubs
         {
             _adminId = Context.ConnectionId;
             Clients.AllExcept(_adminId).SendMessage("Админ на связи");
+            Clients.AllExcept(_adminId).SendToAdminConnectionId();
         }
 
         public void ClientEnterToChat()
@@ -31,14 +32,13 @@ namespace WebStoryFroEveryting.Hubs
             if (_adminId is not null)
             {
                 Clients.Client(_adminId).SendToAdminThatThereIsNewClientInChat(Context.ConnectionId);
-                
-                
             }
         }
         
     }
     public interface IJerseyChatHub
     {
+        Task SendToAdminConnectionId();
         Task SendMessage(string message);
         Task SendMessageWithId(string id, string message);
         Task SendToAdminThatThereIsNewClientInChat(string id);
