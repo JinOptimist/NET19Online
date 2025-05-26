@@ -120,13 +120,22 @@
   <data name="Index_AdminChat" xml:space="preserve">
     <value>Aдмин Чат</value>
   </data>
+  <data name="Index_Api" xml:space="preserve">
+    <value>Api сайта</value>
+  </data>
+  <data name="Index_Cart" xml:space="preserve">
+    <value>Корзина</value>
+  </data>
   <data name="Index_Create" xml:space="preserve">
     <value>Создать майку</value>
   </data>
   <data name="Index_Data" xml:space="preserve">
-    <value>Скачать данные</value>
+    <value>Данные</value>
   </data>
   <data name="Index_Home" xml:space="preserve">
-    <value>Спортивные майки</value>
+    <value>Майки</value>
+  </data>
+  <data name="Index_Logos" xml:space="preserve">
+    <value>Логотипы</value>
   </data>
 </root>

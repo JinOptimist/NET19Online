@@ -48,7 +48,7 @@
     text-decoration: none;
     text-align: center;
     line-height: 40px;
-    width: 150px;
+    width: 100px;
 }
 
     #header a:hover {
@@ -60,7 +60,7 @@
     width: 24px;
     height: 24px;
     place-items: center;
-    margin-left: -50px;
+    margin-left: -30px;
     margin-right: 40px;
     margin-top: 10px;
     background-color: #e37171;
