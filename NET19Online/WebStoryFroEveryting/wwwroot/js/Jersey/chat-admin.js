@@ -16,10 +16,18 @@
             activeId = $(this).attr('data-client-id');
             $('.chat-message-list').hide();
             $('.chat-message-list[data-client-id="' + activeId + '"]').show();
+            $('.connection').removeClass('buttonactive');
+            $(this).addClass('buttonactive');
         });
         $('#active-connections').append(newbuttondiv);
         $('#chat-message-input').before(newmessagediv);
-        $(newmessagediv).hide();
+        if ($('.chat-message-list').length > 1) {
+            $(newmessagediv).hide();
+        } else {
+            $(newbuttondiv).addClass('buttonactive');
+            activeId = id;
+        }
+        
         
     });
   
