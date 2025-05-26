@@ -12,9 +12,6 @@ using System.Text;
 using System.Reflection;
 using WebStoryFroEveryting.Services.JerseyServices;
 using OfficeOpenXml;
-using Microsoft.EntityFrameworkCore;
-using WebStoryFroEveryting.Localizations;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebStoryFroEveryting.Controllers
 {

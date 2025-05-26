@@ -120,6 +120,12 @@
   <data name="Index_AdminChat" xml:space="preserve">
     <value>Admin Chat</value>
   </data>
+  <data name="Index_Api" xml:space="preserve">
+    <value>View Api</value>
+  </data>
+  <data name="Index_Cart" xml:space="preserve">
+    <value>Cart</value>
+  </data>
   <data name="Index_Create" xml:space="preserve">
     <value>Create Jersey</value>
   </data>
@@ -128,5 +134,8 @@
   </data>
   <data name="Index_Home" xml:space="preserve">
     <value>Jerseys</value>
+  </data>
+  <data name="Index_Logos" xml:space="preserve">
+    <value>Logos</value>
   </data>
 </root>

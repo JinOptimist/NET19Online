@@ -70,6 +70,24 @@ namespace WebStoryFroEveryting.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View Api.
+        /// </summary>
+        public static string Index_Api {
+            get {
+                return ResourceManager.GetString("Index_Api", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cart.
+        /// </summary>
+        public static string Index_Cart {
+            get {
+                return ResourceManager.GetString("Index_Cart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Jersey.
         /// </summary>
         public static string Index_Create {
@@ -93,6 +111,15 @@ namespace WebStoryFroEveryting.Localizations {
         public static string Index_Home {
             get {
                 return ResourceManager.GetString("Index_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logos.
+        /// </summary>
+        public static string Index_Logos {
+            get {
+                return ResourceManager.GetString("Index_Logos", resourceCulture);
             }
         }
     }

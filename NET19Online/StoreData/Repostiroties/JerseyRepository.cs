@@ -49,7 +49,6 @@ namespace StoreData.Repostiroties
                 if (_dbContext.Jerseys.Any(x => x.Id == jersey.Id))
                 {
                     _dbContext.Jerseys.Update(jersey);
-
                 }
 
                 else
