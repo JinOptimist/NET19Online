@@ -65,6 +65,13 @@ namespace StoreData.Repostiroties
             Add(jerseyData);
             return _dbSet.OrderByDescending(x => x.Id).First().Id;
         }
-        
+
+        public override void Remove(int id)
+        {
+            var comments = _dbContext.JerseysComments.Where(x => x.Jersey.Id == id).ToList();
+            _dbContext.JerseysComments.RemoveRange(comments);
+            base.Remove(id);
+        }
+
     }
 }
