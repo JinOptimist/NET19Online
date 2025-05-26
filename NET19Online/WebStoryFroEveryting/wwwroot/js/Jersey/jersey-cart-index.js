@@ -1,6 +1,14 @@
 ﻿$(document).ready(function () {
     let positionsInCart = $('input[name="positionsInCart"]').val();
-    $('span.position-in-cart').html(positionsInCart);
+    let cartItemCounter = $('span.position-in-cart');
+    if (positionsInCart > 0) {
+        cartItemCounter.html(positionsInCart);
+        cartItemCounter.removeClass('hidden');
+    }
+    else {
+        cartItemCounter.addClass('hidden');
+    }
+    
     $('a.button.addToCart-button').on('click', function () {
         const target = $(this);
         const url = "/api/jerseycart/addtocart";
@@ -19,7 +27,14 @@
                 target.addClass('addedToCart-button');
                 target.text('Добавлено в корзину');
                 positionsInCart++;
-                $('span.position-in-cart').html(positionsInCart);
+                cartItemCounter.html(positionsInCart);
+                if (positionsInCart > 0) {
+                    cartItemCounter.html(positionsInCart);
+                    cartItemCounter.removeClass('hidden');
+                }
+                else {
+                    cartItemCounter.addClass('hidden');
+                }
             }
         });
     });

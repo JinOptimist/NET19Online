@@ -1,0 +1,18 @@
+﻿#cart{
+    width: 100%;
+    border 5px sold black;
+}
+    #cart td{
+        text-align:center;
+        border: 1px solid black; 
+    }
+    #cart td img{
+        width: 200px;
+        display: block;
+    }
+    #cart div, #cart form {
+        display: inline-block;
+    }
+    #cart form button{
+        width: 80px;
+    }

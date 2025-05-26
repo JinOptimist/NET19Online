@@ -40,6 +40,21 @@ namespace WebStoryFroEveryting.Controllers
             SaveCartToSession(_cart);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult AddOneToCart(int id)
+        {
+            _cart.IncrementItem(id);
+            SaveCartToSession(_cart);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult RemoveOneToCart(int id)
+        {
+            _cart.DecrementItem(id);
+            SaveCartToSession(_cart);
+            return RedirectToAction("Index");
+        }
         private void SaveCartToSession(JerseyCartViewModel cart)
         {
             HttpContext.Session.SetObjectAsJson(_configuration["Constants:SessionCartkey"], cart);

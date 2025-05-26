@@ -41,6 +41,26 @@ namespace StoreData.Repostiroties
                 .Where(x => tag == null || x.Tags.Any(t => t.Tag == tag))
                 .ToList();
         }
+
+        public bool UpdateJerseysFromList(List<JerseyData> jerseysData)
+        {
+            foreach(var jersey in jerseysData)
+            {
+                if (_dbContext.Jerseys.Any(x => x.Id == jersey.Id))
+                {
+                    _dbContext.Jerseys.Update(jersey);
+
+                }
+
+                else
+                {
+                    jersey.Id = 0;
+                    _dbContext.Jerseys.Add(jersey);
+                }
+            }
+            _dbContext.SaveChanges();
+            return true;
+        }
         public int AddJerseyAndGetId(JerseyData jerseyData)
         {
             Add(jerseyData);

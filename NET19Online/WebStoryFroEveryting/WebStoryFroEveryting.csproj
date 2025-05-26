@@ -76,4 +76,8 @@
     <Folder Include="wwwroot\avatars\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="8.0.5" />
+  </ItemGroup>
+
 </Project>

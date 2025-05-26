@@ -1,26 +1,28 @@
 ﻿@using WebStoryFroEveryting.Models.Jerseys
 @model JerseyCartViewModel
 @{
-	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+    Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
 @section Scripts {
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
-	<script src="/js/jersey/index.js"></script>
-	<script src="/js/jersey/chat-client.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="/js/jersey/index.js"></script>
+    <script src="/js/jersey/chat-client.js"></script>
 }
 @section Styles {
-	<link href="~/css/jerseys/chat-client.css" rel="stylesheet" />
+    <link href="~/css/jerseys/jerseys-cart.css" rel="stylesheet" />
 }
 <div id="content-left">
-	
 </div>
 <div id="content-right">
+
     <h2>Корзина</h2>
 
-    <table>
+    <table id="cart">
         <thead>
             <tr>
+
                 <th>Название</th>
+                <th>Изображение</th>
                 <th>Цена</th>
                 <th>Количество</th>
                 <th>Итого</th>
@@ -32,21 +34,34 @@
             {
                 <tr>
                     <td>@item.Name</td>
-                    <td>@item.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Total</td>
+                    <td><img src="@item.Image" /></td>
+                    <td>@item.Price BYN</td>
+                    <td>
+                        <form asp-action="RemoveOneToCart" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit">-</button>
+                        </form>
+                        <div class="cartQuantity">@item.Quantity</div>
+
+                        <form asp-action="AddOneToCart" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit">+</button>
+                        </form>
+                    </td>
+                    <td>@item.Total BYN</td>
                     <td>
                         <form asp-action="RemoveFromCart" method="post">
                             <input type="hidden" name="id" value="@item.Id" />
                             <button type="submit">Удалить</button>
                         </form>
                     </td>
+
                 </tr>
             }
         </tbody>
     </table>
 
-    <h3>Общая сумма: @Model.GrandTotal</h3>
+    <h3>Общая сумма: @Model.GrandTotal BYN</h3>
 </div>
 
 
