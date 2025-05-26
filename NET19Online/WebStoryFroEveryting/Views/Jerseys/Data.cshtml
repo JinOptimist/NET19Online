@@ -1,0 +1,28 @@
+﻿@using WebStoryFroEveryting.Models.Jerseys
+@{
+	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
+}
+@section Scripts {
+}
+@section Styles {
+
+}
+<div id="content-left">
+	<div class="tags">
+		
+	</div>
+</div>
+<div id="content-right">
+	<form asp-action="getexceldata">
+		<button type="submit">Скачать</button>
+	</form>
+	<hr />
+	<form asp-action="uploadexceldata"  method="post" enctype="multipart/form-data">
+		<input type="file" name="file" accept=".xlsx" required />
+		<button type="submit">Загрузить и обновить данные</button>
+	</form>
+</div>
+
+
+
+

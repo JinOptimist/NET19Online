@@ -5,12 +5,14 @@
 }
 @section Scripts {
     <script src="/js/jersey/detail.js"></script>
+    <script src="/js/jersey/jersey-cart-detail.js"></script>
     <script src="/js/jersey/extm.min.js"></script>
 }
 
 
 
 <div class="jersey-detail">
+    <input type="hidden" name="positionsInCart" value="@Model.Cart.Items.Count">
     <div class="jersey-detail-img">
         <img src="@Model.Img" />
     </div>
@@ -24,12 +26,25 @@
         <div class="jersey-detail-number">
             Номер: @Model.Number
         </div>
+        <div class="jersey-detail-price">
+            Цена: @Model.Price BYN
+        </div>
+        @if (Model.Cart.Items.Any(x => x.Id == Model.Id))
+        {
+            <a class="button addedToCart-button" href="#">Добавлено в корзину</a>
+        }
+        else
+        {
+            <a class="button addToCart-button" href="#">Добавить в корзину</a>
+        }
         <div class="tags">
             @foreach (var tag in Model.Tags)
             {
                 <span class="tag">@tag </span>
             }
         </div>
+        <input name="jerseyId" type="hidden" value="@Model.Id" />
+       
         @if (@Model.IsTagCreatingEnable)
         {
             <form method="post" action="/jerseys/AddTag">

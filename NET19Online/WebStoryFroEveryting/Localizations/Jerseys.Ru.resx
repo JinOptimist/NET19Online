@@ -123,6 +123,9 @@
   <data name="Index_Create" xml:space="preserve">
     <value>Создать майку</value>
   </data>
+  <data name="Index_Data" xml:space="preserve">
+    <value>Скачать данные</value>
+  </data>
   <data name="Index_Home" xml:space="preserve">
     <value>Спортивные майки</value>
   </data>

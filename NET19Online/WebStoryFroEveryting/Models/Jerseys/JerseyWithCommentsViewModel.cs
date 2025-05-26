@@ -15,5 +15,6 @@ namespace WebStoryFroEveryting.Models.Jerseys
         public decimal Price { get; set; }
         public List<JerseyCommentViewModel> Comments { get; set; } = new List<JerseyCommentViewModel>();
         public List<string> Tags { get; set; } = new List<string>();
+        public JerseyCartViewModel Cart { get; set; }
     }
 }

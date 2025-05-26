@@ -4,12 +4,13 @@
 	Layout = "~/Views/Shared/_LayoutJersey.cshtml";
 }
 @section Scripts {
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
-	<script src="/js/jersey/index.js"></script>
-	<script src="/js/jersey/chat-client.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+<script src="/js/jersey/index.js"></script>
+<script src="/js/jersey/chat-client.js"></script>
+<script src="/js/jersey/jersey-cart-index.js"></script>
 }
 @section Styles {
-	<link href="~/css/jerseys/chat-client.css" rel="stylesheet" />
+<link href="~/css/jerseys/chat-client.css" rel="stylesheet" />
 }
 <div id="content-left">
 	<div class="tags">
@@ -21,6 +22,7 @@
 	</div>
 </div>
 <div id="content-right">
+	<input type="hidden" name="positionsInCart" value="@Model.Cart.Items.Count">
 	@foreach (var jersey in Model.Jerseys)
 	{
 		<div class="jersey">
@@ -30,11 +32,24 @@
 			<div class="name">
 				@jersey.AthleteName
 			</div>
+			<div class="price">
+				Цена: @jersey.Price BYN
+			</div>
 			<a class="button" href="/jerseys/detail?jerseyid=@jersey.Id">Подробнее</a>
+			@if(Model.Cart.Items.Any(x => x.Id == jersey.Id))
+			{
+				<a class="button addedToCart-button" href="#">Добавлено в корзину</a>
+			}
+			else
+			{
+				<a class="button addToCart-button" href="#">Добавить в корзину</a>
+			}
+			
 			@if (Model.IsAdmin)
 			{
 				<a class="button red" href=" /jerseys/remove?jerseyid=@jersey.Id">Удалить</a>
 			}
+			<input type="hidden" name="jersey-id" value="@jersey.Id" />
 		</div>
 		
 	}

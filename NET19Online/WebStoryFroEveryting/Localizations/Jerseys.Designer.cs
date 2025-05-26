@@ -79,6 +79,15 @@ namespace WebStoryFroEveryting.Localizations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string Index_Data {
+            get {
+                return ResourceManager.GetString("Index_Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jerseys.
         /// </summary>
         public static string Index_Home {
