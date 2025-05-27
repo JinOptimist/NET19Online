@@ -225,6 +225,11 @@ body {
     bottom: 20px;
 }
 
+.cart-summary {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
     .action-widget.show,
     .cart-indicator.show {
         opacity: 1;

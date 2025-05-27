@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreCartoonMinimalApi", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultyThread", "MultyThread\MultyThread.csproj", "{B487EA24-934E-4AE8-9C03-FEB19AC62264}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments", "Payments\Payments.csproj", "{E046B14D-1CA4-48B3-BCA3-C8A2594B3AB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B487EA24-934E-4AE8-9C03-FEB19AC62264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E046B14D-1CA4-48B3-BCA3-C8A2594B3AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E046B14D-1CA4-48B3-BCA3-C8A2594B3AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E046B14D-1CA4-48B3-BCA3-C8A2594B3AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E046B14D-1CA4-48B3-BCA3-C8A2594B3AB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -77,7 +77,14 @@ namespace WebStoryFroEveryting.Controllers
                 CartItems.Add(id);
             }
 
-            return Json(new { total = CartItems.Count });
+            return Json(new { total = CartItems.Distinct().Count() });
+        }
+
+        [HttpPost("/Cart/ClearCart")]
+        public IActionResult ClearCart()
+        {
+            CartItems.Clear();
+            return Ok();
         }
 
         [Authorize]

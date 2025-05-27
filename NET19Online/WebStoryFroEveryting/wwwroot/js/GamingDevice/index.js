@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    let cartItems = [];
 
     const url = "/hub/device";
     const hub = new signalR.HubConnectionBuilder().withUrl(url).build();
@@ -95,31 +96,27 @@
         const $modal = $('#cart-modal');
         const $container = $('#cart-items-container');
 
-        
         $container.empty();
 
-       
         $.ajax({
             url: '/Cart/GetCartDevices',
             method: 'GET',
-            success: function (items) {
-                if (items.length === 0) {
-                    $container.append('<p>Корзина пуста.</p>');
-                } else {
-                    items.forEach(item => {
-                        const itemHtml = `
-                            <div class="cart-item">
-                                <div class="brand">${item.brand}</div>
-                                <div class="name">${item.name}</div>
-                                <img src="${item.src}" alt="${item.name}" style="max-width: 100px;" />
-                                <div class="price">${item.price} BYN</div>
-                            </div>
-                            <hr />
-                        `;
-                        $container.append(itemHtml);
-                    });
-                }
+            success: function (itemsFromServer) {
 
+                cartItems = [];
+
+                const grouped = {};
+                itemsFromServer.forEach(item => {
+                    if (!grouped[item.id]) {
+                        grouped[item.id] = { ...item, count: 1 };
+                    } else {
+                        grouped[item.id].count += 1;
+                    }
+                });
+
+                cartItems = Object.values(grouped);
+
+                renderCart(cartItems);
                 $modal.removeClass('hidden');
             },
             error: function () {
@@ -128,10 +125,151 @@
             }
         });
     });
+    function renderCart(items) {
+        const $container = $('#cart-items-container');
+        $container.empty();
+
+        let totalItems = 0;
+        let totalPrice = 0;
+
+        if (items.length === 0) {
+            $container.append('<p>Корзина пуста.</p>');
+            $('#cart-item-count').text('0');
+            $('#cart-total').text('0.00');
+            return;
+        }
+
+        items.forEach(item => {
+            totalItems += item.count;
+            totalPrice += item.price * item.count;
+
+            const itemHtml = `
+            <div class="cart-item" data-id="${item.id}">
+                <div class="brand">${item.brand}</div>
+                <div class="name">${item.name}</div>
+                <img src="${item.src}" alt="${item.name}" style="max-width: 100px;" />
+                <div class="price">${item.price} BYN</div>
+
+                <div class="quantity-controls">
+                    <button class="btn-minus">-</button>
+                    <span class="quantity">${item.count}</span>
+                    <button class="btn-plus">+</button>
+                </div>
+            </div>
+            <hr />
+        `;
+            $container.append(itemHtml);
+        });
+
+        $('#cart-item-count').text(totalItems);
+        $('#cart-total').text(totalPrice.toFixed(2));
+    }
+
+    $('#cart-items-container').on('click', '.btn-minus, .btn-plus', function () {
+        const $item = $(this).closest('.cart-item');
+        const id = parseInt($item.data('id'));
+
+        const itemIndex = cartItems.findIndex(i => i.id === id);
+
+        if ($(this).hasClass('btn-minus') && cartItems[itemIndex].count > 1) {
+            cartItems[itemIndex].count--;
+        } else if ($(this).hasClass('btn-plus')) {
+            cartItems[itemIndex].count++;
+        }
+
+        renderCart(cartItems);
+    });
 
     $('#close-cart-modal').on('click', function () {
         $('#cart-modal').addClass('hidden');
     });
+
+    //оплатить
+    $('#checkout-button').on('click', function () {
+        const total = parseFloat($('#cart-total').text());
+
+        if (total <= 0) {
+            alert("Корзина пуста");
+            return;
+        }
+
+        const ownerId = 1;
+
+        $.ajax({
+            url: 'https://localhost:7180/addTransaction',
+            method: 'GET',
+            contentType: 'application/json',
+            data: { ownerId, total },
+            statusCode: {
+                416: function () {
+                    $('#add-balance-modal').removeClass('hidden');
+                }
+            },
+            success: function () {
+                alert("✅ Оплата прошла успешно!");
+                $('#cart-items-container').empty().append('<p>Корзина пуста.</p>');
+                $('#cart-item-count').text('0');
+                $('#cart-total').text('0.00');
+                $('#cart-indicator').addClass('hidden');
+
+                localStorage.removeItem('cart');
+            },
+            error: function (xhr, status, error) {
+                if (xhr.status === 416) {
+                    $('#add-balance-modal').removeClass('hidden');
+                } else {
+                    alert('❌ Ошибка при оплате: ' + error);
+                }
+            }
+        });
+    });
+
+    $('#clear-button').on('click', function () {
+        $.ajax({
+            url: '/Cart/ClearCart',
+            method: 'POST',
+            success: function () {
+                $('#cart-items-container').empty().append('<p>Корзина пуста.</p>');
+                $('#cart-item-count').text('0');
+                $('#cart-total').text('0.00');
+                $('#cart-indicator').addClass('hidden');
+            },
+            error: function () {
+                alert('Ошибка при очистке корзины');
+            }
+        });
+    });
+
+    
+
+    //пополнение баланса
+    $('#add-balance-form').on('submit', function (e) {
+        e.preventDefault();
+
+        const amount = $('input[name="amount"]').val();
+        const ownerId = 1;
+
+        $.ajax({
+            url: 'https://localhost:7180/addBalance',
+            method: 'POST',
+            data: { ownerId, amount },
+            success: function () {
+                alert("Баланс пополнен");
+                $('#add-balance-modal').addClass('hidden');
+                $('#add-balance-form')[0].reset();
+
+                $('#checkout-button').trigger('click');
+            },
+            error: function (xhr, status, error) {
+                alert("Ошибка при пополнении баланса: " + error);
+            }
+        });
+    });
+
+    $('#close-add-balance-modal').on('click', function () {
+        $('#add-balance-modal').addClass('hidden');
+    });
+
 
     //добавление нового девайса
     $('#add-device-btn').on('click', function () {

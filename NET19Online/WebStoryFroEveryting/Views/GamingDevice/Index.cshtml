@@ -104,8 +104,26 @@
         <span id="close-cart-modal" class="close-btn">&times;</span>
         <h2>Ваша корзина</h2>
         <div id="cart-items-container">
-           
+
         </div>
+        <div class="cart-summary">
+            <p>Товаров: <span id="cart-item-count">0</span></p>
+            <p>Сумма: <span id="cart-total">0</span> BYN</p>
+        </div>
+        <button id="checkout-button" class="primary-button" style="margin-top: 20px;">Оплатить</button>
+        <button id="clear-button" class="default-button" style="margin-top: 20px;">Очистить корзину</button>
     </div>
 </div>
+
+<div id="add-balance-modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="close-add-balance-modal" class="close-btn">&times;</span>
+        <h2>Пополните баланс</h2>
+        <form id="add-balance-form">
+            <input type="number" name="amount" placeholder="Введите сумму" required />
+            <button type="submit">Пополнить</button>
+        </form>
+    </div>
+</div>
+
 
