@@ -111,6 +111,7 @@ app.UseMiddleware<LocalizationMiddleware>();
 
 app.MapHub<ChatHub>("/hub/chat");
 app.MapHub<IdolHub>("/hub/idol");
+app.MapHub<GamingDeviceHub>("/hub/device");
 app.MapHub<HunterHub>("/hub/hunter");
 app.MapHub<PlayerHub>("/hub/player");
 app.MapHub<JerseyChatHub>("/hub/jerseychat");

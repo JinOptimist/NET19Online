@@ -1,0 +1,86 @@
+﻿@using WebStoryFroEveryting.Models.GamingDevice
+@model GamingDeviceDetailsViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutGamingDevice.cshtml";
+}
+
+@section Styles {
+    <link href="~/css/GamingDevice/GamingDeviceWithReviews.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="/js/GamingDevice/device.js"></script>
+}
+
+<div class="device-with-reviews-and-stock-addresses">
+    <div class="device-info">
+        <h1>@Model.Name</h1>
+        <h2>@Model.Brand</h2>
+        <div class="image-container">
+            <img src="@Model.Src" alt="Device image" />
+        </div>
+        <div class="price">@Model.Price BYN</div>
+    </div>
+
+    <div class="reviews-and-stocks-container">
+        <div class="stock-addresses-section">
+            <h3>Адреса складов:</h3>
+            <div class="addresses">
+                @if (Model.StockAddresses.Any())
+                {
+                    foreach (var address in Model.StockAddresses)
+                    {
+                        <span class="address" data-id="@address.Id">@address.Address</span>
+                    }
+                }
+                else
+                {
+                    <p>Нет доступных адресов.</p>
+                }
+            </div>
+
+            <form method="post" action="/GamingDevice/AddStockAddress">
+                <input name="deviceId" type="hidden" value="@Model.Id" />
+                <div class="form-group">
+                    <input name="stockAddress" placeholder="Введите адрес склада" required />
+                </div>
+                <button type="submit" class="btn">Добавить адрес</button>
+            </form>
+        </div>
+
+        <div class="reviews-section">
+            <h3>Отзывы:</h3>
+            @if (Model.Reviews.Any())
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <div class="review">
+                        <p>@review.Review</p>
+                        <small>@review.Created.ToString("dd.MM.yyyy") by @review.AuthorName</small>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Пока нет отзывов.</p>
+            }
+
+            <form method="post" action="/GamingDevice/AddReview">
+                <input name="deviceId" type="hidden" value="@Model.Id" />
+                <div class="form-group">
+                    <input name="review" placeholder="Оставьте свой отзыв" required />
+                </div>
+                <button type="submit" class="btn">Добавить отзыв</button>
+            </form>
+
+            <form method="post" action="/GamingDevice/RemoveDuplicateReviews">
+                <input name="deviceId" type="hidden" value="@Model.Id" />
+                <button type="submit" class="btn">Удалить дубликаты</button>
+            </form>
+        </div>
+
+        
+    </div>
+</div>
+

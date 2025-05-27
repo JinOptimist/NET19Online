@@ -1,10 +1,13 @@
 ﻿<html>
     <head>
         <title>Gaming Device Store</title>
-
         <link href="~/css/reset.css" rel="stylesheet" />
         <link href="~/css/GamingDevice/storeLayout.css" rel="stylesheet" />
         @RenderSection("Styles", false)
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+        @RenderSection("Scripts", false)
     </head>
     <body>
         <div class="site-name"></div>
@@ -14,7 +17,7 @@
                 <div class="site-nav">
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><a href="/products">Products</a></li>
+                    <li><a href="/GamingDevice/Index">Products</a></li>
                         <li><a href="/about">About Us</a></li>
                         <li><a href="/contact">Contact</a></li>
                     </ul>
