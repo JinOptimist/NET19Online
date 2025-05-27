@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using StoreData.Models;
 using StoreData.Repostiroties;
+using WebStoryFroEveryting.Hubs;
 using WebStoryFroEveryting.Models.GamingDevice;
 using WebStoryFroEveryting.Services;
 
@@ -9,44 +11,32 @@ namespace WebStoryFroEveryting.Controllers
 {
     public class GamingDeviceController : Controller
     {
-        private GamingDeviceGenerator _gamingDeviceGenerator;
         private GamingDeviceRepository _gamingDeviceRepository;
+        private IUserRepository _userRepository;
         private GamingDeviceReviewRepository _gamingDeviceReviewRepository;
         private AuthService _authService;
-        private const int DEFAULT_DEVICE_AMOUNT = 4;
+        private IHubContext<GamingDeviceHub, IGamingDeviceHub> _hubContext;
 
         public GamingDeviceController(
             GamingDeviceRepository gamingDeviceRepository,
             GamingDeviceGenerator gamingDeviceGenerator,
             GamingDeviceReviewRepository gamingDeviceReviewRepository,
-            AuthService authService)
+            AuthService authService,
+            IUserRepository userRepository,
+            IHubContext<GamingDeviceHub, IGamingDeviceHub> hubContext)
         {
             _gamingDeviceRepository = gamingDeviceRepository;
-            _gamingDeviceGenerator = gamingDeviceGenerator;
             _gamingDeviceReviewRepository = gamingDeviceReviewRepository;
             _authService = authService;
+            _userRepository = userRepository;
+            _hubContext = hubContext;
         }
 
-        public IActionResult GetGamingDevices(int? randomDeviceAmount, string? stockAddress)
+        private static List<int> CartItems = new List<int>();
+
+        public IActionResult Index(string? stockAddress)
         {
-            var gamingDeviceDatas = _gamingDeviceRepository.GetAll();
-            if (!gamingDeviceDatas.Any())
-            {
-                _gamingDeviceGenerator
-                    .GenerateDevices(randomDeviceAmount ?? DEFAULT_DEVICE_AMOUNT)
-                    .Select(viewModel =>
-                        new GamingDeviceData
-                        {
-                            Id = viewModel.Id,
-                            Name = viewModel.Name,
-                            Brand = viewModel.Brand,
-                            Price = viewModel.Price,
-                            Src = viewModel.Src
-                        })
-                    .ToList()
-                    .ForEach(_gamingDeviceRepository.Add);
-                gamingDeviceDatas = _gamingDeviceRepository.GetAll();
-            }
+            var gamingDeviceDatas = _gamingDeviceRepository.GetAllWithStock(stockAddress);
 
             var viewModel = new GamingDeviceIndexViewModel();
             viewModel.Devices = gamingDeviceDatas.Select(Map).ToList();
@@ -60,18 +50,41 @@ namespace WebStoryFroEveryting.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult Create()
+        [HttpGet("Cart/GetCartDevices")]
+        public IActionResult GetCartDevices()
         {
-            return View();
+            var cartItemIds = CartItems;
+
+            var devicesInCart = _gamingDeviceRepository.GetDevicesByIds(cartItemIds);
+
+            var viewModel = devicesInCart.Select(d => new GamingDeviceViewModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                Brand = d.Brand,
+                Price = d.Price,
+                Src = d.Src
+            });
+
+            return Json(viewModel);
+        }
+
+        [HttpPost("Cart/AddToCart")]
+        public IActionResult AddToCart([FromBody] ProductIdsModel model)
+        {
+            foreach (var id in model.ProductIds)
+            {
+                CartItems.Add(id);
+            }
+
+            return Json(new { total = CartItems.Count });
         }
 
         [Authorize]
-        [HttpPost]
-        public IActionResult CreateGamingDevice(GamingDeviceViewModel gamingDeviceViewModel)
+        [HttpPost("AddDevice")]
+        public IActionResult AddDevice([FromBody] GamingDeviceViewModel gamingDeviceViewModel)
         {
-            _gamingDeviceRepository.Add(
+            var device = _gamingDeviceRepository.AddDevice(
                 new GamingDeviceData
                 {
                     Name = gamingDeviceViewModel.Name,
@@ -80,16 +93,20 @@ namespace WebStoryFroEveryting.Controllers
                     Src = gamingDeviceViewModel.Src,
                 });
 
-            return RedirectToAction(nameof(GetGamingDevices));
+            _hubContext.Clients.All.GamingDeviceWasAdded(device);
+            return Json(device);
         }
 
-        public IActionResult ReviewForGamingDevice(int deviceId)
+        public IActionResult GamingDevice(int deviceId)
         {
-            var viewModel = new GamingDeviceWithReviewViewModel();
+            var viewModel = new GamingDeviceDetailsViewModel();
 
             var device = _gamingDeviceRepository.GetWithReviewsAndStocks(deviceId);
 
             viewModel.Id = device.Id;
+            viewModel.Name = device.Name;
+            viewModel.Brand = device.Brand;
+            viewModel.Price = device.Price;
             viewModel.Src = device.Src;
             viewModel.Reviews = device
                 .Reviews
@@ -97,10 +114,15 @@ namespace WebStoryFroEveryting.Controllers
                 {
                     Id = x.Id,
                     Review = x.Review,
-                    Created = x.Created
+                    Created = x.Created,
+                    AuthorName = x.Author?.UserName ?? "unnamed"
                 })
                 .ToList();
-            viewModel.StockAddresses = device.Stocks.Select(x => x.Address).ToList();
+            viewModel.StockAddresses = device.Stocks.Select(x => new GamingDeviceStockAddressesViewModel
+            {
+                Id = x.Id,
+                Address = x.Address
+            }).ToList();
             viewModel.CanUserLeaveReview = _authService.IsAuthenticated();
 
             return View(viewModel);
@@ -110,23 +132,53 @@ namespace WebStoryFroEveryting.Controllers
         [HttpPost]
         public IActionResult AddReview(int deviceId, string review)
         {
-            _gamingDeviceReviewRepository.AddReview(deviceId, review);
+            var authorId = _authService.GetUserId();
 
-            return RedirectToAction(nameof(ReviewForGamingDevice), new { deviceId });
+            _gamingDeviceReviewRepository.AddReview(deviceId, review, authorId);
+
+            return RedirectToAction(nameof(GamingDevice), new { deviceId });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult RemoveDuplicateReviews(int deviceId)
+        {
+            _gamingDeviceReviewRepository.RemoveDuplicateReviews(deviceId);
+
+            return RedirectToAction(nameof(GamingDevice), new { deviceId });
         }
 
         [HttpPost]
         public IActionResult AddStockAddress(int deviceId, string stockAddress)
         {
-            _gamingDeviceRepository.AddStock(deviceId, stockAddress);
+            _gamingDeviceRepository.AddStockToDevice(deviceId, stockAddress);
 
-            return RedirectToAction(nameof(ReviewForGamingDevice), new { deviceId });
+            return RedirectToAction(nameof(GamingDevice), new { deviceId });
         }
 
+        [HttpDelete("{deviceId}/StockAddresses/{stockAddressId}/Remove")]
+        public IActionResult RemoveStockAddress(int deviceId, int stockAddressId)
+        {
+            _gamingDeviceRepository.RemoveStockFromDevice(deviceId, stockAddressId);
+
+            return Ok();
+        }
+
+        [HttpPut("{deviceId}/StockAddresses/{stockAddressId}/Update")]
+        public IActionResult UpdateStockAddress(int deviceId, int stockAddressId, [FromBody] string newStockAddress)
+        {
+            _gamingDeviceRepository.UpdateDeviceStock(deviceId, stockAddressId, newStockAddress);
+
+            return Ok();
+        }
+
+        [HttpDelete("Remove/{deviceId}")]
         public IActionResult RemoveGamingDevice(int deviceId)
         {
-            _gamingDeviceRepository.Remove(deviceId);
-            return RedirectToAction(nameof(GetGamingDevices));
+             _gamingDeviceRepository.Remove(deviceId);
+             _hubContext.Clients.All.GamingDeviceWasRemoved(deviceId);
+
+            return Ok();
         }
 
         private GamingDeviceViewModel Map(GamingDeviceData gamingDevice)

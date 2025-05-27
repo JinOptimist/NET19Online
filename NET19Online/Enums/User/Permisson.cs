@@ -44,12 +44,8 @@ namespace Enums.User
         [Display(Name = "CanDeleteGamingDevice")]
         CanDeleteGamingDevice = 16384,
         [Display(Name = "CanAddGamingDeviceReview")]
-        CanAddGamingDeviceReview = 8192,
-        [Display(Name = "CanDeleteGamingDeviceReview")]
-        CanDeleteGamingDeviceReview = 32768,
+        CanAddGamingDeviceReview = 32768,
         [Display(Name = "CanAddGamingDeviceStock")]
         CanAddGamingDeviceStock = 65536,
-        [Display(Name = "CanDeleteGamingDeviceStock")]
-        CanDeleteGamingDeviceStock = 131072,
     }
 }
