@@ -197,9 +197,9 @@
 
         $.ajax({
             url: 'https://localhost:7180/addTransaction',
-            method: 'GET',
+            method: 'POST',
             contentType: 'application/json',
-            data: { ownerId, total },
+            data: JSON.stringify({ OwnerId: ownerId, Total: total }),
             statusCode: {
                 416: function () {
                     $('#add-balance-modal').removeClass('hidden');
@@ -252,7 +252,8 @@
         $.ajax({
             url: 'https://localhost:7180/addBalance',
             method: 'POST',
-            data: { ownerId, amount },
+            contentType: 'application/json',
+            data: JSON.stringify({ OwnerId: ownerId, Amount: amount }),
             success: function () {
                 alert("Баланс пополнен");
                 $('#add-balance-modal').addClass('hidden');

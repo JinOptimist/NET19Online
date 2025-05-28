@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Payments.Data;
 using Payments.Data.Models;
@@ -23,20 +24,30 @@ var app = builder.Build();
 app.UseCors();
 
 
-app.MapPost("/addBalance", async (PaymentsDbContext dbContext, AddBalanceRequest request) =>
+app.MapPost("/addBalance", async (PaymentsDbContext dbContext, [FromBody] AddBalanceRequest request) =>
 {
-    var balance = new Balance
+    var balance = await dbContext.Balance.FirstOrDefaultAsync(o => o.OwnerId == request.OwnerId);
+    if (balance == null)
     {
-        OwnerId = request.OwnerId,
-        Total = request.Amount
-    };
+        balance = new Balance
+        {
+            OwnerId = request.OwnerId,
+            Total = request.Amount
+        };
+        await dbContext.Balance.AddAsync(balance);
+        await dbContext.SaveChangesAsync();
 
-    await dbContext.Balance.AddAsync(balance);
-    await dbContext.SaveChangesAsync();
+    }
+    else
+    {
+        balance.Total += request.Amount;
+        await dbContext.SaveChangesAsync();
+    }
+
     return Results.Ok();
 });
 
-app.MapPost("/addTransaction", async (PaymentsDbContext dbContext, AddTransactionRequest request) =>
+app.MapPost("/addTransaction", async (PaymentsDbContext dbContext, [FromBody] AddTransactionRequest request) =>
 {
     var balance = await dbContext.Balance.FirstOrDefaultAsync(b => b.OwnerId == request.OwnerId);
 
