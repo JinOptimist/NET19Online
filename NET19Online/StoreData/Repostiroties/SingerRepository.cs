@@ -1,4 +1,5 @@
-﻿using StoreData.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StoreData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,30 +7,27 @@ using System.Text;
 using System.Threading.Tasks;
 namespace StoreData.Repostiroties
 {
-    public class SingerRepository
+    public class SingerRepository : BaseRepository<SingerData>
     {
-        private static List<SingerData> FakeDB = new();
-
+        public SingerRepository(StoreDbContext dbContext) : base(dbContext) { }
         public List<SingerData> GetSingers()
         {
-            return FakeDB;
+            return _dbSet.ToList();
         }
-        public void AddSinger(SingerData singer)
+        public void UpdateSinger(int id, string name, string style)
         {
-            if (FakeDB.Count > 0)
-            {
-                singer.Id = FakeDB.Count + 1;
-            }
-            else
-            {
-                singer.Id = 1;
-            }
-           
-            FakeDB.Add(singer);
+            var singer = _dbSet.Find(id);
+            singer.Pseudonym = name;
+            singer.Style = style;
+            _dbContext.SaveChanges();
         }
-        public void RemoveSinger(int id)
+        public override void Remove(int id)
         {
-            var singer = FakeDB.FirstOrDefault(s => s.Id == id); 
+            base.Remove(id);
+        }
+        public SingerData Get(int id)
+        {
+            return _dbContext.Singers.FirstOrDefault(i=>i.Id==id);
         }
     }
 }
