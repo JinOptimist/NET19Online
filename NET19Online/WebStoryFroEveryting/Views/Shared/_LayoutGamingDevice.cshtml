@@ -1,39 +1,40 @@
 ﻿<html>
-
     <head>
+        <title>Gaming Device Store</title>
         <link href="~/css/reset.css" rel="stylesheet" />
-        <link href="~/css/GamingDevice/gamingDevice.css" rel="stylesheet" />
+        <link href="~/css/GamingDevice/storeLayout.css" rel="stylesheet" />
         @RenderSection("Styles", false)
-    </head>
 
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+        @RenderSection("Scripts", false)
+    </head>
     <body>
-        <div class="header">
-            Gaming Devices
-        </div>
-        <div class="menu-and-content">
-            <div class="category-menu">
-                <div class="category">
-                    <div class="brand">
-                        Razer
-                    </div>
-                    <div class="brand">
-                        HyperX
-                    </div>
-                    <div class="brand">
-                        LOGITECH
-                    </div>
-                    <div class="brand">
-                        STEELSERIES
-                    </div>
-                    <div class="create-button-link">
-                        <a href="/GamingDevices/Create">Add new device</a>
-                    </div>
+        <div class="site-name"></div>
+        <div class="site-header">
+            <div class="container">
+            <h1 class="site-title">Gaming Device Store</h1>
+                <div class="site-nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                    <li><a href="/GamingDevice/Index">Products</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="content">
+        </div>
+
+        <main class="site-main">
+            <div class="container">
                 @RenderBody()
             </div>
-        </div>
-    </body>
+        </main>
 
+        <footer class="site-footer">
+            <div class="container">
+            <p>@DateTime.Now.Year - Gaming Device Store. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
 </html>

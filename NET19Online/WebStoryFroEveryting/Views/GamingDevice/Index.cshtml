@@ -1,0 +1,111 @@
+﻿@using WebStoryFroEveryting.Models.GamingDevice
+@model GamingDeviceIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutGamingDevice.cshtml";
+}
+
+@section Styles{
+    <link href="~/css/GamingDevice/index.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="/js/GamingDevice/index.js"></script>
+}
+
+@if (Model.CanUserFillters)
+{
+    <div class="address-bar">
+        @foreach (var address in Model.StockAdresses)
+        {
+            <a href="/GamingDevice/Index?stockAddress=@address" class="primary-button @(address == Model.CurrentStockAddress ? "active" : "")">@address</a>
+        }
+        <a href="/GamingDevice/Index" class="default-button">Сбросить фильтр</a>
+    </div>
+}
+
+
+<div class="add-device-button-wrapper">
+    <a id="add-device-btn" class="primary-button">Добавить товар</a>
+</div>
+
+<div id="add-device-modal" class="modal hidden">
+    <div class="modal-content">
+
+        <span id="close-add-device-modal" class="close-btn">&times;</span>
+        <h2>Добавить новый товар</h2>
+
+        <form id="add-device-form" style="flex: 1;">
+            <label>Бренд:</label>
+            <input type="text" name="Brand" required />
+
+            <label>Название:</label>
+            <input type="text" name="Name" required />
+
+            <label>Цена:</label>
+            <input type="number" name="Price" min="0" step="0.01" required />
+
+            <label>Изображение (URL):</label>
+            <input type="text" name="Src" placeholder="https://example.com/image.jpg " required />
+
+            <button type="submit" class="primary-button">Сохранить</button>
+        </form>
+
+        <div id="device-preview" class="device-preview">
+            <div class="device-top">
+                <div class="brand" id="preview-brand" style="display: none;">Бренд</div>
+                <div class="name" id="preview-name" style="display: none;">Название</div>
+                <div class="image-container" >
+                    <img id="preview-image" src="https://turbok.by/img/no-photo--lg.png" alt="Превью" />
+                </div>
+            </div>
+            <div class="device-bottom">
+                <div class="price" id="preview-price" style="display: none;">0 BYN</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="devices">
+    @foreach (var device in Model.Devices)
+    {
+        <div class="device" data-id="@device.Id">
+            <button class="remove-button">×</button>
+            <div class="device-top">
+                <div class="brand">@device.Brand</div>
+                <div class="name">@device.Name</div>
+                <div class="image-container">
+                    <img src="@device.Src" />
+                </div>
+            </div>
+            <div class="device-bottom">
+                <div class="price">@device.Price BYN</div>
+                <div class="device-buttons-horizontal">
+                    <a href="/GamingDevice/GamingDevice?deviceId=@device.Id" class="primary-button">Подробнее</a>
+                    <button class="delete-button primary-button" data-id="@device.Id">Удалить</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="cart-indicator" class="cart-indicator hidden">
+    Корзина (<span id="cart-count">0</span>)
+</div>
+
+<div id="add-to-cart-widget" class="action-widget hidden">
+    Добавить в корзину
+</div>
+
+<div id="cart-modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="close-cart-modal" class="close-btn">&times;</span>
+        <h2>Ваша корзина</h2>
+        <div id="cart-items-container">
+           
+        </div>
+    </div>
+</div>
+

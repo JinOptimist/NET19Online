@@ -223,6 +223,9 @@ namespace StoreData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -234,6 +237,8 @@ namespace StoreData.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("GamingDeviceId");
 
@@ -981,11 +986,17 @@ namespace StoreData.Migrations
 
             modelBuilder.Entity("StoreData.Models.GamingDeviceReviewData", b =>
                 {
+                    b.HasOne("StoreData.Models.UserData", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
                     b.HasOne("StoreData.Models.GamingDeviceData", "GamingDevice")
                         .WithMany("Reviews")
                         .HasForeignKey("GamingDeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Author");
 
                     b.Navigation("GamingDevice");
                 });
